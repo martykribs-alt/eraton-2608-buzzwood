@@ -816,7 +816,7 @@ var SAMPLE=[
 /* Statement packets cut from Buzzwood's land use documents. Files live in web/projects/buzzwood/intake/. */
 var DOCS=[
  {file:"", title:"Sample statements (paraphrased)", note:"Paraphrased from the recorded Development Agreement and the DSL concurrence."},
- {file:"projects/buzzwood/intake/buzzwood-development-agreement.txt", title:"Development Agreement · recorded 2 Dec 2024", note:"City of Philomath and Martin Kribs, Benton County instrument 2024-649017. 37 statements, each tagged with its section."},
+ {file:"projects/buzzwood/intake/buzzwood-development-agreement-2024-12-02.txt", title:"Development Agreement · recorded 2 Dec 2024", note:"City of Philomath and Martin Kribs, Benton County instrument 2024-649017. 37 statements, each tagged with its section."},
  {file:"projects/buzzwood/intake/buzzwood-wetland-delineation-2025-06-06.txt", title:"Wetland delineation report · Turnstone, 6 Jun 2025", note:"Consultant report submitted to DSL as WD 2025-0069. DSL concurred on 11 Sep 2025 (next packet). 15 statements."},
  {file:"projects/buzzwood/intake/buzzwood-dsl-concurrence-2025-09-11.txt", title:"Wetland concurrence · DSL, 11 Sep 2025", note:"Department of State Lands approval of WD #2025-0069, with the cover form. 18 statements, each tagged with its page."},
  {file:"projects/buzzwood/intake/buzzwood-sdr-decision-2025-01-10.txt", title:"Site Design Review decision · P24-08, 10 Jan 2025", note:"Signed Notice of Planning Official Decision, approved with 13 conditions. Text read by OCR from the scan. 25 statements."},
