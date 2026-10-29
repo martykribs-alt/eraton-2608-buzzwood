@@ -364,7 +364,7 @@ body:`
   <div class="view" id="v-decisions" hidden>
     <section class="panel">
       <div class="panel-head"><h2>Rulings the record is waiting on</h2><span class="lab">Owner decides · evidence shown</span></div>
-      <p class="muted">Rule the constraint first; the product decision opens once it is ruled. The constraint ruling clears its finding. Each ruling is logged with the record date and the evidence shown here. In this version rulings are kept in your browser only.</p>
+      <p class="muted">Rule the constraint first; the product decision opens once it is ruled. The constraint ruling clears its finding. Each ruling is logged with the record date and the evidence shown here. In the ERATON app each ruling is saved into the record file; on a shared link or a snapshot it stays in that browser.</p>
       <div id="decisions" style="display:grid;gap:14px"></div>
     </section>
     <section class="panel">
