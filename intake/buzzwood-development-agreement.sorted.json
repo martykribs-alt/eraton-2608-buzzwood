@@ -1,0 +1,568 @@
+{
+  "model": "jev-1.14.0",
+  "accept": 0.6,
+  "undetermined_floor": 0.4,
+  "results": [
+    {
+      "statement": "The approximately 1.59 acres shall be developed as up to 16 single-family detached dwelling units on a single lot, consistent with this Development Agreement. [DA Recital 1]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.97
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "record",
+          "p": 0.51
+        },
+        {
+          "kind": "condition",
+          "p": 0.49
+        }
+      ]
+    },
+    {
+      "statement": "This Agreement shall be recorded at Owner's expense upon its execution in the Benton County, Oregon, Deeds and Records. Execution of this Agreement is a precondition to the support of the City for development of the Property following annexation to the City. [DA Recital 5]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.95
+        },
+        {
+          "kind": "condition",
+          "p": 0.94
+        },
+        {
+          "kind": "record",
+          "p": 0.85
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Approval of the zone change application results in the need for a Type II Site Design Review to be completed by the developer and reviewed by the City. No further discretionary approval will be required to develop the property subject to this Development Agreement. [DA Recital 6]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.94
+        },
+        {
+          "kind": "condition",
+          "p": 0.91
+        },
+        {
+          "kind": "milestone",
+          "p": 0.85
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "The developer agrees to be responsible for the costs of all required public or private infrastructure improvements associated with the development, both onsite and offsite, unless otherwise approved in writing by the City. [DA Recital 7]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.95
+        },
+        {
+          "kind": "condition",
+          "p": 0.93
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "This Development Agreement shall serve as an irrevocable petition and non-remonstrance for formation of a local improvement district benefiting the entire property, should the public and private infrastructure required by this agreement not be completed according to the phasing plan. [DA Recital 9]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.93
+        },
+        {
+          "kind": "condition",
+          "p": 0.72
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Term: this agreement shall have a duration of 15 years. [DA \u00a71]",
+      "objects": [
+        {
+          "kind": "clock",
+          "p": 0.98
+        },
+        {
+          "kind": "code_text",
+          "p": 0.94
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "The property may be used for a maximum of 16 single-unit, detached homes located on a common legal lot, sharing an access and common open space. [DA \u00a72]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.98
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "This agreement precludes construction of duplexes, triplexes, zero lot line homes, townhomes, apartment complexes and accessory dwelling units, and limits development to detached single family units within the project boundaries. [DA \u00a72, \u00a711.a]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.98
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Density: a single lot with a maximum of 16 single-family detached condominium units. [DA \u00a73]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.98
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "No house shall exceed 30 feet in height measured from finish grade. [DA \u00a74]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.99
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Development within the project boundaries shall pay the fees and charges required by City ordinance or resolution at the time development or building occurs. [DA \u00a75]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.98
+        },
+        {
+          "kind": "condition",
+          "p": 0.97
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Work shall be commenced and completed no later than the schedule within the phasing plan. The City shall review the development for compliance upon the completion of each phase. [DA \u00a76]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.97
+        },
+        {
+          "kind": "condition",
+          "p": 0.93
+        },
+        {
+          "kind": "clock",
+          "p": 0.9
+        },
+        {
+          "kind": "milestone",
+          "p": 0.73
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Owner is to provide, at their sole cost and expense, all infrastructure required by the land use approval or by City standards in effect at the time of construction. [DA \u00a77]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.97
+        },
+        {
+          "kind": "condition",
+          "p": 0.97
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "If changes in regional policy, federal or state law or administrative rules render compliance with any provision of this agreement impossible or unlawful, the remaining provisions of this agreement shall remain valid and enforceable. [DA \u00a78]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.85
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "A failure to comply with the terms of this Agreement shall constitute a default. The party in default shall have thirty (30) days after receiving written notice of the default to cure it. [DA \u00a79]",
+      "objects": [
+        {
+          "kind": "clock",
+          "p": 0.96
+        },
+        {
+          "kind": "code_text",
+          "p": 0.95
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "On default, the City may complete any or all required infrastructure improvements for incomplete phases and place a lien against the property for the city engineer's estimate to complete the remaining public infrastructure plus a 25% administrative fee. [DA \u00a79.a]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.97
+        },
+        {
+          "kind": "condition",
+          "p": 0.79
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "This agreement is assignable and runs with the land. [DA \u00a710]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.93
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "The development requires a fire lane meeting City standards and Oregon Fire Code requirements. [DA \u00a711.b]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.96
+        },
+        {
+          "kind": "condition",
+          "p": 0.93
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "A planting strip containing street trees shall be included behind the sidewalks within the public right-of-way along 15th Street. [DA \u00a711.c]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.97
+        },
+        {
+          "kind": "condition",
+          "p": 0.84
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "All public and private infrastructure shall be designed, constructed and installed to City standards for streets, common driveways and fire lanes, parking areas, sidewalks, water, sanitary sewer and storm sewer, with final engineering design to be approved by the City Engineer and Public Works Director. [DA \u00a711.d]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.98
+        },
+        {
+          "kind": "condition",
+          "p": 0.96
+        },
+        {
+          "kind": "milestone",
+          "p": 0.96
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "The floodplain regulations the project is subject to will be based on when building permit applications are submitted. [DA \u00a711.d.i]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.85
+        },
+        {
+          "kind": "constraint",
+          "p": 0.68
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "It is anticipated that private infrastructure and the homes will need to be built without fill, since FEMA is not processing a Letter of Map Revision (LOMR) or Conditional Letter of Map Revision (CLOMR) for fill until implementation of the no net loss standards is complete. [DA \u00a711.d.i]",
+      "objects": [
+        {
+          "kind": "interp",
+          "p": 0.96
+        },
+        {
+          "kind": "constraint",
+          "p": 0.96
+        },
+        {
+          "kind": "finding",
+          "p": 0.9
+        },
+        {
+          "kind": "milestone",
+          "p": 0.79
+        },
+        {
+          "kind": "code_text",
+          "p": 0.68
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Since there is no plat associated with this project, it falls under the PMC section for phased development of Site Design Review projects, which limits the timeframe for all phases to a maximum of 5 years. [DA \u00a712]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.97
+        },
+        {
+          "kind": "clock",
+          "p": 0.97
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "interp",
+          "p": 0.59
+        },
+        {
+          "kind": "finding",
+          "p": 0.57
+        }
+      ]
+    },
+    {
+      "statement": "All Phase 1 improvements shall be designed and approved, and all building permits issued, within 1 year of the date that the land use approval is final (PMC 18.110.080(B)(1)). [DA \u00a712.a]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.98
+        },
+        {
+          "kind": "clock",
+          "p": 0.98
+        },
+        {
+          "kind": "condition",
+          "p": 0.89
+        },
+        {
+          "kind": "milestone",
+          "p": 0.84
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "All improvements for each subsequent phase shall be completed within 3 years and 5 years of the date that the land use approval is final, or the land use approval will expire (PMC 18.110.080(D)(2)). [DA \u00a712.a]",
+      "objects": [
+        {
+          "kind": "clock",
+          "p": 0.99
+        },
+        {
+          "kind": "code_text",
+          "p": 0.98
+        },
+        {
+          "kind": "condition",
+          "p": 0.84
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Extensions of not more than 12 months for each phase may be granted by the City Manager upon demonstration that issues outside of the Owner's control delayed completion of the required improvements for that phase. [DA \u00a712.a]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.98
+        },
+        {
+          "kind": "clock",
+          "p": 0.87
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "milestone",
+          "p": 0.4
+        }
+      ]
+    },
+    {
+      "statement": "The Owner may construct the development in a maximum of 3 phases, each phase self-sufficient with utilities and infrastructure. Phase boundaries shall generally conform with Exhibit C, subject to modifications approved by the Public Works Director. [DA \u00a712.b]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.98
+        },
+        {
+          "kind": "milestone",
+          "p": 0.82
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "In each phase the Owner shall install the common driveway, fire lane, parking and utilities to City standards, ensure service to and connection into the subsequent phase, and provide emergency turnaround and emergency access, with the Public Works Director approving the final engineering design. [DA \u00a712.c]",
+      "objects": [
+        {
+          "kind": "condition",
+          "p": 0.98
+        },
+        {
+          "kind": "code_text",
+          "p": 0.97
+        },
+        {
+          "kind": "milestone",
+          "p": 0.95
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "A five-foot wide sidewalk shall be installed along the 15th Street frontage with connections to pathways into the property in Phase 1, including offsite extension as required to connect to existing sidewalk and walkway systems. [DA \u00a712.c.iv, \u00a714.c]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.98
+        },
+        {
+          "kind": "condition",
+          "p": 0.96
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Phase 1 shall provide infrastructure and improvement drawings for the entire development meeting City standards, showing all improvements that must be built with Phase 1 to provide access to or service for future phases. [DA \u00a714.a]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.96
+        },
+        {
+          "kind": "condition",
+          "p": 0.95
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Phase 1 shall provide water, sewer, storm drainage (including detention and water quality improvements as applicable), driveway and parking improvements to serve all structures within the phase, built through Phase 1 as required to serve future phases. [DA \u00a714.b]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.97
+        },
+        {
+          "kind": "condition",
+          "p": 0.96
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Phase 2 shall provide water, sewer, storm drainage (including detention and water quality), fire lane, driveway, turnaround and parking improvements to serve all structures within the phase and as required to serve Phase 3. [DA \u00a715.a]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.97
+        },
+        {
+          "kind": "condition",
+          "p": 0.95
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Phase 3 shall provide all required improvements not completed in conjunction with previous phases. [DA \u00a716.a]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.97
+        },
+        {
+          "kind": "condition",
+          "p": 0.95
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Owner will provide proof of recording this agreement against the Property within 10 days of the approval of this Agreement. [DA \u00a717]",
+      "objects": [
+        {
+          "kind": "clock",
+          "p": 0.98
+        },
+        {
+          "kind": "code_text",
+          "p": 0.96
+        },
+        {
+          "kind": "condition",
+          "p": 0.95
+        },
+        {
+          "kind": "record",
+          "p": 0.78
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Following notice to the Owner of default and a reasonable opportunity to cure, formation of a local improvement district shall be at the sole option of the City Council. [DA \u00a718]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.96
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "This agreement was approved by the City Council pursuant to ordinance at a duly noticed meeting on November 25, 2024, and executed by the City Manager. [DA \u00a719]",
+      "objects": [
+        {
+          "kind": "staff",
+          "p": 0.98
+        },
+        {
+          "kind": "record",
+          "p": 0.97
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "The agreement was recorded in Benton County as instrument 2024-649017 on December 2, 2024. [DA recording stamp]",
+      "objects": [
+        {
+          "kind": "record",
+          "p": 0.99
+        }
+      ],
+      "undetermined": []
+    }
+  ]
+}

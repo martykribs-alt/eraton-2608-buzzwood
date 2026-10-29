@@ -1,0 +1,330 @@
+{
+  "model": "jev-1.14.0",
+  "accept": 0.6,
+  "undetermined_floor": 0.4,
+  "results": [
+    {
+      "statement": "On September 11, 2025 the Department of State Lands approved the wetland delineation report for 602 South 15th, Philomath, under file WD #2025-0069: Benton County, T12S R6W S12CD, tax lots 1200 and 1500 and a portion of right-of-way; Philomath Local Wetlands Inventory feature MR12. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "agency",
+          "p": 0.98
+        },
+        {
+          "kind": "record",
+          "p": 0.98
+        },
+        {
+          "kind": "constraint",
+          "p": 0.94
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "The study area includes only a portion of the tax lot described. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "record",
+          "p": 0.69
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Based on the report prepared by Turnstone Environmental Consultants, the Department concurs with the wetland and waterway boundaries as mapped in Figure 6 of the report. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "agency",
+          "p": 0.96
+        },
+        {
+          "kind": "constraint",
+          "p": 0.92
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "staff",
+          "p": 0.5
+        }
+      ]
+    },
+    {
+      "statement": "All copies of the preliminary wetland map are to be replaced with the final Department-approved map. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.91
+        },
+        {
+          "kind": "condition",
+          "p": 0.8
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "milestone",
+          "p": 0.44
+        }
+      ]
+    },
+    {
+      "statement": "Within the study area, one wetland (Wetland A), one waterway (Pond), and two ditches (Ditch A and B) were identified. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "constraint",
+          "p": 0.96
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "Wetland 1, totaling approximately 0.21 acres, and the Pond are subject to the permit requirements of the state Removal-Fill Law. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "constraint",
+          "p": 0.96
+        },
+        {
+          "kind": "milestone",
+          "p": 0.9
+        },
+        {
+          "kind": "code_text",
+          "p": 0.73
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "agency",
+          "p": 0.46
+        }
+      ]
+    },
+    {
+      "statement": "A state permit is required for cumulative fill or annual excavation of 50 cubic yards or more in the wetland or below the ordinary high-water line of the waterway, or the 2-year recurrence interval flood elevation if the ordinary high-water line cannot be determined. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.98
+        },
+        {
+          "kind": "milestone",
+          "p": 0.94
+        },
+        {
+          "kind": "constraint",
+          "p": 0.94
+        },
+        {
+          "kind": "condition",
+          "p": 0.61
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "The two ditches are exempt under OAR 141-085-0515(8) and -0515(10) and are not subject to current state Removal-Fill requirements. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "constraint",
+          "p": 0.85
+        },
+        {
+          "kind": "code_text",
+          "p": 0.83
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "agency",
+          "p": 0.59
+        }
+      ]
+    },
+    {
+      "statement": "The concurrence is for purposes of the state Removal-Fill Law only; federal, other state agency or local permit requirements may apply. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "agency",
+          "p": 0.91
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "milestone",
+          "p": 0.56
+        }
+      ]
+    },
+    {
+      "statement": "The U.S. Army Corps of Engineers will determine jurisdiction under the Clean Water Act, which may require submittal of a complete Wetland Delineation Report. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "finding",
+          "p": 0.81
+        },
+        {
+          "kind": "constraint",
+          "p": 0.8
+        },
+        {
+          "kind": "milestone",
+          "p": 0.69
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "interp",
+          "p": 0.56
+        }
+      ]
+    },
+    {
+      "statement": "The Department recommends attaching a copy of the concurrence letter to any subsequent state permit application. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "action",
+          "p": 0.98
+        },
+        {
+          "kind": "agency",
+          "p": 0.67
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "milestone",
+          "p": 0.56
+        },
+        {
+          "kind": "interp",
+          "p": 0.43
+        }
+      ]
+    },
+    {
+      "statement": "State law establishes a preference for avoiding impacts to waters of the state; avoidance and minimization may include reconfiguring parcel layout and size or development design. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.78
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "action",
+          "p": 0.51
+        },
+        {
+          "kind": "constraint",
+          "p": 0.41
+        }
+      ]
+    },
+    {
+      "statement": "The Department recommends working with its staff on appropriate site design before completing the city or county land use approval process. [DSL p.1]",
+      "objects": [
+        {
+          "kind": "action",
+          "p": 0.98
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "interp",
+          "p": 0.59
+        },
+        {
+          "kind": "milestone",
+          "p": 0.53
+        },
+        {
+          "kind": "finding",
+          "p": 0.51
+        }
+      ]
+    },
+    {
+      "statement": "The jurisdictional determination is valid for five years from the date of the letter unless new information necessitates a revision, under OAR 141-090-0045. [DSL p.2]",
+      "objects": [
+        {
+          "kind": "clock",
+          "p": 0.98
+        },
+        {
+          "kind": "code_text",
+          "p": 0.95
+        },
+        {
+          "kind": "agency",
+          "p": 0.82
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "record",
+          "p": 0.48
+        }
+      ]
+    },
+    {
+      "statement": "Applicants are subject to the regulations in effect at the time of the removal-fill activity or complete permit application. [DSL p.2]",
+      "objects": [
+        {
+          "kind": "code_text",
+          "p": 0.85
+        }
+      ],
+      "undetermined": [
+        {
+          "kind": "constraint",
+          "p": 0.47
+        }
+      ]
+    },
+    {
+      "statement": "The applicant, landowner or agent may request reconsideration of the determination in writing within six months of the date of the letter. [DSL p.2]",
+      "objects": [
+        {
+          "kind": "clock",
+          "p": 0.98
+        },
+        {
+          "kind": "code_text",
+          "p": 0.91
+        },
+        {
+          "kind": "agency",
+          "p": 0.68
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "The letter was sent to the City of Philomath Planning Department with maps enclosed for refining the Local Wetlands Inventory, and copied to the Corps of Engineers and Turnstone Environmental Consultants. [DSL p.2]",
+      "objects": [
+        {
+          "kind": "record",
+          "p": 0.91
+        }
+      ],
+      "undetermined": []
+    },
+    {
+      "statement": "The report cover form lists a study area of 2.02 acres and total wetland acreage of 0.21 acres; DSL received the delineation on February 10, 2025. [DSL cover form]",
+      "objects": [
+        {
+          "kind": "constraint",
+          "p": 0.93
+        },
+        {
+          "kind": "record",
+          "p": 0.9
+        }
+      ],
+      "undetermined": []
+    }
+  ]
+}
