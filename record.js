@@ -210,6 +210,15 @@ body:`
       </div>
     </section>
 
+    <section class="panel">
+      <div class="panel-head"><h2>The site</h2><span class="src">Site Design Review exhibits C and F · Devco job 24428 · for land use purposes only</span></div>
+      <div class="uplans" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+        <figure style="margin:0;display:grid;gap:6px"><a href="projects/buzzwood/site-plan.html#site"><img src="projects/buzzwood/plans/board-site.jpg" alt="Site plan board: Exhibit C with Phase 1 at the street-side northeast, Phase 2 in the middle and south row, Phase 3 in the west half, and numbered features: fire turnaround, pavilion, detention pond, parking, trash enclosure, access from S 15th, pedestrian path." loading="lazy" width="2424" height="1771" style="display:block;width:100%;height:auto;border:1px solid var(--rule)"></a><figcaption class="small"><b>Site plan and phasing</b> <span class="muted">Exhibit C, approved with P24-08 (R-14). Shows the 602 house razed (X-6).</span></figcaption></figure>
+        <figure style="margin:0;display:grid;gap:6px"><a href="projects/buzzwood/site-plan.html#utility"><img src="projects/buzzwood/plans/board-utility.jpg" alt="Utility plan board: Exhibit F with private water, sanitary and storm mains highlighted, the Phase 1 water meter, master meter, hydrant, sewer lateral, detention pond and storm connections to S 15th." loading="lazy" width="2424" height="1787" style="display:block;width:100%;height:auto;border:1px solid var(--rule)"></a><figcaption class="small"><b>Utility plan</b> <span class="muted">Exhibit F, conceptual. Construction drawings are a Phase 1 permit gate (C-7, C-16).</span></figcaption></figure>
+      </div>
+      <p class="small"><a href="projects/buzzwood/site-plan.html">Open the site and utility plan reference</a>: both sheets full size with the overlay on or off, where the exhibits differ from the record, and the sheet index in Drive.</p>
+    </section>
+
     <div class="two">
       <section class="panel">
         <div class="panel-head"><h2>Path to feasibility</h2><span class="lab">Price per home for a 20% margin on cost</span></div>
