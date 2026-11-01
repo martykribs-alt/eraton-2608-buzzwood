@@ -291,6 +291,12 @@ body:`
       </div>
     </section>
 
+    <section class="panel" id="concepts-panel">
+      <div class="panel-head"><h2>Concepts side by side</h2><span class="src">Pro forma v0.4 and v0.2 · relief paths · governing reference</span></div>
+      <p class="small">One column per site plan or product concept. Each is tested against the same record: what it earns, what price it needs, who has to approve it, and which readings of the governing documents it rests on. Unconfirmed readings are the questions to take to the City before the concept is drawn further.</p>
+      <div class="tablewrap"><table class="cmp" id="concepts"></table></div>
+    </section>
+
     <div class="two">
       <section class="panel">
         <div class="panel-head"><h2>Binding constraint</h2><span id="constraint-state"></span></div>
@@ -590,6 +596,15 @@ var SCEN = [
  {name:"STR hold, 16 (v0.2)", margin:-0.393, tests:"0 of 3", bind:"Takeout coverage 0.66x"}
 ];
 
+/* ---------- CONCEPTS (one column each; margin and tests from SCEN when scen is set, approvals and readings from the linked path) ---------- */
+var CONCEPTS = [
+ {name:"Senior two-level, 15 homes + guest house", scen:0, path:"P-6", price:"Break-even $409K per home; 15% needs $471K", moves:"Lower BFE: 20.2–24.8%. Full SDC waiver: 22.3%. Both: 35.2–41.1%."},
+ {name:"Phase 1 only, 5 street-side homes", margin:0.053, tests:"Not run", path:"P-1", relies:["R-25"], conflicts:["X-8"], price:"Not in the record", moves:"The City's written view that Phase 1 may go ahead of the wetland permits (X-8) takes the $27,590 wetland cost out of Phase 1."},
+ {name:"16 homes, mixed 400–1,000 SF", scen:5, status:"Superseded", by:"City (building permits; allowed by R-03)", wait:"Permits only; replaced by the 27 Oct program", relies:["R-03"], price:"Sold at $360–400/SF", moves:"Superseded by the two-level program."},
+ {name:"Short-term rental hold, 16 homes", scen:6, path:"P-4", relies:["R-12"], price:"Needs a $348 blended nightly rate; premium Oregon comps run $269–295", moves:"An achieved nightly rate at Cooper Ln (M-3)."},
+ {name:"Two lots with ADUs", path:"P-2", relies:["R-03"], conflicts:["X-2"], tests:"Not in the record", price:"Pro forma v0.2 scenario 06d; not carried into the record", moves:"A Council amendment to the recorded agreement."}
+];
+
 /* ---------- CONSTRAINT + RELIEF PATHS ---------- */
 var CONSTRAINT = {name:"Cost against comp-supported price",
  text:"The v0.4 base clears 9.9% on cost against a 15% floor. Break-even is $409K per home; 15% needs $471K. The independent value check puts these homes at $395–475K, most likely $435K. The floodplain and the wetland feed this constraint through cost and buildable area; on their own they do not stop the project.",
@@ -876,7 +891,7 @@ var TEXT={
    note:'<p class="muted small">The triangle marks the latest date to apply for Phase 1 building permits; flood rules fix on that date (§11(d)(i)), so the lower BFE helps only if the revised map is effective by then (E-1, not yet dated).</p>'};
  }
 
-return {SRC:SRC, REF:REF, REF_BY:REF_BY, INTAKE:INTAKE, SCEN:SCEN, CONSTRAINT:CONSTRAINT, PATHS:PATHS, CONDITIONS:CONDITIONS, BASELINE:BASELINE, CLOCKS:CLOCKS, EXTERNAL:EXTERNAL, CONFLICTS:CONFLICTS, ADVISORY:ADVISORY, ASSUMPTIONS:ASSUMPTIONS, DECISIONS:DECISIONS, PATHWAY:PATHWAY, NH:NH, COSTSTACK:COSTSTACK, UNITPROG:UNITPROG, RATES:RATES, ADJUST:ADJUST, SITELINES:SITELINES, COSTCHECKS:COSTCHECKS, MARKET:MARKET, DA_PROVISIONS:DA_PROVISIONS, CQS:CQS, SAMPLE:SAMPLE, DOCS:DOCS,
+return {SRC:SRC, REF:REF, REF_BY:REF_BY, INTAKE:INTAKE, SCEN:SCEN, CONCEPTS:CONCEPTS, CONSTRAINT:CONSTRAINT, PATHS:PATHS, CONDITIONS:CONDITIONS, BASELINE:BASELINE, CLOCKS:CLOCKS, EXTERNAL:EXTERNAL, CONFLICTS:CONFLICTS, ADVISORY:ADVISORY, ASSUMPTIONS:ASSUMPTIONS, DECISIONS:DECISIONS, PATHWAY:PATHWAY, NH:NH, COSTSTACK:COSTSTACK, UNITPROG:UNITPROG, RATES:RATES, ADJUST:ADJUST, SITELINES:SITELINES, COSTCHECKS:COSTCHECKS, MARKET:MARKET, DA_PROVISIONS:DA_PROVISIONS, CQS:CQS, SAMPLE:SAMPLE, DOCS:DOCS,
   STORE_KEY:"bw-feas-rulings-v2",
   DEFAULT_RULINGS:{"D-4":{"choice":"Pursue all three steps","when":"record Oct 29, 2026, entered Oct 30, 2026"},"D-3":{"choice":"Pad flood quote only","when":"record Oct 29, 2026, entered Oct 29, 2026"}},
   TEXT:TEXT, keyDates:keyDates, daTimeline:daTimeline};
