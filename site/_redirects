@@ -1,0 +1,9 @@
+# ERATON project site gate (Netlify Identity, invite only). The record page and everything under /projects/
+# open only for a signed-in user with the viewer or owner role; anyone else gets the sign-in page, served at
+# the address they asked for. /login.html itself is not gated.
+/              /index.html          200!  Role=viewer,owner
+/index.html    /index.html          200!  Role=viewer,owner
+/projects/*    /projects/:splat     200!  Role=viewer,owner
+/              /login.html          401!
+/index.html    /login.html          401!
+/projects/*    /login.html          401!

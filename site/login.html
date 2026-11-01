@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sign in · Buzzwood Feasibility Record</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* ERATON project site sign-in. _redirects serves this page in place of any gated path for a visitor without the
+   viewer or owner role, so after signing in the page reloads the address the visitor asked for. Netlify Identity,
+   invite only: an invite link lands here to set a password; a recovery link lands here to set a new one. */
+:root{--paper:#f3f6f5;--sheet:#fff;--ink:#17232b;--muted:#5d6d75;--rule:#d2dbdb;--accent:#2f6e85;--crit:#a4523c;
+  --f-display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;--f-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;--f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#11181c;--sheet:#182227;--ink:#e4ebee;--muted:#93a3aa;--rule:#2b383e;--accent:#72b3cb;--crit:#e08f78;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#11181c;--sheet:#182227;--ink:#e4ebee;--muted:#93a3aa;--rule:#2b383e;--accent:#72b3cb;--crit:#e08f78;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--paper);color:var(--ink);font:15px/1.5 var(--f-body);padding:24px 16px}
+main{width:100%;max-width:400px;background:var(--sheet);border:1px solid var(--rule);border-top:4px solid var(--ink);padding:24px;display:grid;gap:16px}
+h1{font:600 1.5rem/1.15 var(--f-display);margin:0}
+.lab{font:400 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+form{display:grid;gap:12px}
+label{display:grid;gap:4px;font-size:.88rem}
+input{font:inherit;padding:9px 10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%}
+button{font:500 .95rem var(--f-body);padding:10px;border:0;background:var(--ink);color:var(--paper);cursor:pointer}
+button.link{background:none;color:var(--accent);padding:0;text-align:left;font-size:.86rem;text-decoration:underline}
+p{margin:0} .muted{color:var(--muted);font-size:.86rem} .err{color:var(--crit);font-size:.88rem}
+</style>
+</head>
+<body>
+<main>
+  <div><span class="lab">ERATON · private project record</span><h1>Buzzwood Feasibility Record</h1></div>
+  <p id="msg" class="muted" role="status">Checking your sign-in…</p>
+
+  <form id="f-login" hidden>
+    <label>Email<input id="email" type="email" autocomplete="username" required></label>
+    <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+    <button type="submit">Sign in</button>
+    <button type="button" class="link" id="forgot">Forgot your password?</button>
+  </form>
+
+  <form id="f-set" hidden>
+    <label>New password<input id="new-password" type="password" autocomplete="new-password" minlength="10" required></label>
+    <label>Confirm<input id="new-password-2" type="password" autocomplete="new-password" minlength="10" required></label>
+    <button type="submit">Save password and continue</button>
+  </form>
+
+  <div id="waiting" hidden>
+    <p class="muted">Ask the record owner to confirm your access, then sign in again.</p>
+    <p style="margin-top:10px"><button type="button" id="signout">Sign out</button></p>
+  </div>
+  <p id="err" class="err" role="alert" hidden></p>
+</main>
+<script type="module">
+import { login, logout, getUser, refreshSession, handleAuthCallback, acceptInvite, updateUser, requestPasswordRecovery }
+  from "https://cdn.jsdelivr.net/npm/@netlify/identity@2.0.0/+esm";
+
+const ROLES = ["viewer", "owner"];
+const $ = (id) => document.getElementById(id);
+const show = (id) => ["f-login", "f-set", "waiting"].forEach((k) => ($(k).hidden = k !== id));
+const say = (t) => ($("msg").textContent = t);
+const fail = (e) => { $("err").hidden = false; $("err").textContent = (e && e.message) || String(e); };
+let setPassword = null;   // what the set-password form does: accept an invite or finish a recovery
+
+/* Leave this page for the address the visitor asked for; on /login.html itself, go to the record. */
+function proceed() {
+  history.replaceState(null, "", location.pathname + location.search);
+  if (location.pathname === "/login.html") location.replace("/"); else location.reload();
+}
+
+function allowed(user) { return user && (user.roles || []).some((r) => ROLES.includes(r)); }
+
+function settle(user) {
+  if (allowed(user)) { say("Signed in. Opening the record…"); proceed(); return; }
+  if (user) { say("You're signed in as " + user.email + ", but this record hasn't been opened to you yet."); show("waiting"); return; }
+  say("Sign in with the email address your invitation was sent to."); show("f-login");
+}
+
+async function start() {
+  try {
+    const cb = await handleAuthCallback();
+    if (cb && cb.type === "invite" && cb.token) {
+      say("Welcome. Choose a password for " + (cb.user?.email || "your account") + ".");
+      setPassword = (pw) => acceptInvite(cb.token, pw);
+      show("f-set"); return;
+    }
+    if (cb && cb.type === "recovery") {
+      say("Choose a new password.");
+      setPassword = (pw) => updateUser({ password: pw });
+      show("f-set"); return;
+    }
+    await refreshSession();   // an expired access cookie is what brings a signed-in visitor back here
+    settle(await getUser());
+  } catch (e) { say("Sign in with the email address your invitation was sent to."); show("f-login"); fail(e); }
+}
+
+$("f-login").addEventListener("submit", async (ev) => {
+  ev.preventDefault(); $("err").hidden = true;
+  try { settle(await login($("email").value.trim(), $("password").value)); }
+  catch (e) { fail({ message: "That email and password didn't match. Check them, or use “Forgot your password?”." }); }
+});
+
+$("f-set").addEventListener("submit", async (ev) => {
+  ev.preventDefault(); $("err").hidden = true;
+  if ($("new-password").value !== $("new-password-2").value) return fail({ message: "The two passwords don't match." });
+  try { await setPassword($("new-password").value); settle(await getUser()); }
+  catch (e) { fail({ message: "That link has expired or was already used. Ask for a new invitation, or use “Forgot your password?”." }); }
+});
+
+$("forgot").addEventListener("click", async () => {
+  $("err").hidden = true;
+  const email = $("email").value.trim();
+  if (!email) return fail({ message: "Enter your email address first." });
+  try { await requestPasswordRecovery(email); say("If that address has access, a reset link is on its way to it."); }
+  catch (e) { fail(e); }
+});
+
+$("signout").addEventListener("click", async () => { await logout(); settle(null); });
+
+start();
+</script>
+</body>
+</html>

@@ -1,0 +1,703 @@
+<!doctype html><html data-project="buzzwood"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>ERATON Feasibility Record</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a recorded-instrument header (parcel, instrument no., as-of) over one standing question, then tabbed working views; exceptions first, detail below. */
+:root{
+  --paper:#f3f6f5; --sheet:#ffffff; --ink:#17232b; --ink-2:#34444e; --muted:#5d6d75; --rule:#d2dbdb; --rule-2:#9fb0b4;
+  --accent:#2f6e85; --accent-soft:#e2eef2; --accent-ink:#ffffff;
+  --crit:#a4523c; --crit-soft:#f7e5df; --warn:#966610; --warn-soft:#f6ecd6; --ok:#3f7a5c; --ok-soft:#e1efe6;
+  --f-display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --wood:#c39258; --stone:#b9b6b0; --water:#3f7896;
+  --plan-floor:#f3e8d8; --plan-wall:#24282b; --plan-fix:#ffffff; --plan-out:#e1e4dd;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11181c; --sheet:#182227; --ink:#e4ebee; --ink-2:#c1ccd1; --muted:#93a3aa; --rule:#2b383e; --rule-2:#4f6168;
+  --accent:#72b3cb; --accent-soft:#1b323b; --accent-ink:#0d171b;
+  --crit:#e08f78; --crit-soft:#3a231d; --warn:#d9ab55; --warn-soft:#332917; --ok:#8cc3a1; --ok-soft:#1b3026; color-scheme:dark;
+  --wood:#d6a86d; --stone:#8b8984; --water:#7fb6d3; --plan-floor:#2c2721; --plan-wall:#e9e7e2; --plan-fix:#1b1f21; --plan-out:#22272a;
+}}
+:root[data-theme="dark"]{
+  --paper:#11181c; --sheet:#182227; --ink:#e4ebee; --ink-2:#c1ccd1; --muted:#93a3aa; --rule:#2b383e; --rule-2:#4f6168;
+  --accent:#72b3cb; --accent-soft:#1b323b; --accent-ink:#0d171b;
+  --crit:#e08f78; --crit-soft:#3a231d; --warn:#d9ab55; --warn-soft:#332917; --ok:#8cc3a1; --ok-soft:#1b3026; color-scheme:dark;
+  --wood:#d6a86d; --stone:#8b8984; --water:#7fb6d3; --plan-floor:#2c2721; --plan-wall:#e9e7e2; --plan-fix:#1b1f21; --plan-out:#22272a;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:22px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.005em}
+h1{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:700;line-height:1.1}
+h2{font-size:1.35rem;font-weight:600}
+h3{font-size:1.05rem;font-weight:600}
+p{margin:0;max-width:70ch}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.lab{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.small{font-size:.86rem}
+a{color:var(--accent)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.instrument{background:var(--sheet);border:1px solid var(--rule-2);display:grid;grid-template-columns:1fr auto}
+.instrument .main{padding:18px 22px;display:grid;gap:8px;min-width:0}
+.instrument .stamp{border-left:1px dashed var(--rule-2);padding:16px 20px;display:grid;gap:4px;align-content:center;min-width:200px}
+.stamp .big{font-family:var(--f-mono);font-size:1.05rem;font-weight:500}
+.meta-row{display:flex;flex-wrap:wrap;gap:6px 18px}
+.meta-row span{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-2)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.86rem;color:var(--muted)}
+.toggle{border:1px solid var(--rule-2);background:var(--sheet);color:var(--ink);padding:5px 10px;font-size:.82rem}
+.toggle[aria-pressed="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+@media (max-width:640px){.instrument{grid-template-columns:1fr}.instrument .stamp{border-left:0;border-top:1px dashed var(--rule-2)}}
+
+.question{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--rule);background:var(--sheet)}
+.question > div{padding:16px 18px;display:grid;gap:6px;align-content:start;min-width:0}
+.question > div + div{border-left:1px solid var(--rule)}
+.question .ans{font-family:var(--f-display);font-size:1.25rem;font-weight:600;line-height:1.2}
+.question .ans.no{color:var(--crit)}
+@media (max-width:760px){.question{grid-template-columns:1fr}.question > div + div{border-left:0;border-top:1px solid var(--rule)}}
+
+nav.tabs{display:flex;gap:2px;border-bottom:2px solid var(--ink);overflow-x:auto}
+nav.tabs a{padding:9px 14px;text-decoration:none;color:var(--muted);font-family:var(--f-display);font-weight:600;font-size:1rem;white-space:nowrap;border:1px solid transparent;border-bottom:0}
+nav.tabs a[aria-current="page"]{color:var(--ink);background:var(--sheet);border-color:var(--rule) var(--rule) transparent}
+nav.tabs .count{font-family:var(--f-mono);font-size:.75rem;margin-left:6px;padding:1px 6px;background:var(--crit-soft);color:var(--crit)}
+
+.view{display:grid;gap:22px}
+section.panel{background:var(--sheet);border:1px solid var(--rule);padding:18px 20px;display:grid;gap:14px;min-width:0}
+.panel-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px}
+.two{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:22px}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+
+.findings{display:grid;gap:8px;list-style:none;margin:0;padding:0}
+.finding{display:grid;grid-template-columns:6px 1fr auto;gap:0 12px;background:var(--paper);border:1px solid var(--rule)}
+.finding .sev{background:var(--warn)}
+.finding.crit .sev{background:var(--crit)}
+.finding .body{padding:10px 0;display:grid;gap:3px;min-width:0}
+.finding .who{padding:10px 12px 10px 0;text-align:right;display:grid;align-content:start;gap:3px;max-width:200px}
+.finding .t{font-weight:600}
+@media (max-width:560px){.finding{grid-template-columns:6px 1fr}.finding .who{grid-column:2;text-align:left;padding:0 0 10px;max-width:none}}
+
+.chip{display:inline-block;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.04em;padding:2px 7px;border:1px solid var(--rule-2);color:var(--ink-2);background:var(--sheet);white-space:nowrap}
+.chip.C{background:var(--ink-2);color:var(--sheet);border-color:var(--ink-2)}
+.chip.A{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.chip.H{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+.chip.J{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.chip.st{border-color:var(--accent);color:var(--accent)}
+.chip.bad{border-color:var(--crit);color:var(--crit)}
+.chip.good{border-color:var(--ok);color:var(--ok)}
+.src{font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+
+.tablewrap{overflow-x:auto}
+table.cmp{table-layout:fixed;min-width:980px}
+table.cmp th[scope=row]{width:150px}
+table.cmp thead th{font-family:var(--f-display);font-size:1rem;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
+table.cmp td{padding-right:16px;font-size:.88rem}
+table.cmp .m{font-family:var(--f-mono);font-size:1.15rem;font-weight:500;color:var(--crit)}
+table.cmp .m.pass{color:var(--ok)}
+table.cmp ul{margin:0;padding-left:1em;display:grid;gap:4px}
+table.cmp .open{color:var(--crit)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:640px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)}
+th{font-family:var(--f-mono);font-size:.7rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.clocks{list-style:none;margin:0;padding:0;display:grid}
+.clock{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.clock .d{font-family:var(--f-mono);font-size:1.35rem;font-weight:500;line-height:1;text-align:right;font-variant-numeric:tabular-nums}
+.clock .d small{display:block;font-size:.62rem;color:var(--muted);letter-spacing:.06em;margin-top:4px}
+.clock.hot .d{color:var(--crit)}
+.clock.quiet .d{color:var(--muted);font-size:1rem}
+
+.links{display:flex;gap:4px;flex-wrap:wrap}
+.lk{font-family:var(--f-mono);font-size:.68rem;padding:2px 6px;border:1px solid var(--ok);color:var(--ok)}
+.lk.plan{border:1px solid var(--accent);color:var(--accent)}
+.lk.nodate{border:1px dashed var(--warn);color:var(--warn)}
+.lk.miss{border:1px dashed var(--crit);color:var(--crit)}
+
+.matrix svg{width:100%;height:auto;display:block;max-width:520px}
+.ladder{display:grid;gap:4px;font-size:.85rem}
+.ladder div{display:grid;grid-template-columns:24px 1fr;gap:8px;align-items:baseline}
+
+.scen{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.sc{border:1px solid var(--rule);background:var(--paper);padding:12px;display:grid;gap:4px}
+.sc .m{font-family:var(--f-mono);font-size:1.3rem;font-weight:500;color:var(--crit)}
+.sc .m.pass{color:var(--ok)}
+
+.decision{border:1px solid var(--rule);background:var(--paper);padding:16px 18px;display:grid;gap:12px}
+.decision.done{border-color:var(--ok)}
+.decision.locked{opacity:.7}
+.fa{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.fa{grid-template-columns:1fr}}
+.fa ul{margin:4px 0 0;padding-left:1.1em;display:grid;gap:4px;font-size:.92rem}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--accent);background:var(--sheet);color:var(--accent);padding:7px 12px;font-weight:500}
+.opt:hover{background:var(--accent-soft)}
+.opt[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.opt:disabled{border-color:var(--rule-2);color:var(--muted);cursor:not-allowed;background:var(--sheet)}
+.ruled{font-size:.9rem;color:var(--ok);font-weight:500}
+.log{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.9rem}
+.log li{display:grid;grid-template-columns:auto 1fr;gap:10px}
+
+textarea{width:100%;min-height:300px;font-family:var(--f-mono);font-size:.82rem;line-height:1.55;padding:12px;border:1px solid var(--rule-2);background:var(--paper);color:var(--ink);resize:vertical}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--sheet);padding:8px 14px;font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink)}
+.out{display:grid;gap:8px}
+.obj{border:1px solid var(--rule);background:var(--paper);padding:10px 12px;display:grid;gap:4px}
+.obj .k{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.obj .path{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);word-break:break-word}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--muted);align-items:center}
+.cq{display:grid;gap:10px;padding:0;margin:0;list-style:none;counter-reset:cq}
+.cq li{display:grid;grid-template-columns:28px 1fr;gap:8px;counter-increment:cq}
+.cq li::before{content:counter(cq);font-family:var(--f-mono);color:var(--muted)}
+footer{font-size:.82rem;color:var(--muted);max-width:90ch;display:grid;gap:6px}
+.ladder-chart svg{width:100%;height:auto;display:block}
+/* summary view */
+.sum-hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);background:var(--sheet);border:1px solid var(--rule)}
+.sum-hero figure{margin:0;background:var(--paper);position:relative;min-height:340px}
+.sum-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sum-facts{padding:18px 20px;display:grid;gap:14px;align-content:start;border-left:1px solid var(--rule);min-width:0}
+.sum-facts dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px;align-items:baseline;font-size:.92rem}
+.sum-facts dt{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.sum-facts dd{margin:0}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.kpi{border:1px solid var(--rule);background:var(--paper);padding:10px 12px;display:grid;gap:2px}
+.kpi .v{font-family:var(--f-mono);font-size:1.45rem;font-weight:500;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .v.no{color:var(--crit)}
+@media (max-width:860px){.sum-hero{grid-template-columns:1fr}.sum-hero figure{min-height:0}.sum-hero img{position:static;height:auto}.sum-facts{border-left:0;border-top:1px solid var(--rule)}}
+.uplans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.uplans figure{margin:0;border:1px solid var(--rule);background:var(--paper);padding:12px;display:grid;gap:8px;align-content:start;min-width:0}
+.uplans figcaption{font-size:.86rem;display:grid;gap:2px}
+.uplans svg{width:100%;height:auto;display:block}
+.uplans img{display:block;width:100%;height:auto}
+@media (max-width:860px){.uplans{grid-template-columns:1fr}}
+.uplans svg text{font-family:var(--f-body)}
+.pl-room{fill:var(--plan-floor)} .pl-wall{fill:none;stroke:var(--plan-wall);stroke-width:.5}
+.pl-iwall{stroke:var(--plan-wall);stroke-width:.33;stroke-linecap:square} .pl-glaze{stroke:var(--water);stroke-width:.33}
+.pl-fix{fill:var(--plan-fix);stroke:var(--plan-wall);stroke-width:.08} .pl-out{fill:var(--plan-out);stroke:var(--muted);stroke-width:.08;stroke-dasharray:.4 .3}
+.pl-tread{stroke:var(--muted);stroke-width:.06} .pl-lbl{font-size:.8px;fill:var(--ink);font-weight:500;text-anchor:middle}
+.pl-sub{font-size:.58px;fill:var(--muted);text-anchor:middle;font-family:var(--f-mono)} .pl-dim{stroke:var(--muted);stroke-width:.05}
+.pl-dimt{font-size:.6px;fill:var(--muted);text-anchor:middle;font-family:var(--f-mono)} .pl-arrow{fill:none;stroke:var(--wood);stroke-width:.14}
+.pl-swing{fill:none;stroke:var(--muted);stroke-width:.05}
+.steps-mini{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.steps-mini li{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.steps-mini .need{font-family:var(--f-mono);font-size:1.05rem;font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+.dates-mini{list-style:none;margin:0;padding:0;display:grid}
+.dates-mini li{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule);font-size:.92rem}
+.dates-mini .when{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-2)}
+.dates-mini li.hot .when{color:var(--crit);font-weight:500}
+.crit-mini{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.crit-mini li{display:grid;grid-template-columns:6px 1fr;gap:10px;font-size:.9rem}
+.crit-mini li::before{content:"";background:var(--crit)}
+.crit-mini .who{display:block;font-size:.78rem;color:var(--muted)}
+.calc{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:22px;border-top:1px solid var(--rule);padding-top:14px}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+table.calc-t{min-width:0;font-size:.88rem;margin-top:6px}
+table.calc-t td{padding:6px 10px 6px 0}
+table.calc-t td:first-child{font-weight:400;white-space:normal}
+table.calc-t td.num{text-align:right}
+table.calc-t tr.sum td{border-top:1px solid var(--rule-2);font-weight:600}
+.steps{display:grid;gap:12px}
+.step{display:grid;grid-template-columns:150px 1fr;gap:16px;border:1px solid var(--rule);background:var(--paper);padding:14px 16px}
+.step .need{font-family:var(--f-mono);font-size:1.25rem;font-weight:500}
+.step .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 16px;font-size:.88rem}
+.step ul{margin:0;padding-left:1.1em;display:grid;gap:4px;font-size:.9rem}
+@media (max-width:700px){.step{grid-template-columns:1fr}.step .grid3{grid-template-columns:1fr}}
+.disclaim{border-left:3px solid var(--accent);padding:6px 0 6px 12px;font-size:.9rem;color:var(--ink-2);max-width:80ch}
+.concept{background:var(--sheet);border:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.concept figure{margin:0;border-right:1px solid var(--rule);background:var(--paper)}
+.concept img{display:block;width:100%;height:auto}
+.concept a.zoom{display:block;cursor:zoom-in}
+.concept .txt{padding:16px 18px;display:grid;gap:10px;align-content:start;min-width:0}
+.concept ul{margin:0;padding-left:1.1em;display:grid;gap:5px;font-size:.9rem}
+@media (max-width:860px){.concept{grid-template-columns:1fr}.concept figure{border-right:0;border-bottom:1px solid var(--rule)}}
+body.hide-money svg .money{fill:transparent}
+body.hide-money .money{background:var(--rule);color:transparent;border-radius:2px;user-select:none}
+</style>
+<script>
+/* Load the project file named by ?p=, else the project this copy was vendored for (<html data-project>), else the template.
+   Plain <script> so the page also opens from disk. */
+(function(){ var m=/[?&]p=([a-z0-9_-]+)/i.exec(location.search); var id=m?m[1]:(document.documentElement.getAttribute("data-project")||"_template");
+  document.write('<script src="projects/'+id+'/record.js"><\/script>'); })();
+</script>
+<script>
+if(window.ERATON_PROJECT){ document.title=window.ERATON_PROJECT.title; document.write(window.ERATON_PROJECT.body); }
+else document.write('<p style="padding:24px">No project file at projects/&lt;id&gt;/record.js for this ?p= value.</p>');
+</script>
+<script>
+if(window.ERATON_PROJECT)(function(){
+"use strict";
+var P0 = window.ERATON_PROJECT;
+var AS_OF = new Date(P0.asOf[0],P0.asOf[1],P0.asOf[2],12);
+var DAY = 86400000;
+function d(s){ if(!s) return null; var p=s.split("-"); return new Date(+p[0],+p[1]-1,+p[2],12); }
+function days(s){ return Math.round((d(s)-AS_OF)/DAY); }
+function iso(x){ function z(n){return (n<10?"0":"")+n;} return x.getFullYear()+"-"+z(x.getMonth()+1)+"-"+z(x.getDate()); }
+function addDays(s,n){ var x=d(s); x.setDate(x.getDate()+n); return iso(x); }
+function addYears(s,n){ var x=d(s); x.setFullYear(x.getFullYear()+n); return iso(x); }
+function fmt(s){ if(!s) return "–"; return d(s).toLocaleDateString("en-US",{day:"numeric",month:"short",year:"numeric"}); }
+function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function $m(t){ return '<span class="money">'+t+'</span>'; }
+
+var P = P0.data({AS_OF:AS_OF,DAY:DAY,d:d,days:days,iso:iso,addDays:addDays,addYears:addYears,fmt:fmt,esc:esc,$m:$m});
+var SRC=P.SRC, REF=P.REF, REF_BY=P.REF_BY, INTAKE=P.INTAKE, SCEN=P.SCEN, CONCEPTS=P.CONCEPTS||[], CONSTRAINT=P.CONSTRAINT, PATHS=P.PATHS, CONDITIONS=P.CONDITIONS, BASELINE=P.BASELINE, CLOCKS=P.CLOCKS, EXTERNAL=P.EXTERNAL, CONFLICTS=P.CONFLICTS, ADVISORY=P.ADVISORY, ASSUMPTIONS=P.ASSUMPTIONS, DECISIONS=P.DECISIONS, PATHWAY=P.PATHWAY, NH=P.NH, COSTSTACK=P.COSTSTACK, UNITPROG=P.UNITPROG, RATES=P.RATES, ADJUST=P.ADJUST, SITELINES=P.SITELINES, COSTCHECKS=P.COSTCHECKS, MARKET=P.MARKET, DA_PROVISIONS=P.DA_PROVISIONS, CQS=P.CQS, SAMPLE=P.SAMPLE, DOCS=P.DOCS;
+
+/* REF: project data (projects/<id>/record.js) */
+/* REF_BY: project data (projects/<id>/record.js) */
+
+/* INTAKE: project data (projects/<id>/record.js) */
+
+/* SCEN: project data (projects/<id>/record.js) */
+var FEASIBLE = SCEN.some(function(s){return !s.derived && s.margin>=0.15;});
+
+/* CONSTRAINT: project data (projects/<id>/record.js) */
+/* PATHS: project data (projects/<id>/record.js) */
+
+/* CONDITIONS: project data (projects/<id>/record.js) */
+var LINK_NAMES={owner:"Owner",budget:"Budget",design:"Design",permit:"Permit",closure:"Closure"};
+/* BASELINE: project data (projects/<id>/record.js) */
+function gateDate(c){ return BASELINE && BASELINE[c.gate] ? BASELINE[c.gate] : null; }
+
+/* ---------- CLOSED VOCABULARIES (ruled 28 Oct 2026, Entitlement Data Map v1.1) ---------- */
+var PATH_STATUS=["Identified","Evaluating","Pursuing","Filed","Granted","Denied","Blocked","Withdrawn"];
+var CONDITION_STATUS=["Proposed","Accepted","Contested","Modification filed","Satisfied","Removed"];
+var FINDING_TYPES=["Missing reference","Stale reference","Unconfirmed interpretation","Conflicting documents","Feasibility test failed","Constraint unruled","Path without authority","Missing link","Timeline conflict","Clock at risk","Evidence below the decision","Decision without evidence"];
+
+/* CLOCKS: project data (projects/<id>/record.js) */
+
+/* EXTERNAL: project data (projects/<id>/record.js) */
+function effectiveDate(e){ return e.preliminary ? addDays(addDays(e.preliminary,90),180) : null; }
+function clockDate(id){ var c=CLOCKS.filter(function(x){return x.id===id;})[0]; return c&&c.date||null; }
+
+/* CONFLICTS: project data (projects/<id>/record.js) */
+
+/* ADVISORY: project data (projects/<id>/record.js) */
+
+/* ---------- MARKET ---------- */
+var LADDER=["Contract, deposit or presale","Closed comp or appraisal","Third-party cost to the buyer","Showings and unprompted inquiries","Competing inventory and absorption","Broker opinion","Stated buyer interest"];
+var LADDER_STRENGTH=["Strongest","Strong","Strong","Medium","Medium","Weak","Weakest"];
+/* ASSUMPTIONS: project data (projects/<id>/record.js) */
+function topRung(a){ return a.held.length?Math.min.apply(null,a.held):null; }
+function quality(a){ var t=topRung(a); if(t===null) return "None"; if(t<=3) return "Strong"; if(t<=5) return "Medium"; return "Weak"; }
+
+/* DECISIONS: project data (projects/<id>/record.js) */
+/* PATHWAY: project data (projects/<id>/record.js) */
+/* NH: project data (projects/<id>/record.js) */
+/* COSTSTACK: project data (projects/<id>/record.js) */
+/* UNITPROG: project data (projects/<id>/record.js) */
+/* RATES: project data (projects/<id>/record.js) */
+/* ADJUST: project data (projects/<id>/record.js) */
+/* SITELINES: project data (projects/<id>/record.js) */
+/* COSTCHECKS: project data (projects/<id>/record.js) */
+/* MARKET: project data (projects/<id>/record.js) */
+/* Rulings: in the ERATON app, record.js (DEFAULT_RULINGS) is the record and each ruling is written back to it.
+   Anywhere else (a shared link, a snapshot from disk) rulings stay in this browser. */
+var IN_APP=/^https?:$/.test(location.protocol)&&!/claude\.ai$/.test(location.hostname);
+var STORE_KEY=P.STORE_KEY, rulings={};
+if(!IN_APP){ try{ rulings=JSON.parse(localStorage.getItem(STORE_KEY)||"{}")||{}; }catch(e){ rulings={}; } }
+Object.keys(P.DEFAULT_RULINGS||{}).forEach(function(k){ if(!rulings[k]) rulings[k]=P.DEFAULT_RULINGS[k]; });
+var rulingsNote=document.createElement("p"); rulingsNote.className="muted small";
+document.getElementById("log").insertAdjacentElement("afterend",rulingsNote);
+function noteRulings(t,bad){ rulingsNote.textContent=t; rulingsNote.style.color=bad?"var(--crit)":""; }
+function saveLocal(){ try{ localStorage.setItem(STORE_KEY,JSON.stringify(rulings)); }catch(e){} }
+function save(){
+  if(!IN_APP){ saveLocal(); return noteRulings("Kept in this browser only. Rulings are saved into the record when made in the ERATON app."); }
+  noteRulings("Saving to the record…");
+  fetch("/api/rulings",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({project:P0.id,rulings:rulings})})
+   .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||("HTTP "+r.status)); }); })
+   .then(function(){ noteRulings("Saved to projects/"+P0.id+"/record.js. Commit it to keep it."); })
+   .catch(function(e){ saveLocal(); noteRulings("Not saved to the record ("+e.message+"). Kept in this browser only.",true); });
+}
+noteRulings(IN_APP?"Rulings are saved to projects/"+P0.id+"/record.js.":"Rulings made here are kept in this browser only.");
+
+/* ---------- RULES LANE ---------- */
+function computeFindings(){
+  var F=[];
+  if(!FEASIBLE && P.TEXT.feasibilityFinding) F.push(P.TEXT.feasibilityFinding);
+  REF.forEach(function(r){
+    if(r.missing) F.push({sev:r.critical?"crit":"warn",type:"Missing reference",t:r.id+" not on file: "+r.fact,why:r.note||"",owner:r.critical?"Owner with City planner":"Owner's rep",src:r.src});
+    else if(r.checked && days(addDays(r.checked,r.interval))<0) F.push({sev:"warn",type:"Stale reference",t:r.id+" past its re-check date ("+fmt(addDays(r.checked,r.interval))+")",why:r.fact,owner:"Owner's rep",src:r.src});
+    if(r.unconfirmed){ var u=PATHS.filter(function(p){return (p.relies||[]).indexOf(r.id)>=0;}).map(function(p){return p.id;}); if(u.length) F.push({sev:"warn",type:"Unconfirmed interpretation",t:u.join(", ")+(u.length>1?" rest on ":" rests on ")+r.id+", not yet confirmed by "+(r.confirmBy||"the floodplain administrator"),why:r.fact,owner:"Owner's rep",src:r.src}); }
+  });
+  CONFLICTS.forEach(function(x){ if(!x.resolved) F.push({sev:x.sev,type:"Conflicting documents",t:x.t,why:x.doc+" against "+x.against+". "+x.why,owner:x.owner,src:x.src}); });
+  if(!rulings["D-1"]) F.push({sev:"warn",type:"Constraint unruled",t:"Binding constraint proposed but not ruled",why:"Advisory proposes cost against comp-supported price.",owner:"Owner",src:"PF"});
+  PATHS.forEach(function(p){
+    if(!p.by||!String(p.by).trim()) F.push({sev:"warn",type:"Path without authority",t:p.id+" names no authority",why:p.name,owner:"Owner's rep",src:null});
+    if(p.timeline && (p.status==="Pursuing"||p.status==="Filed")){
+      var e=EXTERNAL.filter(function(x){return x.id===p.timeline.needs;})[0], eff=e?effectiveDate(e):null, dl=clockDate(p.timeline.before);
+      var ck=CLOCKS.filter(function(x){return x.id===p.timeline.before;})[0];
+      if(!eff||!dl) F.push({sev:"crit",type:"Timeline conflict",t:p.id+" cannot be shown to fit: "+(e?e.name:p.timeline.needs)+" against "+(ck?ck.what:p.timeline.before),why:(!eff?(e?e.name+" is at "+e.stage+"; its effective date cannot be computed until Preliminary is dated. ":""):"")+(!dl?(ck?ck.what+" has no date"+(ck.basis?" ("+ck.basis+")":"")+". ":""):"")+"Flood rules lock at building permit application (R-07).",owner:"Owner with City planner",src:"DA"});
+      else if(eff>dl) F.push({sev:"crit",type:"Timeline conflict",t:p.id+": "+e.name+" effective "+fmt(eff)+", after "+ck.what+" "+fmt(dl),why:"Request the City Manager's 12-month phase extension or change the path.",owner:"Owner with City planner",src:"DA"});
+    }
+  });
+  var openC=CONDITIONS.filter(function(c){return c.status!=="Satisfied"&&c.status!=="Removed";});
+  if(!BASELINE){ if(openC.length) F.push({sev:"warn",type:"Timeline conflict",t:"No condition timeline can be checked: the baseline schedule (R-18) is not loaded",why:"Gates for "+openC.map(function(c){return c.id;}).join(", ")+" are phase names with no dates.",owner:"Owner",src:"BASE"}); }
+  else openC.forEach(function(c){
+    var g=gateDate(c);
+    if(!g) F.push({sev:"warn",type:"Timeline conflict",t:c.id+": gate '"+c.gate+"' has no date in the baseline",why:c.text,owner:"Owner",src:"BASE"});
+    else { var late=Object.keys(LINK_NAMES).filter(function(k){var l=c.links[k];return l.date&&!l.done&&l.date>g;}); if(late.length) F.push({sev:"crit",type:"Timeline conflict",t:c.id+": "+late.map(function(k){return LINK_NAMES[k].toLowerCase();}).join(", ")+" planned after its gate ("+fmt(g)+")",why:c.text,owner:"Owner's rep",src:"BASE"}); }
+  });
+  CLOCKS.forEach(function(c){
+    if(c.closed||c.recheck||c.notStarted) return;
+    var why=null, sev="warn";
+    if(!c.date){ why="cannot be computed"; sev="crit"; }
+    else { var n=days(c.date); if(n<0) why=Math.abs(n)+" days overdue"; else if(n<=30) why="due in "+n+" days"; }
+    if(!c.owner||c.owner==="–") why=(why?why+"; ":"")+"no owner";
+    if(why) F.push({sev:sev,type:"Clock at risk",t:c.what+": "+why,why:c.why||((c.basis?c.basis+" · ":"")+(c.date?fmt(c.date):"")),owner:c.owner&&c.owner!=="–"?c.owner:"Owner",src:null});
+  });
+  CONDITIONS.forEach(function(c){
+    var miss=Object.keys(LINK_NAMES).filter(function(k){return c.links[k].missing;});
+    var nod=Object.keys(LINK_NAMES).filter(function(k){var l=c.links[k];return !l.missing&&!l.date;});
+    if(miss.indexOf("budget")>=0) F.push({sev:"crit",type:"Missing link",t:c.id+" is not priced",why:c.text+". "+c.links.budget.who+".",owner:"Owner",src:"PF"});
+    var other=miss.filter(function(k){return k!=="budget";});
+    if(other.length||nod.length) F.push({sev:"warn",type:"Missing link",t:c.id+": "+(other.length?other.map(function(k){return LINK_NAMES[k].toLowerCase();}).join(", ")+" missing":"")+(other.length&&nod.length?"; ":"")+(nod.length?nod.map(function(k){return LINK_NAMES[k].toLowerCase();}).join(", ")+" undated":""),why:c.text,owner:"Owner's rep",src:null});
+  });
+  ASSUMPTIONS.forEach(function(a){ var q=quality(a); if(a.impact==="High"&&(q==="Weak"||q==="None"||q==="Medium")&&a.id!=="M-1") F.push({sev:"warn",type:"Evidence below the decision",t:a.name+": top evidence is rung "+(topRung(a)||"none"),why:"Next: "+a.next+" ("+a.cost+")",owner:"Owner's rep",src:"PF"}); });
+  Object.keys(rulings).forEach(function(id){ var dc=DECISIONS.filter(function(x){return x.id===id;})[0]; if(!dc||!(dc.forA.length||dc.againstA.length)) F.push({sev:"warn",type:"Decision without evidence",t:id+" ruled with no evidence recorded",why:rulings[id].choice,owner:"Owner",src:null}); });
+  F.forEach(function(f){ if(FINDING_TYPES.indexOf(f.type)<0) throw new Error("Finding type not in the closed list: "+f.type); });
+  var order={crit:0,warn:1}; F.sort(function(a,b){return order[a.sev]-order[b.sev];});
+  return F;
+}
+
+/* ---------- RENDER ---------- */
+function money(t){ return t.replace(/\$[\d,]+(\.\d+)?(\/SF)?/g,function(m){return $m(m);}); }
+function render(){
+  var F=computeFindings(), crit=F.filter(function(f){return f.sev==="crit";}).length;
+  document.getElementById("stamp-findings").textContent=F.length+" ("+crit+" critical)";
+  document.getElementById("tab-count").textContent=F.length;
+  var r1=rulings["D-1"], r2=rulings["D-2"];
+  var fe=document.getElementById("q-feasible");
+  fe.textContent=FEASIBLE?"Yes":P.TEXT.feasibleNo; fe.className="ans";
+  document.getElementById("q-feasible-why").innerHTML=money(P.TEXT.feasibleWhy);
+  renderPathway();
+  document.getElementById("q-terms").textContent=r2?r2.choice:P.TEXT.termsDefault;
+  document.getElementById("q-terms-why").innerHTML=r2?"Your ruling, "+esc(r2.when)+".":money(P.TEXT.termsWhy);
+  var miss=REF.filter(function(r){return r.missing;}).length;
+  document.getElementById("q-missing").textContent=F.length+" findings";
+  document.getElementById("q-missing-why").textContent=crit+" critical. "+miss+" governing facts missing"+P.TEXT.missingTail;
+
+  document.getElementById("findings").innerHTML=F.map(function(f){
+    return '<li class="finding '+f.sev+'"><span class="sev" aria-hidden="true"></span><div class="body"><span class="lab">'+esc(f.type)+'</span><span class="t">'+money(esc(f.t))+'</span><span class="muted small">'+money(esc(f.why))+'</span></div><div class="who"><span class="lab">Owner</span><span class="small">'+esc(f.owner)+'</span>'+(f.src?'<span class="src">'+esc(SRC[f.src])+'</span>':'')+'</div></li>';
+  }).join("");
+
+  document.getElementById("advisory").innerHTML=ADVISORY.map(function(f){
+    return '<li class="finding"><span class="sev" aria-hidden="true" style="background:var(--rule-2)"></span><div class="body"><span class="lab">Advisory</span><span class="t">'+money(esc(f.t))+'</span><span class="muted small">'+money(esc(f.why))+'</span></div><div class="who"><span class="src">'+esc(SRC[f.src])+'</span></div></li>';
+  }).join("");
+
+  document.getElementById("scenarios").innerHTML=SCEN.map(function(s){
+    var val=(s.derived&&s.margin2!=null)?((s.margin*100).toFixed(1)+' to '+(s.margin2*100).toFixed(1)+'%'):((s.margin*100).toFixed(1)+'%');
+    return '<div class="sc"'+(s.derived?' style="border-style:dashed"':'')+'><span class="lab">'+esc(s.name)+'</span><span class="m'+(s.margin>=0.15?' pass':'')+'"'+(s.derived&&s.margin<0.15?' style="color:var(--warn)"':'')+'>'+$m(val)+'</span><span class="lab" style="font-size:.66rem">margin on cost</span><span class="small">'+money(esc(s.bind))+'</span><span class="src">'+(s.derived?'<span class="chip A">A</span> v0.3 workbook, input changed, 27 Oct':'Tests passed '+s.tests+(s.testsDetail?' · '+s.testsDetail:''))+'</span></div>';
+  }).join("");
+
+  var ruledName = r1 && r1.choice!=="Cost against price" ? r1.choice : null;
+  document.getElementById("constraint-state").innerHTML=r1?'<span class="chip H">H · ruled</span>':'<span class="chip A">A · proposed</span>';
+  document.getElementById("constraint-text").innerHTML=ruledName?('<b>'+esc(ruledName)+'.</b> '+money(esc(CONSTRAINT.alt[ruledName]))):('<b>'+esc(CONSTRAINT.name)+'.</b> '+money(esc(CONSTRAINT.text)));
+  document.getElementById("paths").innerHTML=PATHS.map(function(p){
+    var flag=(p.relies||[]).length?' <span class="chip bad">premise '+p.relies.join(", ")+' unconfirmed</span>':'';
+    var stc=p.status==="Blocked"?"chip bad":"chip st";
+    return '<tr><td><b>'+p.id+'</b> '+esc(p.name)+flag+'<div class="muted" style="font-size:.82rem">'+money(esc(p.note))+'</div></td><td class="small">'+esc(p.by)+'</td><td class="small">'+esc(p.wait)+'</td><td><span class="'+stc+'">'+p.status+'</span></td><td class="num">'+(p.via||'–')+'</td></tr>';
+  }).join("");
+
+  var ck=CLOCKS.slice().sort(function(a,b){ function k(c){ if(c.unknown) return -1e9; if(c.closed) return 1e9; if(!c.date) return 1e8; return days(c.date);} return k(a)-k(b); });
+  document.getElementById("clocks").innerHTML=ck.map(function(c){
+    var head, cls="clock";
+    if(c.unknown){ head='?<small>UNKNOWN</small>'; cls+=" hot"; }
+    else if(c.closed){ head='–<small>CLOSED</small>'; cls+=" quiet"; }
+    else if(!c.date){ head='–<small>NOT STARTED</small>'; cls+=" quiet"; }
+    else { var n=days(c.date); head=Math.abs(n).toLocaleString()+'<small>'+(n<0?"DAYS OVER":"DAYS")+'</small>'; if(n<=30) cls+=" hot"; }
+    var sub=c.date&&!c.closed?fmt(c.date)+' · '+esc(c.owner)+(c.basis?' · '+c.basis:''):esc(c.owner)+(c.basis?' · '+c.basis:'');
+    return '<li class="'+cls+'"><div class="d">'+head+'</div><div><b>'+esc(c.what)+'</b><div class="muted small">'+sub+'</div>'+(c.why?'<div class="muted small">'+esc(c.why)+'</div>':'')+'</div></li>';
+  }).join("");
+
+  document.getElementById("conditions").innerHTML=CONDITIONS.map(function(c){
+    var links=Object.keys(LINK_NAMES).map(function(k){ var l=c.links[k]; var cls=l.missing?"lk miss":(!l.date?"lk nodate":(l.done?"lk":"lk plan")); var title=l.who+(l.date?" · "+fmt(l.date):""); return '<span class="'+cls+'" title="'+esc(title)+'">'+LINK_NAMES[k]+'</span>'; }).join("");
+    var stc=c.status==="Contested"?"chip bad":"chip st";
+    return '<tr><td><b>'+c.id+'</b> '+esc(c.text)+rowLink(c)+'</td><td class="src">'+esc(c.src)+'</td><td><div class="links">'+links+'</div></td><td class="small">'+esc(c.gate)+''+(gateDate(c)?'<div class="muted" style="font-size:.78rem">'+fmt(gateDate(c))+'</div>':'<div class="muted" style="font-size:.78rem">no date: baseline (R-18) not loaded</div>')+'</td><td><span class="'+stc+'">'+c.status+'</span></td></tr>';
+  }).join("");
+
+  document.getElementById("assumptions").innerHTML=ASSUMPTIONS.map(function(a){
+    return '<tr><td><b>'+money(esc(a.name))+'</b><div class="muted" style="font-size:.8rem">Impact '+a.impact+' · Quality '+quality(a)+(topRung(a)?' (rung '+topRung(a)+')':'')+'</div></td><td class="small">'+money(esc(a.have))+'</td><td class="small">'+esc(a.missing)+'</td><td class="small">'+esc(a.next)+'<div class="muted mono" style="font-size:.74rem">'+money(esc(a.cost))+'</div></td></tr>';
+  }).join("");
+  renderMatrix(); renderDecisions(); renderSummary(F);
+}
+
+function renderPathway(){
+  if(!PATHWAY.length||!MARKET){ document.getElementById("ladder-chart").innerHTML='<p class="muted small">No pathway yet: it needs a pro forma and a market range.</p>'; document.getElementById("steps").innerHTML=''; return; }
+  var W=760,L=150,R=20,T=10,rowH=34,H=T+PATHWAY.length*rowH+44,x0=300,x1=600;
+  function X(v){return L+(v-x0)/(x1-x0)*(W-L-R);}
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Sale price needed for 20% margin at each step, against market prices">';
+  s+='<rect x="'+X(MARKET.askLo)+'" y="'+T+'" width="'+(X(MARKET.askHi)-X(MARKET.askLo))+'" height="'+(PATHWAY.length*rowH)+'" fill="var(--ok-soft)"/>';
+  s+='<line x1="'+X(MARKET.closedHi)+'" x2="'+X(MARKET.closedHi)+'" y1="'+T+'" y2="'+(T+PATHWAY.length*rowH)+'" stroke="var(--ok)" stroke-dasharray="4 3"/>';
+  for(var v=300;v<=600;v+=50){ s+='<line x1="'+X(v)+'" x2="'+X(v)+'" y1="'+(T+PATHWAY.length*rowH)+'" y2="'+(T+PATHWAY.length*rowH+5)+'" stroke="var(--rule-2)"/><text x="'+X(v)+'" y="'+(T+PATHWAY.length*rowH+18)+'" text-anchor="middle" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="11">$'+v+'</text>'; }
+  PATHWAY.forEach(function(p,i){ var y=T+i*rowH+rowH/2;
+    s+='<text x="'+(L-10)+'" y="'+(y+4)+'" text-anchor="end" fill="var(--ink)" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="500">'+esc(p.name)+'</text>';
+    var a=X(p.lo),b=X(p.hi); if(b-a<6){a-=3;b+=3;}
+    s+='<rect x="'+a+'" y="'+(y-7)+'" width="'+(b-a)+'" height="14" fill="var(--accent)"/>';
+    s+='<text x="'+(b+6)+'" y="'+(y+4)+'" fill="var(--ink-2)" font-family="IBM Plex Mono, monospace" font-size="11" class="money">'+(p.lo===p.hi?'$'+p.lo:'$'+p.lo+'–'+p.hi)+'</text>'; });
+  s+='<text x="'+X(MARKET.askLo)+'" y="'+(H-6)+'" fill="var(--ok)" font-family="IBM Plex Mono, monospace" font-size="10">'+esc(MARKET.askLabel||'')+'</text>';
+  s+='<text x="'+(X(MARKET.closedHi)-4)+'" y="'+(T+12)+'" text-anchor="end" fill="var(--ok)" font-family="IBM Plex Mono, monospace" font-size="10">'+esc(MARKET.closedLabel||'')+'</text>';
+  s+='</svg>';
+  document.getElementById("ladder-chart").innerHTML='<div class="tablewrap"><div style="min-width:560px">'+s+'</div></div>';
+  document.getElementById("steps").innerHTML=PATHWAY.filter(function(p){return p.actions.length;}).map(function(p){
+    return '<div class="step"><div><span class="lab">'+esc(p.id)+'</span><h3>'+esc(p.name)+'</h3><span class="lab" style="margin-top:6px;display:block">Needed after this step</span><span class="need">'+$m('$'+p.lo+'–'+p.hi+'K per home')+'</span></div><div style="display:grid;gap:10px;min-width:0"><div><span class="lab">Constraint</span> <b>'+money(esc(p.con))+'</b></div><div class="grid3"><div><span class="lab">Value if removed</span><div>'+money(esc(p.value))+'</div></div><div><span class="lab">Time to remove</span><div>'+esc(p.time)+'</div></div><div><span class="lab">Cost to remove</span><div>'+esc(p.cost)+'</div></div></div><div><span class="lab">Removed when</span> <span class="small">'+money(esc(p.gate))+'</span></div><div><span class="lab">How to remove it</span><ul>'+p.actions.map(function(a){return '<li>'+esc(a)+'</li>';}).join('')+'</ul></div></div></div>';
+  }).join('');
+}
+
+/* ---------- SUMMARY ---------- */
+function renderSummary(F){
+  document.getElementById("sum-steps").innerHTML=PATHWAY.map(function(p,i){
+    var need=p.lo===p.hi?'$'+p.lo+'K':'$'+p.lo+'–'+p.hi+'K';
+    return '<li><span class="need">'+$m(need)+'</span><span><b>'+(i?'Step '+i+' · ':'')+esc(p.name)+'</b>'+(p.gate&&p.gate!=="–"?'<span class="muted small" style="display:block">Done when: '+money(esc(p.gate))+'</span>':'<span class="muted small" style="display:block">'+esc(P.TEXT.pathwayToday)+'</span>')+'</span></li>';
+  }).join("");
+  var D=P.keyDates?P.keyDates():[];
+  document.getElementById("sum-dates").innerHTML=D.map(function(x){ return '<li'+(x.hot?' class="hot"':'')+'><span class="when">'+esc(x.when)+'</span><span>'+esc(x.what)+'</span></li>'; }).join("");
+  var C=F.filter(function(f){return f.sev==="crit";});
+  document.getElementById("sum-crit-count").textContent=C.length+" of "+F.length+" findings";
+  document.getElementById("sum-crit").innerHTML=C.map(function(f){ return '<li><span>'+money(esc(f.t))+'<span class="who">'+esc(f.type)+' · '+esc(f.owner)+'</span></span></li>'; }).join("");
+  var W=DECISIONS.filter(function(dc){return !rulings[dc.id];});
+  document.getElementById("sum-dec").innerHTML=W.length?W.map(function(dc){ return '<li><span><b>'+esc(dc.q)+'</b><span class="who">'+esc(dc.proposal)+'</span></span></li>'; }).join(""):'<li><span>None. Every decision is ruled.</span></li>';
+}
+
+/* DA_PROVISIONS: project data (projects/<id>/record.js) */
+function renderDATimeline(){
+  var panel=document.getElementById("da-timeline-panel");
+  if(!P.daTimeline){ if(panel) panel.hidden=true; return; }
+  var TL=P.daTimeline(), A0=TL.A0, A1=TL.A1, ill=TL.ill, rows=TL.rows, W=1000, L=300, R=24, T=30, rowH=26;
+  function X(s){ return L+(d(s)-d(A0))/(d(A1)-d(A0))*(W-L-R); }
+  var H=T+rows.length*rowH+30, s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(TL.aria)+'">';
+  for(var y=2025;y<=2032;y++){ var x=X(y+"-01-01"); s+='<line x1="'+x+'" x2="'+x+'" y1="'+(T-8)+'" y2="'+(H-24)+'" stroke="var(--rule)"/><text x="'+x+'" y="'+(T-12)+'" text-anchor="middle" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="11">'+y+'</text>'; }
+  rows.forEach(function(r,i){
+    var yy=T+i*rowH, cy=yy+rowH/2;
+    if(r.g){ s+='<text x="8" y="'+(cy+5)+'" fill="var(--ink-2)" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing=".04em">'+esc(r.g.toUpperCase())+'</text>'; return; }
+    s+='<text x="'+(L-10)+'" y="'+(cy+4)+'" text-anchor="end" fill="var(--ink)" font-family="IBM Plex Sans, sans-serif" font-size="12">'+esc(r.l)+'</text>';
+    var fill=r.k==="fix"?"var(--ink-2)":(r.k==="gov"?"var(--accent-soft)":"var(--warn-soft)"), stroke=r.k==="fix"?"var(--ink-2)":(r.k==="gov"?"var(--accent)":"var(--warn)"), dash=(r.k==="gov"&&ill)?' stroke-dasharray="5 3"':'';
+    if(r.marks){ r.marks.forEach(function(m){ s+='<circle cx="'+X(m[0])+'" cy="'+cy+'" r="3.5" fill="var(--ink-2)"/>'; }); s+='<text x="'+(X(r.marks[r.marks.length-1][0])+10)+'" y="'+(cy+4)+'" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10">'+r.note+'</text>'; return; }
+    var a=X(r.a), b=Math.max(X(r.b),a+3);
+    if(r.ext){ s+='<rect x="'+b+'" y="'+(cy-6)+'" width="'+(X(r.ext)-b)+'" height="12" fill="none" stroke="var(--rule-2)" stroke-dasharray="2 2"/>'; }
+    s+='<rect x="'+a+'" y="'+(cy-7)+'" width="'+(b-a)+'" height="14" fill="'+fill+'" stroke="'+stroke+'"'+dash+'/>';
+    if(r.arrow) s+='<text x="'+(W-R-4)+'" y="'+(cy+4)+'" text-anchor="end" fill="var(--sheet)" font-family="IBM Plex Mono, monospace" font-size="10">'+r.arrow+' →</text>';
+    if(r.open) s+='<text x="'+(b+6)+'" y="'+(cy+4)+'" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10">open</text>';
+    if(r.k!=="fix"){
+      var past=d(r.b)<AS_OF&&!r.met, lab=fmt(r.b)+(r.met?" · "+r.met:(past?" · passed":""))+(r.ext&&!r.met?" · ext. "+fmt(r.ext):""), lw=lab.length*6.1, ex=r.ext?X(r.ext):b;
+      var inside=ex+6+lw>W-R, lx=inside?b-6:ex+6;
+      if(inside&&lx-lw<a+4){ lab=fmt(r.b); lw=lab.length*6.1; }
+      s+='<text x="'+lx+'" y="'+(cy+4)+'" text-anchor="'+(inside?"end":"start")+'" fill="'+(past?"var(--crit)":"var(--ink-2)")+'" font-family="IBM Plex Mono, monospace" font-size="10">'+lab+'</text>';
+    }
+    if(r.lock){ var lx=X(r.b); s+='<path d="M'+lx+' '+(cy-11)+' l-4 -6 h8 z" fill="var(--accent)"/>'; }
+  });
+  var tx=X(iso(AS_OF)); s+='<line x1="'+tx+'" x2="'+tx+'" y1="'+(T-8)+'" y2="'+(H-24)+'" stroke="var(--crit)" stroke-width="1.5"/><text x="'+tx+'" y="'+(H-10)+'" text-anchor="middle" fill="var(--crit)" font-family="IBM Plex Mono, monospace" font-size="10">RECORD DATE '+fmt(iso(AS_OF)).toUpperCase()+'</text>';
+  s+='</svg>';
+  document.getElementById("da-chart").innerHTML=s+(TL.note||"");
+  document.querySelector("#da-provisions tbody").innerHTML=(DA_PROVISIONS||[]).map(function(r){ return '<tr><td class="num">'+esc(r[0])+'</td><td>'+esc(r[1])+'</td><td class="small">'+esc(r[2])+'</td></tr>'; }).join("");
+}
+
+function usd(n){ var s=Math.round(Math.abs(n)).toLocaleString("en-US"); return (n<0?"−$":"$")+s; }
+function renderConcepts(){
+  var panel=document.getElementById("concepts-panel");
+  if(!panel) return;
+  if(!CONCEPTS.length){ panel.hidden=true; return; }
+  var PBY={}; PATHS.forEach(function(p){PBY[p.id]=p;});
+  var XBY={}; CONFLICTS.forEach(function(x){XBY[x.id]=x;});
+  var cols=CONCEPTS.map(function(c){
+    var p=c.path?PBY[c.path]:null, s=c.scen!=null?SCEN[c.scen]:null;
+    var margin=s?s.margin:(c.margin!=null?c.margin:null);
+    var refs=[]; ((p&&p.relies)||[]).concat(c.relies||[]).forEach(function(id){ if(refs.indexOf(id)<0) refs.push(id); });
+    return {c:c,p:p,margin:margin,tests:s?(s.tests+(s.testsDetail?" · "+s.testsDetail:"")):(c.tests||"Not in the record"),refs:refs};
+  });
+  function row(label,fn){ return '<tr><th scope="row">'+label+'</th>'+cols.map(function(k){return '<td>'+fn(k)+'</td>';}).join("")+'</tr>'; }
+  var h='<thead><tr><th scope="col"></th>'+cols.map(function(k){return '<th scope="col">'+esc(k.c.name)+(k.p?'<div class="src">'+k.p.id+'</div>':'')+'</th>';}).join("")+'</tr></thead><tbody>';
+  h+=row("Status",function(k){ var st=k.c.status||(k.p?k.p.status:"–"); return '<span class="'+(st==="Blocked"?"chip bad":"chip st")+'">'+esc(st)+'</span>'; });
+  h+=row("Margin on cost",function(k){ return k.margin==null?'<span class="muted">Not in the record</span>':'<span class="m'+(k.margin>=0.15?' pass':'')+'">'+$m((k.margin*100).toFixed(1)+'%')+'</span>'; });
+  h+=row("Tests passed",function(k){ return esc(k.tests); });
+  h+=row("Price it needs",function(k){ return money(esc(k.c.price||"–")); });
+  h+=row("Who approves",function(k){ return esc(k.c.by||(k.p?k.p.by:"–")); });
+  h+=row("Waits on",function(k){ return esc(k.c.wait||(k.p?k.p.wait:"–")); });
+  h+=row("Readings it rests on",function(k){
+    if(!k.refs.length) return '<span class="muted">None recorded</span>';
+    var open=k.refs.filter(function(id){return REF_BY[id]&&REF_BY[id].unconfirmed;}).length;
+    return (open?'<b class="open">'+open+' unconfirmed</b>':'<span class="muted">All on file</span>')+'<ul>'+k.refs.map(function(id){ var r=REF_BY[id]; if(!r) return '<li>'+esc(id)+'</li>';
+      return '<li'+(r.unconfirmed?' class="open"':'')+'><b>'+esc(id)+'</b> '+esc(r.basis)+(r.unconfirmed?' · confirm with '+esc(r.confirmBy||"the floodplain administrator"):'')+'</li>'; }).join("")+'</ul>'; });
+  h+=row("Conflicts on file",function(k){ var ids=(k.c.conflicts||[]).slice();
+    CONFLICTS.forEach(function(x){ if(!x.resolved&&k.refs.indexOf(x.against)>=0&&REF_BY[x.against]&&REF_BY[x.against].unconfirmed&&ids.indexOf(x.id)<0) ids.push(x.id); });
+    var xs=ids.map(function(id){return XBY[id];}).filter(Boolean);
+    return xs.length?'<ul>'+xs.map(function(x){return '<li'+(x.resolved?'':' class="open"')+'><b>'+esc(x.id)+'</b> '+esc(x.t)+'</li>';}).join("")+'</ul>':'<span class="muted">None</span>'; });
+  h+=row("What moves it",function(k){ return money(esc(k.c.moves||"–")); });
+  document.getElementById("concepts").innerHTML=h+'</tbody>';
+}
+
+function renderCosts(){
+  document.querySelector("#cost-stack tbody").innerHTML=COSTSTACK.map(function(r){
+    if(r.h) return '<tr><td colspan="4" class="lab" style="padding-top:14px">'+r.h+'</td></tr>';
+    var st=r.sum?' style="font-weight:600"':'';
+    return '<tr'+st+'><td>'+esc(r.l)+'</td><td class="num" style="text-align:right">'+$m(usd(r.t))+'</td><td class="num" style="text-align:right">'+$m(usd(r.t/NH))+'</td><td class="small muted">'+money(esc(r.b||""))+'</td></tr>';
+  }).join("");
+  document.querySelector("#unit-prog tbody").innerHTML=UNITPROG.map(function(u){ return '<tr><td><b>'+u[0]+'</b></td><td class="num">'+u[1]+'</td><td class="num">'+u[2]+'</td><td class="num">'+$m('$'+u[3].toFixed(0))+'</td><td class="num">'+$m('$'+u[4])+'</td><td class="num">'+$m(usd(u[5]))+'</td></tr>'; }).join("")+'<tr style="font-weight:600"><td>Total</td><td class="num">15</td><td class="num">15,000</td><td class="num">'+$m('$2,794,500')+'</td><td class="num">'+$m('$450')+'</td><td class="num">'+$m('$6,750,000')+'</td></tr>';
+  document.querySelector("#rates tbody").innerHTML=RATES.map(function(r){ return '<tr><td>'+esc(r[0])+'</td><td class="num">'+money(esc(r[1]))+'</td><td class="small muted">'+esc(r[2])+'</td></tr>'; }).join("");
+  document.querySelector("#site tbody").innerHTML=SITELINES.map(function(r){ var st=r[3]?' style="font-weight:600"':''; return '<tr'+st+'><td>'+esc(r[0])+'</td><td class="num" style="text-align:right">'+$m(usd(r[1]))+'</td><td class="num" style="text-align:right">'+$m(usd(r[2]))+'</td></tr>'; }).join("");
+  document.querySelector("#adjust tbody").innerHTML=ADJUST.map(function(r){ return '<tr><td>'+esc(r[0])+'</td><td class="num" style="text-align:right">'+$m(r[1])+'</td><td class="num" style="text-align:right">'+$m(r[2])+'</td><td class="small muted">'+money(esc(r[3]))+'</td></tr>'; }).join("");
+  document.getElementById("cost-checks").innerHTML=COSTCHECKS.map(function(f){ return '<li class="finding '+f.sev+'"><span class="sev" aria-hidden="true"></span><div class="body"><span class="t">'+money(esc(f.t))+'</span><span class="muted small">'+money(esc(f.why))+'</span></div><div class="who"><span class="src">'+esc(SRC.PF)+'</span></div></li>'; }).join("");
+}
+
+function renderMatrix(){
+  var W=520,H=310,L=96,T=20,R=16,B=46,pw=W-L-R,ph=H-T-B,cw=pw/4,ch=ph/2;
+  var qx={None:0,Weak:1,Medium:2,Strong:3},iy={High:0,Medium:1};
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Assumptions by evidence quality and impact">';
+  for(var i=0;i<4;i++)for(var j=0;j<2;j++){ var hot=(i<=2&&j===0); s+='<rect x="'+(L+i*cw)+'" y="'+(T+j*ch)+'" width="'+cw+'" height="'+ch+'" fill="'+(hot?'var(--crit-soft)':'var(--paper)')+'" stroke="var(--rule)"/>'; }
+  ["None","Weak","Medium","Strong"].forEach(function(q,i){ s+='<text x="'+(L+i*cw+cw/2)+'" y="'+(H-B+18)+'" text-anchor="middle" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="11">'+q+'</text>'; });
+  s+='<text x="'+(L+pw/2)+'" y="'+(H-6)+'" text-anchor="middle" fill="var(--ink-2)" font-family="IBM Plex Mono, monospace" font-size="11">EVIDENCE QUALITY →</text>';
+  ["High","Medium"].forEach(function(q,j){ s+='<text x="'+(L-10)+'" y="'+(T+j*ch+ch/2+4)+'" text-anchor="end" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="11">'+q+'</text>'; });
+  s+='<text x="14" y="'+(T+ph/2)+'" fill="var(--ink-2)" font-family="IBM Plex Mono, monospace" font-size="11" transform="rotate(-90 14 '+(T+ph/2)+')" text-anchor="middle">IMPACT</text>';
+  s+='<text x="'+(L+8)+'" y="'+(T+16)+'" fill="var(--crit)" font-family="IBM Plex Mono, monospace" font-size="10">TEST FIRST</text>';
+  var cnt={};
+  ASSUMPTIONS.forEach(function(a){ var q=quality(a),k=q+a.impact; cnt[k]=(cnt[k]||0)+1; var n=cnt[k]; var cx=L+qx[q]*cw+cw/2, cy=T+iy[a.impact]*ch+30+(n-1)*36;
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="6" fill="var(--accent)"/><text x="'+cx+'" y="'+(cy+19)+'" text-anchor="middle" fill="var(--ink)" font-family="IBM Plex Sans, sans-serif" font-size="11" font-weight="500">'+a.id+'</text>'; });
+  s+='</svg>';
+  s+='<table class="legend-table" style="min-width:0;max-width:520px;margin-top:10px"><thead><tr><th>Key</th><th>Assumption</th><th>Impact</th><th>Evidence</th></tr></thead><tbody>'+ASSUMPTIONS.map(function(a){return '<tr><td class="num"><b>'+a.id+'</b></td><td>'+money(esc(a.name))+'</td><td class="small">'+a.impact+'</td><td class="small">'+quality(a)+(topRung(a)?' (rung '+topRung(a)+')':'')+'</td></tr>';}).join('')+'</tbody></table>';
+  document.getElementById("matrix").innerHTML=s;
+}
+
+function renderDecisions(){
+  document.getElementById("decisions").innerHTML=DECISIONS.map(function(dc){
+    var r=rulings[dc.id], locked=dc.needs&&!rulings[dc.needs];
+    var opts=dc.options.map(function(o){ return '<button type="button" class="opt" data-d="'+dc.id+'" data-o="'+esc(o.label)+'" data-r="'+(o.ruling?1:0)+'" aria-pressed="'+(r&&r.choice===o.label?'true':'false')+'"'+(locked?' disabled':'')+'>'+esc(o.label)+'</button>'; }).join("");
+    return '<div class="decision'+(r?' done':'')+(locked?' locked':'')+'"><div class="panel-head"><h3>'+esc(dc.q)+'</h3><span class="lab">'+esc(dc.ref)+'</span></div>'+
+      '<p><span class="chip A">A</span> '+esc(dc.proposal)+'</p>'+
+      '<div class="fa"><div><span class="lab">For</span><ul>'+dc.forA.map(function(x){return '<li>'+money(esc(x))+'</li>';}).join("")+'</ul></div><div><span class="lab">Against</span><ul>'+dc.againstA.map(function(x){return '<li>'+money(esc(x))+'</li>';}).join("")+'</ul></div></div>'+
+      (locked?'<p class="muted small">Opens once the binding constraint is ruled.</p>':'')+
+      '<div class="opts" role="group" aria-label="Your ruling">'+opts+'</div>'+
+      (r?'<div class="ruled">Ruled: '+esc(r.choice)+' · logged '+esc(r.when)+'</div>':'')+'</div>';
+  }).join("");
+  var e=Object.keys(rulings);
+  document.getElementById("log").innerHTML=e.length?e.map(function(id){ var r=rulings[id], dc=DECISIONS.filter(function(x){return x.id===id;})[0]; return '<li><span class="mono muted">'+esc(r.when)+'</span><span><b>'+esc(id)+'</b> '+esc(dc?dc.q:"")+' <span class="chip H">H</span> '+esc(r.choice)+'<div class="muted small">Rested on: '+money(esc(dc?dc.forA.concat(dc.againstA).join(" · "):""))+'</div></span></li>'; }).join(""):'<li class="muted">No rulings yet. Make one above and it appears here with the evidence it rested on.</li>';
+}
+document.getElementById("decisions").addEventListener("click",function(ev){
+  var b=ev.target.closest(".opt"); if(!b||b.disabled) return;
+  var id=b.getAttribute("data-d");
+  if(b.getAttribute("data-r")==="1"){ var now=new Date(); rulings[id]={choice:b.getAttribute("data-o"),when:"record "+fmt(iso(AS_OF))+", entered "+now.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}; }
+  else { delete rulings[id]; if(id==="D-1") delete rulings["D-2"]; }
+  save(); render();
+});
+document.getElementById("reset-log").addEventListener("click",function(){
+  if(IN_APP&&!confirm("Remove every ruling from the record file? Git keeps the last committed version.")) return;
+  rulings={}; save(); render(); });
+
+/* Optional link:[href,label] on a reference, intake or condition row, e.g. to a project reference page. */
+function rowLink(x){return x.link?'<div class="small"><a href="'+esc(x.link[0])+'">'+esc(x.link[1])+'</a></div>':"";}
+function renderRecord(){
+  document.getElementById("reference").innerHTML=REF.map(function(r){
+    var due=r.checked?addDays(r.checked,r.interval):null;
+    var dueCell=r.missing?'<span class="chip bad">Missing</span>':(days(due)<0?'<span class="chip bad">'+fmt(due)+'</span>':fmt(due));
+    var basis=r.unconfirmed?'<span class="chip bad">interpretation · unconfirmed</span>':'<span class="chip">'+esc(r.basis)+'</span>';
+    var fact=r.money?money(esc(r.fact)):esc(r.fact);
+    return '<tr><td class="num"><b>'+r.id+'</b></td><td>'+fact+(r.note?'<div class="muted" style="font-size:.82rem">'+esc(r.note)+'</div>':'')+rowLink(r)+'</td><td class="src">'+esc(SRC[r.src])+'</td><td>'+basis+'</td><td class="num">'+(r.checked?fmt(r.checked):'–')+'</td><td class="num">'+dueCell+'</td></tr>';
+  }).join("");
+  document.getElementById("intake").innerHTML=INTAKE.map(function(i){
+    return '<tr><td class="num">'+fmt(i.date)+'</td><td>'+esc(i.what)+rowLink(i)+'</td><td class="small">'+esc(i.stream)+'</td><td class="small">'+esc(i.from)+'</td><td class="mono" style="font-size:.78rem">'+esc(i.feeds)+'</td></tr>';
+  }).join("");
+}
+
+/* CQS: project data (projects/<id>/record.js) */
+document.getElementById("cqs").innerHTML=CQS.map(function(q){return '<li><span><b>'+esc(q[0])+'</b><br><span class="muted small">'+esc(q[1])+'</span></span></li>';}).join("");
+document.getElementById("vocab").innerHTML='<b>Relief path status:</b> '+PATH_STATUS.join(", ")+'.<br><b>Condition status:</b> '+CONDITION_STATUS.join(", ")+'.<br><b>Finding type:</b> '+FINDING_TYPES.join(", ")+'. An observation that fits none is an advisory note, not a finding.';
+document.getElementById("ladder").innerHTML=LADDER.map(function(l,i){return '<div><span class="mono muted">'+(i+1)+'</span><span><b>'+LADDER_STRENGTH[i]+'</b> · '+esc(l)+'</span></div>';}).join("");
+
+/* SAMPLE: project data (projects/<id>/record.js) */
+/* DOCS: project data (projects/<id>/record.js) */
+var FOLDER={code_text:"01 Governing Reference / Applicable Code & Criteria / Code Text",interp:"01 Governing Reference / Applicable Code & Criteria / Counsel Interpretations",staff:"01 Governing Reference / Applicable Code & Criteria / Staff Determinations",agency:"01 Governing Reference / Land Use Decision & Conditions",milestone:"Milestones · External Process (record)",finding:"Findings (record) · source stays in 02 Intake",constraint:"Constraint candidates (record)",relief:"03 Cases & Relief / [Constraint] – [Relief Path]",action:"Actions (record) · owner and closure test",condition:"Conditions register · needs five links",clock:"Clocks (record) · owner required",record:"02 Intake · Intake on file (record)"};
+function classify(s){
+  var o=[],low=s.toLowerCase();
+  if(/condition of approval|shall (install|provide|construct|dedicate)/.test(low)) o.push({type:"Condition",kind:"condition",act:"Give it an owner, budget line, design deliverable, permit and closure test, each dated."});
+  if(/recommend/.test(low)) o.push({type:"Action or relief candidate",kind:"action",act:"Assign an owner and a closure test; if it relieves a constraint, name the authority."});
+  if(/\b(dsl|department of state lands|concurs?|corps)\b/.test(low) && !/has not|not yet|recommend/.test(low)) o.push({type:"Agency decision",kind:"agency",act:"Load to Reference with its date and validity period."});
+  else if(/determined|determination|city manager|planning director|staff/.test(low) && !/jurisdictional determination/.test(low) && !/not yet/.test(low)) o.push({type:"Code fact · staff determination",kind:"staff",act:"Load to Reference with source and date; set a re-check date."});
+  else if(/in our (reading|view)|we believe|anticipated|appears|likely/.test(low)) o.push({type:"Code fact · interpretation",kind:"interp",act:"Load to Reference marked unconfirmed; ask the jurisdiction to confirm before anything rests on it."});
+  else if(/\b(ors|oar|pmc|chapter|firm)\b|permitted|precluded|shall not exceed|maximum|rules will be applied/.test(low)) o.push({type:"Code fact · code text",kind:"code_text",act:"Check against the primary source, then load with edition and date checked."});
+  if(/within \d+ (days?|years?|months?)|valid for|expire|deadline/.test(low)) o.push({type:"Clock",kind:"clock",act:"Compute the date from the triggering record; assign an owner."});
+  if(/(need for|requires?) (a |an )?[\w\s-]{0,30}(permit|review|approval)/.test(low) && !/recommend/.test(low)) o.push({type:"Required approval",kind:"milestone",act:"Add as a milestone with its external process stages."});
+  if(/flood|wetland|base flood|fill/.test(low) && !/recommend/.test(low) && !/has not|not yet/.test(low)) o.push({type:"Constraint candidate",kind:"constraint",act:"Measure against the feasibility threshold; owner rules whether it binds."});
+  if(/\bmay\b|has not|not yet|unknown|risk/.test(low)) o.push({type:"Finding",kind:"finding",act:"Open with an owner and a closure test."});
+  if(/\b(was|were) (recorded|submitted|filed|signed)\b|\binstrument\b|\bfile (number|wd)\b/.test(low)) o.push({type:"Fact of record",kind:"record",act:"Log to Intake on file with its date, source and what it feeds."});
+  if(!o.length) o.push({type:"Unsorted",kind:"finding",act:"A person decides where this belongs."});
+  return o;
+}
+/* Jev kinds -> the record object each one becomes. Keys match FOLDER. */
+var KIND={
+ code_text:{type:"Code fact · code text",act:"Check against the primary source, then load with edition and date checked."},
+ interp:{type:"Code fact · interpretation",act:"Load to Reference marked unconfirmed; ask the jurisdiction to confirm before anything rests on it."},
+ staff:{type:"Code fact · staff determination",act:"Load to Reference with source and date; set a re-check date."},
+ agency:{type:"Agency decision",act:"Load to Reference with its date and validity period."},
+ condition:{type:"Condition",act:"Give it an owner, budget line, design deliverable, permit and closure test, each dated."},
+ clock:{type:"Clock",act:"Compute the date from the triggering record; assign an owner."},
+ milestone:{type:"Required approval",act:"Add as a milestone with its external process stages."},
+ constraint:{type:"Constraint candidate",act:"Measure against the feasibility threshold; owner rules whether it binds."},
+ action:{type:"Action or relief candidate",act:"Assign an owner and a closure test; if it relieves a constraint, name the authority."},
+ finding:{type:"Finding",act:"Open with an owner and a closure test."},
+ record:{type:"Fact of record",act:"Log to Intake on file with its date, source and what it feeds."}
+};
+function objHtml(i,p,type,act,folder,tag){
+  return '<div class="obj"><div class="k"><span class="chip J">J</span><b>'+esc(type)+'</b>'+(tag||'')+'<span class="lab">¶'+(i+1)+'</span></div><div style="font-size:.88rem">'+esc(p.length>150?p.slice(0,147)+"…":p)+'</div><div style="font-size:.86rem"><span class="lab">Next</span> '+esc(act)+'</div><div class="path">'+esc(folder)+'</div></div>';
+}
+function paragraphs(){ return document.getElementById("report").value.split(/\n\s*\n/).map(function(x){return x.trim();}).filter(Boolean); }
+function showSorted(html,n,count){
+  document.getElementById("out").innerHTML=html.join("")||'<p class="muted">Paste text with one statement per paragraph, then sort it.</p>';
+  document.getElementById("out-count").textContent=n+" objects from "+count+" paragraphs";
+}
+function runKeywords(paras,why){
+  var html=[],n=0;
+  paras.forEach(function(p,i){ classify(p).forEach(function(o){ n++; html.push(objHtml(i,p,o.type,o.act,FOLDER[o.kind])); }); });
+  showSorted(html,n,paras.length);
+  document.getElementById("sort-engine").textContent="Sorted by keyword rules"+(why?" ("+why+")":"")+".";
+}
+function runTranslator(){
+  var paras=paragraphs(), eng=document.getElementById("sort-engine");
+  if(!paras.length) return showSorted([],0,0);
+  if(!/^https?:$/.test(location.protocol)||/claude\.ai$/.test(location.hostname)) return runKeywords(paras,"no ERATON app here");
+  eng.textContent="Sorting with Jev…";
+  fetch("/api/sort",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({statements:paras})})
+   .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||("HTTP "+r.status)); return j; }); })
+   .then(function(res){
+     var html=[],n=0;
+     res.results.forEach(function(r,i){
+       r.objects.forEach(function(o){ n++; var k=KIND[o.kind]; html.push(objHtml(i,r.statement,k.type,k.act,FOLDER[o.kind],'<span class="chip">p '+o.p.toFixed(2)+'</span>')); });
+       r.undetermined.forEach(function(o){ var k=KIND[o.kind]; html.push(objHtml(i,r.statement,k.type,"UNDETERMINED: a person decides whether this applies.","Held for review · not filed",'<span class="chip bad">p '+o.p.toFixed(2)+' · undetermined</span>')); });
+       if(!r.objects.length&&!r.undetermined.length) html.push(objHtml(i,r.statement,"Unsorted","A person decides where this belongs.",FOLDER.finding));
+     });
+     showSorted(html,n,res.results.length);
+     eng.textContent="Sorted by Jev ("+res.model+"). Taken at p ≥ "+res.accept.toFixed(2)+"; "+res.undetermined_floor.toFixed(2)+" up to "+res.accept.toFixed(2)+" held for a person.";
+   })
+   .catch(function(e){ runKeywords(paras,"Jev unavailable: "+e.message); });
+}
+var ta=document.getElementById("report"); ta.value=SAMPLE;
+document.getElementById("run").addEventListener("click",runTranslator);
+document.getElementById("sample").addEventListener("click",function(){docSel.value="0";docNote.textContent=DOCS[0].note;ta.value=SAMPLE;runTranslator();});
+var docSel=document.getElementById("doc"), docNote=document.getElementById("doc-note");
+docSel.innerHTML=DOCS.map(function(d,i){return '<option value="'+i+'">'+esc(d.title)+'</option>';}).join("");
+docNote.textContent=DOCS[0].note;
+docSel.addEventListener("change",function(){
+  var d=DOCS[+docSel.value]; docNote.textContent=d.note;
+  if(!d.file){ ta.value=SAMPLE; return runTranslator(); }
+  fetch(d.file).then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.text(); })
+   .then(function(t){ ta.value=t.trim(); runTranslator(); })
+   .catch(function(e){ docNote.textContent="Could not load "+d.file+" ("+e.message+"). Run the ERATON app to load documents."; });
+});
+
+/* ---------- MONEY TOGGLE + ROUTING ---------- */
+var mt=document.getElementById("money-toggle");
+function setMoney(h){ document.body.classList.toggle("hide-money",h); mt.setAttribute("aria-pressed",String(h)); mt.textContent=h?"Show dollar figures":"Hide dollar figures"; try{localStorage.setItem("bw-hide-money",h?"1":"0");}catch(e){} }
+mt.addEventListener("click",function(){ setMoney(!document.body.classList.contains("hide-money")); });
+var hm=false; try{hm=localStorage.getItem("bw-hide-money")==="1";}catch(e){}
+var VIEWS=["summary","status","costs","decisions","translator","record","how"];
+function route(){ var h=(location.hash||"#summary").slice(1); if(VIEWS.indexOf(h)<0) h="summary";
+  document.getElementById("concept").hidden=(h==="summary");
+  VIEWS.forEach(function(v){document.getElementById("v-"+v).hidden=(v!==h);});
+  document.querySelectorAll("nav.tabs a").forEach(function(a){ if(a.getAttribute("data-view")===h) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); }); }
+window.addEventListener("hashchange",route);
+Array.prototype.forEach.call(document.querySelectorAll("[data-asof]"),function(el){ el.textContent=fmt(iso(AS_OF)).replace(/,/g,"").replace(/^(\w+) (\d+)/,"$2 $1"); });
+render(); renderDATimeline(); renderRecord(); renderCosts(); renderConcepts(); runTranslator(); setMoney(hm); route();
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,5 @@
+# ERATON project site. Static: no build step. site/ is published; the record engine in site/index.html is
+# vendored from eraton-ontologies (see ENGINE_VERSION) with app/vendor_engine.py, never edited here.
+[build]
+  publish = "site"
+  functions = "netlify/functions"

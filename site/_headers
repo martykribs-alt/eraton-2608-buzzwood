@@ -1,0 +1,5 @@
+# Private records: keep them out of search engines and shared caches.
+/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: private, no-store
+  Referrer-Policy: same-origin
