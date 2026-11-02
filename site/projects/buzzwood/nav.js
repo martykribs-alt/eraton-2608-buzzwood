@@ -29,7 +29,7 @@
     ".brand{color:var(--ink);text-decoration:none;font:500 13px/1 'Jost','Futura','Avenir Next',system-ui,sans-serif;",
     "  letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;display:flex;align-items:center;gap:10px}",
     ".brand i{display:block;width:16px;height:3px;background:var(--accent)}",
-    "ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}",
+    "ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;position:relative}",
     "ul::-webkit-scrollbar{display:none}",
     "a.item{display:block;color:var(--muted);text-decoration:none;padding:16px 10px 13px;border-bottom:3px solid transparent;white-space:nowrap}",
     "a.item:hover{color:var(--ink)}",
@@ -67,6 +67,11 @@
     var t = px("paddingTop", "marginTop"), l = px("paddingLeft", "marginLeft"), r = px("paddingRight", "marginRight");
     host.style.margin = -t + "px " + -r + "px " + t + "px " + -l + "px";
     document.body.insertBefore(host, document.body.firstChild);
+    // On a narrow screen the menu scrolls sideways; bring the current page's item into view.
+    var cur = root.querySelector("[aria-current]"), list = root.querySelector("ul");
+    if (cur && list.scrollWidth > list.clientWidth) {
+      list.scrollLeft = cur.offsetLeft - (list.clientWidth - cur.offsetWidth) / 2;
+    }
   }
 
   if (document.body) mount(); else document.addEventListener("DOMContentLoaded", mount);
