@@ -1,0 +1,374 @@
+<!doctype html><html lang="en"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Buzzwood Village</title><meta name="robots" content="noindex"><script src="/projects/buzzwood/nav.js" defer></script></head><body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Work+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a concept board — render and key figures up top, then the two measured plans side by side, the flood section, and the corrections against the first board. */
+:root{
+  --paper:#eef0ec; --sheet:#fbfbf9; --ink:#1f2326; --ink-2:#4a5054; --muted:#6c7377; --rule:#d5d8d2;
+  --wood:#c39258; --wood-soft:#efe1cc; --char:#24282b; --stone:#b9b6b0; --olive:#555a2b; --olive-soft:#e3e5d2;
+  --water:#3f7896; --warn:#9a5b17; --warn-soft:#f5e7d2;
+  --plan-floor:#f3e8d8; --plan-wall:#24282b; --plan-fix:#ffffff; --plan-out:#e1e4dd;
+  --f-display:"Jost","Futura","Avenir Next",system-ui,sans-serif;
+  --f-body:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#141719; --sheet:#1b1f21; --ink:#e9e7e2; --ink-2:#c3c4c0; --muted:#949a9b; --rule:#30363a;
+  --wood:#d6a86d; --wood-soft:#3a2f22; --char:#0d0f10; --stone:#8b8984; --olive:#a9ae72; --olive-soft:#2a2d1c;
+  --water:#7fb6d3; --warn:#e2a35a; --warn-soft:#3a2b18;
+  --plan-floor:#2c2721; --plan-wall:#e9e7e2; --plan-fix:#1b1f21; --plan-out:#22272a; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#141719; --sheet:#1b1f21; --ink:#e9e7e2; --ink-2:#c3c4c0; --muted:#949a9b; --rule:#30363a;
+  --wood:#d6a86d; --wood-soft:#3a2f22; --char:#0d0f10; --stone:#8b8984; --olive:#a9ae72; --olive-soft:#2a2d1c;
+  --water:#7fb6d3; --warn:#e2a35a; --warn-soft:#3a2b18;
+  --plan-floor:#2c2721; --plan-wall:#e9e7e2; --plan-fix:#1b1f21; --plan-out:#22272a; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:28px}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;margin:0;text-wrap:balance}
+h1{font-size:clamp(2rem,5vw,3.1rem);letter-spacing:.14em;text-transform:uppercase;line-height:1.08}
+h2{font-size:1.15rem;letter-spacing:.16em;text-transform:uppercase}
+h3{font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
+p{margin:0;max-width:66ch}
+.eyebrow{font-family:var(--f-display);font-weight:600;font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+img{max-width:100%;display:block;height:auto}
+
+.mast{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 24px;border-bottom:1px solid var(--rule);padding-bottom:18px}
+.mast .rule{width:44px;height:3px;background:var(--wood);margin:10px 0 12px}
+.mast .where{font-family:var(--f-display);font-size:1.05rem;letter-spacing:.06em;color:var(--ink-2)}
+.mast .status{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);text-align:right;display:grid;gap:2px}
+
+.hero{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:0;background:var(--sheet);border:1px solid var(--rule)}
+.hero figure{margin:0}
+.hero figcaption{font-size:.8rem;color:var(--muted);padding:8px 14px}
+.facts{padding:22px 24px;display:grid;gap:18px;align-content:start;border-left:1px solid var(--rule);min-width:0}
+.facts dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 16px;align-items:baseline}
+.facts dt{font-family:var(--f-display);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:0;font-family:var(--f-mono);font-size:1rem;font-variant-numeric:tabular-nums}
+.facts .big{font-family:var(--f-display);font-size:2.1rem;letter-spacing:.02em;line-height:1}
+@media (max-width:860px){.hero{grid-template-columns:1fr}.facts{border-left:0;border-top:1px solid var(--rule)}}
+
+section.block{display:grid;gap:14px}
+.block-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 18px}
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:860px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--sheet);border:1px solid var(--rule);padding:16px 16px 12px;display:grid;gap:10px;min-width:0}
+.plan .ph{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.plan .ph .mono{font-size:.8rem;color:var(--muted)}
+.plan svg{width:100%;height:auto;display:block}
+.plan ul{margin:0;padding-left:1.1em;display:grid;gap:3px;font-size:.88rem;color:var(--ink-2)}
+
+svg text{font-family:var(--f-body)}
+.room{fill:var(--plan-floor)}
+.wall{fill:none;stroke:var(--plan-wall);stroke-width:.5}
+.iwall{stroke:var(--plan-wall);stroke-width:.33;stroke-linecap:square}
+.glaze{stroke:var(--water);stroke-width:.33}
+.fix{fill:var(--plan-fix);stroke:var(--plan-wall);stroke-width:.08}
+.out{fill:var(--plan-out);stroke:var(--muted);stroke-width:.08;stroke-dasharray:.4 .3}
+.tread{stroke:var(--muted);stroke-width:.06}
+.lbl{font-size:.8px;fill:var(--ink);font-weight:500;text-anchor:middle}
+.sub{font-size:.58px;fill:var(--muted);text-anchor:middle;font-family:var(--f-mono)}
+.dim{stroke:var(--muted);stroke-width:.05}
+.dimt{font-size:.6px;fill:var(--muted);text-anchor:middle;font-family:var(--f-mono)}
+.arrow{fill:none;stroke:var(--wood);stroke-width:.14}
+.swing{fill:none;stroke:var(--muted);stroke-width:.05}
+
+.section-fig{background:var(--sheet);border:1px solid var(--rule);padding:16px;display:grid;gap:10px;min-width:0}
+.scroll{overflow-x:auto}
+.scroll svg{min-width:640px;width:100%;height:auto;display:block}
+.s-grade{stroke:var(--ink-2);stroke-width:.12;fill:none}
+.s-fill{fill:var(--wood-soft);stroke:none}
+.s-bldg{fill:var(--plan-floor);stroke:var(--plan-wall);stroke-width:.18}
+.s-floor{stroke:var(--plan-wall);stroke-width:.3}
+.s-ref{stroke-width:.08;stroke-dasharray:.5 .35}
+.s-t{font-size:.85px;fill:var(--ink-2);font-family:var(--f-mono)}
+.s-tb{font-size:.9px;fill:var(--ink);font-weight:600}
+
+.two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.card{background:var(--sheet);border:1px solid var(--rule);padding:18px 20px;display:grid;gap:12px;align-content:start;min-width:0}
+.fixes{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.fixes li{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.93rem}
+.tag{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.04em;padding:2px 7px;border:1px solid currentColor;white-space:nowrap;align-self:start;margin-top:2px}
+.tag.was{color:var(--warn);background:var(--warn-soft)}
+.tag.now{color:var(--olive);background:var(--olive-soft)}
+.fixes .why{grid-column:2;color:var(--muted);font-size:.86rem}
+.principles{margin:0;padding-left:1.1em;display:grid;gap:5px;font-size:.93rem}
+.swatches{display:flex;flex-wrap:wrap;gap:14px}
+.sw{display:grid;gap:6px;justify-items:center;font-size:.74rem;color:var(--muted);font-family:var(--f-mono)}
+.sw span{width:46px;height:46px;border-radius:50%;border:1px solid var(--rule)}
+.green figure{margin:0}
+.green figcaption{font-size:.8rem;color:var(--muted);margin-top:8px}
+footer{font-size:.8rem;color:var(--muted);display:grid;gap:4px;border-top:1px solid var(--rule);padding-top:14px}
+a{color:var(--water)}
+:focus-visible{outline:2px solid var(--wood);outline-offset:2px}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div>
+      <div class="eyebrow">MKA · Concept board</div>
+      <div class="rule" aria-hidden="true"></div>
+      <h1>Buzzwood Village</h1>
+      <div class="where">Two-level senior cottage · Philomath, Oregon</div>
+    </div>
+    <div class="status"><span>Pro forma v0.3 · 27 Oct 2026</span><span>Corrected from the 27 Oct render</span><span>Illustrative · not for construction</span></div>
+  </header>
+
+  <div class="hero">
+    <figure>
+      <img src="/projects/buzzwood/exterior.jpg" alt="Rendering of a two-story cottage with wood and dark board-and-batten siding, a gable roof, an upper deck and an exterior stair, set among trees and planted beds." width="865" height="640">
+      <figcaption>Owner's render, 27 Oct 2026. Massing, materials and exterior stair as intended; the plans and section below govern where they differ.</figcaption>
+    </figure>
+    <div class="facts">
+      <div><div class="big mono">1,000 SF</div><div class="muted small">500 SF step-free home below · 500 SF guest suite above</div></div>
+      <dl>
+        <dt>Homes</dt><dd>15 new + 602 guest house</dd>
+        <dt>Target price</dt><dd>$450,000 per home</dd>
+        <dt>Vertical cost</dt><dd>$180/SF (Cooper 103 basis)</dd>
+        <dt>Footprint</dt><dd>20′ × 25′</dd>
+        <dt>Lowest floor</dt><dd>+1.5′ above finished grade</dd>
+        <dt>Entry ramp</dt><dd>18′ at 1:12</dd>
+        <dt>Height limit</dt><dd>30′ from finish grade (R-04)</dd>
+      </dl>
+      <p class="small muted">Priced in the Buzzwood pro forma v0.3. Margin 10.5% on cost at $450K; 20.8–25.5% once the revised flood map is effective.</p>
+    </div>
+  </div>
+
+  <section class="block" aria-labelledby="plans-h">
+    <div class="block-head"><h2 id="plans-h">Floor plans</h2><span class="mono small muted">Scale: 1 square = 5′ · plans drawn to the 20′ × 25′ footprint</span></div>
+    <div class="plans">
+      <div class="plan">
+        <div class="ph"><h3>Lower level · the home</h3><span class="mono">500 SF · step-free</span></div>
+        <svg viewBox="-6 -2 34 36" role="img" aria-label="Lower level plan, 20 by 25 feet: bedroom and accessible bath at the back, hall with laundry, open living, dining and full kitchen at the front, side entry from an 18-foot ramp, front patio.">
+          <!-- patio -->
+          <rect class="out" x="0" y="25.4" width="14" height="5.6"/>
+          <text class="sub" x="7" y="28.6">PATIO</text>
+          <!-- ramp along right side -->
+          <rect class="out" x="20.6" y="19" width="5" height="6"/>
+          <rect class="out" x="21" y="1" width="4" height="18"/>
+          <g class="tread"><line x1="21" y1="4" x2="25" y2="4"/><line x1="21" y1="7" x2="25" y2="7"/><line x1="21" y1="10" x2="25" y2="10"/><line x1="21" y1="13" x2="25" y2="13"/><line x1="21" y1="16" x2="25" y2="16"/></g>
+          <path class="arrow" d="M23 2.2 V17.2 M22.3 16.3 L23 17.4 L23.7 16.3"/>
+          <text class="sub" x="23" y="0.4">RAMP 18′ · 1:12</text>
+          <text class="sub" x="23.1" y="22.6">LANDING</text>
+          <!-- exterior stair to suite, left side -->
+          <rect class="out" x="-4.6" y="2" width="4" height="22"/>
+          <g class="tread"><line x1="-4.6" y1="4" x2="-0.6" y2="4"/><line x1="-4.6" y1="5.5" x2="-0.6" y2="5.5"/><line x1="-4.6" y1="7" x2="-0.6" y2="7"/><line x1="-4.6" y1="8.5" x2="-0.6" y2="8.5"/><line x1="-4.6" y1="10" x2="-0.6" y2="10"/><line x1="-4.6" y1="11.5" x2="-0.6" y2="11.5"/><line x1="-4.6" y1="13" x2="-0.6" y2="13"/><line x1="-4.6" y1="14.5" x2="-0.6" y2="14.5"/><line x1="-4.6" y1="16" x2="-0.6" y2="16"/></g>
+          <text class="sub" x="-2.6" y="21" transform="rotate(-90 -2.6 21)" style="text-anchor:start">STAIR UP TO SUITE</text>
+          <!-- floor -->
+          <rect class="room" x="0" y="0" width="20" height="25"/>
+          <!-- fixtures -->
+          <rect class="fix" x="17.6" y="12.6" width="2.2" height="7.6"/>
+          <rect class="fix" x="17.8" y="12.8" width="1.8" height="2.4"/><text class="sub" x="18.7" y="14.3">REF</text>
+          <rect class="fix" x="17.8" y="15.6" width="1.8" height="1.6"/><text class="sub" x="18.7" y="16.6">SINK</text>
+          <rect class="fix" x="17.8" y="17.6" width="1.8" height="2.2"/><text class="sub" x="18.7" y="18.9">RANGE</text>
+          <rect class="fix" x="14.2" y="8.5" width="5.6" height="3"/><text class="sub" x="17" y="10.2">W/D · LINEN</text>
+          <rect class="fix" x="16.2" y="0.3" width="3.5" height="5"/><text class="sub" x="17.95" y="3">ROLL-IN</text>
+          <rect class="fix" x="11.4" y="5.2" width="2.2" height="2.4"/>
+          <rect class="fix" x="11.4" y="0.4" width="3.2" height="1.8"/>
+          <circle cx="13.2" cy="3.8" r="2.5" fill="none" stroke="var(--water)" stroke-width=".07" stroke-dasharray=".3 .25"/>
+          <rect class="fix" x="2" y="1.2" width="6.5" height="7"/><text class="sub" x="5.25" y="5">QUEEN</text>
+          <rect class="fix" x="8.5" y="14.5" width="5" height="3.2" rx=".4"/>
+          <rect class="fix" x="1" y="18.5" width="2.6" height="5.5"/>
+          <!-- interior walls -->
+          <g class="iwall">
+            <line x1="0" y1="12" x2="6" y2="12"/><line x1="9" y1="12" x2="11" y2="12"/>
+            <line x1="11" y1="0" x2="11" y2="8.4"/><line x1="11" y1="11.4" x2="11" y2="12"/>
+            <line x1="11" y1="8" x2="11.6" y2="8"/><line x1="14.6" y1="8" x2="20" y2="8"/>
+            <line x1="14" y1="8" x2="14" y2="12"/><line x1="14" y1="12" x2="14.6" y2="12"/><line x1="19.6" y1="12" x2="20" y2="12"/>
+          </g>
+          <path class="swing" d="M6 12 A3 3 0 0 1 9 9"/>
+          <path class="swing" d="M11.6 8 A3 3 0 0 1 14.6 11"/>
+          <!-- exterior walls with openings -->
+          <path class="wall" d="M0 0 H20 V21 M20 24 V25 H18 M3 25 H0 V0"/>
+          <line class="glaze" x1="3" y1="25" x2="18" y2="25"/>
+          <line class="glaze" x1="0" y1="3" x2="0" y2="8"/>
+          <line class="glaze" x1="3" y1="0" x2="8" y2="0"/>
+          <path class="swing" d="M20 24 A3 3 0 0 1 17 21"/>
+          <!-- room labels -->
+          <text class="lbl" x="5.5" y="10.2">Bedroom</text><text class="sub" x="5.5" y="11.1">11′ × 12′</text>
+          <text class="lbl" x="13.6" y="7.3">Bath</text>
+          <text class="lbl" x="12.5" y="10.6" style="font-size:.6px">Hall</text>
+          <text class="lbl" x="7.5" y="21.6">Living · dining</text><text class="sub" x="7.5" y="22.5">open to kitchen</text>
+          <text class="lbl" x="15.6" y="21.8">Kitchen</text>
+          <text class="sub" x="21.3" y="21.6" style="text-anchor:start">ENTRY</text>
+          <!-- dimensions -->
+          <line class="dim" x1="0" y1="-1" x2="20" y2="-1"/><line class="dim" x1="0" y1="-1.4" x2="0" y2="-0.6"/><line class="dim" x1="20" y1="-1.4" x2="20" y2="-0.6"/>
+          <text class="dimt" x="10" y="-1.3">20′-0″</text>
+          <line class="dim" x1="27" y1="0" x2="27" y2="25"/><line class="dim" x1="26.6" y1="0" x2="27.4" y2="0"/><line class="dim" x1="26.6" y1="25" x2="27.4" y2="25"/>
+          <text class="dimt" x="27.8" y="12.5" transform="rotate(-90 27.8 12.5)">25′-0″</text>
+          <!-- scale bar -->
+          <g transform="translate(15 32.6)"><rect x="0" y="0" width="5" height=".35" fill="var(--ink)"/><rect x="5" y="0" width="5" height=".35" fill="none" stroke="var(--ink)" stroke-width=".06"/><text class="dimt" x="0" y="1.2">0</text><text class="dimt" x="5" y="1.2">5′</text><text class="dimt" x="10" y="1.2">10′</text></g>
+        </svg>
+        <ul>
+          <li>Everything for daily life on one level: bedroom, bath, kitchen, laundry</li>
+          <li>Roll-in shower and a 5′ turning circle in the bath; 36″ doors throughout</li>
+          <li>Side entry off a level landing, reached by an 18′ ramp</li>
+        </ul>
+      </div>
+
+      <div class="plan">
+        <div class="ph"><h3>Upper level · guest suite</h3><span class="mono">500 SF · own entry</span></div>
+        <svg viewBox="-6 -2 34 36" role="img" aria-label="Upper level plan, 20 by 25 feet: bedroom and bath at the back, sitting room with a kitchenette at the front, entry from the exterior stair on the left, front deck.">
+          <!-- deck -->
+          <rect class="out" x="0" y="25.4" width="20" height="5.6"/>
+          <text class="sub" x="10" y="28.6">DECK</text>
+          <!-- stair top + landing -->
+          <rect class="out" x="-4.6" y="2" width="4" height="15"/>
+          <g class="tread"><line x1="-4.6" y1="4" x2="-0.6" y2="4"/><line x1="-4.6" y1="5.5" x2="-0.6" y2="5.5"/><line x1="-4.6" y1="7" x2="-0.6" y2="7"/><line x1="-4.6" y1="8.5" x2="-0.6" y2="8.5"/><line x1="-4.6" y1="10" x2="-0.6" y2="10"/><line x1="-4.6" y1="11.5" x2="-0.6" y2="11.5"/><line x1="-4.6" y1="13" x2="-0.6" y2="13"/><line x1="-4.6" y1="14.5" x2="-0.6" y2="14.5"/></g>
+          <rect class="out" x="-4.6" y="17" width="4" height="7"/>
+          <text class="sub" x="-2.6" y="20.6">LANDING</text>
+          <path class="arrow" d="M-2.6 3 V15.4 M-3.3 14.5 L-2.6 15.6 L-1.9 14.5"/>
+          <!-- floor -->
+          <rect class="room" x="0" y="0" width="20" height="25"/>
+          <!-- fixtures -->
+          <rect class="fix" x="17.6" y="13" width="2.2" height="6"/>
+          <rect class="fix" x="17.8" y="13.2" width="1.8" height="1.8"/><text class="sub" x="18.7" y="14.3">SINK</text>
+          <rect class="fix" x="17.8" y="15.3" width="1.8" height="1.8"/><text class="sub" x="18.7" y="16.4">FRIDGE</text>
+          <rect class="fix" x="17.8" y="17.3" width="1.8" height="1.5"/><text class="sub" x="18.7" y="18.2">MICRO</text>
+          <rect class="fix" x="14.2" y="8.5" width="5.6" height="3"/><text class="sub" x="17" y="10.2">CLOSET</text>
+          <rect class="fix" x="16.2" y="0.3" width="3.5" height="4"/><text class="sub" x="17.95" y="2.5">SHOWER</text>
+          <rect class="fix" x="11.4" y="5.2" width="2.2" height="2.4"/>
+          <rect class="fix" x="11.4" y="0.4" width="3.2" height="1.8"/>
+          <rect class="fix" x="2" y="1.2" width="6.5" height="7"/><text class="sub" x="5.25" y="5">QUEEN</text>
+          <rect class="fix" x="3" y="19.5" width="6.5" height="2.6"/>
+          <rect class="fix" x="10.5" y="16" width="3" height="3" rx="1.5"/>
+          <!-- interior walls -->
+          <g class="iwall">
+            <line x1="0" y1="12" x2="6" y2="12"/><line x1="9" y1="12" x2="11" y2="12"/>
+            <line x1="11" y1="0" x2="11" y2="8.4"/><line x1="11" y1="11.4" x2="11" y2="12"/>
+            <line x1="11" y1="8" x2="11.6" y2="8"/><line x1="14.6" y1="8" x2="20" y2="8"/>
+            <line x1="14" y1="8" x2="14" y2="12"/><line x1="14" y1="12" x2="14.6" y2="12"/><line x1="19.6" y1="12" x2="20" y2="12"/>
+          </g>
+          <path class="swing" d="M6 12 A3 3 0 0 1 9 9"/>
+          <path class="swing" d="M11.6 8 A3 3 0 0 1 14.6 11"/>
+          <!-- exterior walls -->
+          <path class="wall" d="M0 0 H20 V25 H18 M3 25 H0 V23 M0 20 V0"/>
+          <line class="glaze" x1="3" y1="25" x2="18" y2="25"/>
+          <line class="glaze" x1="20" y1="3" x2="20" y2="8"/>
+          <line class="glaze" x1="3" y1="0" x2="8" y2="0"/>
+          <path class="swing" d="M0 20 A3 3 0 0 1 3 23"/>
+          <!-- labels -->
+          <text class="lbl" x="5.5" y="10.2">Bedroom</text><text class="sub" x="5.5" y="11.1">11′ × 12′</text>
+          <text class="lbl" x="13.6" y="7.3">Bath</text>
+          <text class="lbl" x="12.5" y="10.6" style="font-size:.6px">Hall</text>
+          <text class="lbl" x="8" y="23.7">Sitting room</text>
+          <text class="lbl" x="15.4" y="20.3">Kitchenette</text><text class="sub" x="15.4" y="21.2">no range</text>
+          <!-- dimensions -->
+          <line class="dim" x1="0" y1="-1" x2="20" y2="-1"/><line class="dim" x1="0" y1="-1.4" x2="0" y2="-0.6"/><line class="dim" x1="20" y1="-1.4" x2="20" y2="-0.6"/>
+          <text class="dimt" x="10" y="-1.3">20′-0″</text>
+          <line class="dim" x1="27" y1="0" x2="27" y2="25"/><line class="dim" x1="26.6" y1="0" x2="27.4" y2="0"/><line class="dim" x1="26.6" y1="25" x2="27.4" y2="25"/>
+          <text class="dimt" x="27.8" y="12.5" transform="rotate(-90 27.8 12.5)">25′-0″</text>
+          <g transform="translate(15 32.6)"><rect x="0" y="0" width="5" height=".35" fill="var(--ink)"/><rect x="5" y="0" width="5" height=".35" fill="none" stroke="var(--ink)" stroke-width=".06"/><text class="dimt" x="0" y="1.2">0</text><text class="dimt" x="5" y="1.2">5′</text><text class="dimt" x="10" y="1.2">10′</text></g>
+        </svg>
+        <ul>
+          <li>For a caregiver, family, a guest, or the owner's own use</li>
+          <li>Kitchenette only: sink, under-counter fridge, microwave; no range or cooktop</li>
+          <li>Own entry from the exterior stair; front deck with treetop views</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-fig" aria-labelledby="sec-h">
+    <div class="block-head"><h2 id="sec-h">Section at the flood line</h2><span class="mono small muted">Heights in feet above existing grade · revised BFE basis (R-16)</span></div>
+    <div class="scroll">
+      <svg viewBox="-4 -34 66 40" role="img" aria-label="Section: existing grade at 0, finished pad grade at 1.5 feet after balanced cut and fill, lowest floor at 3 feet, second floor at 13 feet, ridge at 28.5 feet, under a 30-foot height limit measured from finish grade; an 18-foot ramp rises 1.5 feet to the entry.">
+        <!-- height limit -->
+        <line class="s-ref" x1="-2" y1="-31.5" x2="60" y2="-31.5" stroke="var(--warn)"/>
+        <text class="s-t" x="31" y="-32" style="fill:var(--warn)">HEIGHT LIMIT · 30′ ABOVE FINISH GRADE (R-04)</text>
+        <!-- finished pad (fill area) -->
+        <path class="s-fill" d="M4 0 L8 -1.5 L54 -1.5 L58 0 Z"/>
+        <!-- existing grade -->
+        <line class="s-grade" x1="-2" y1="0" x2="60" y2="0" style="stroke-dasharray:.6 .4"/>
+        <!-- finished grade -->
+        <path class="s-grade" d="M-2 0 L4 0 L8 -1.5 L54 -1.5 L58 0 L60 0" style="stroke-width:.16"/>
+        <!-- building -->
+        <rect class="s-bldg" x="10" y="-21" width="25" height="18"/>
+        <path class="s-bldg" d="M9.2 -21 L22.5 -28.5 L35.8 -21 Z"/>
+        <line class="s-floor" x1="10" y1="-3" x2="35" y2="-3"/>
+        <line class="s-floor" x1="10" y1="-13" x2="35" y2="-13"/>
+        <!-- foundation stem -->
+        <rect x="10" y="-3" width="25" height="1.5" fill="var(--stone)"/>
+        <!-- deck at upper front -->
+        <line class="s-floor" x1="4.5" y1="-13" x2="10" y2="-13"/>
+        <!-- floor line / reference -->
+        <line class="s-ref" x1="-2" y1="-3" x2="10" y2="-3" stroke="var(--water)"/>
+        <!-- ramp -->
+        <path d="M35 -3 L53 -1.5" fill="none" stroke="var(--wood)" stroke-width=".35"/>
+        <!-- labels -->
+        <text class="s-tb" x="22.5" y="-8">Home · 500 SF</text>
+        <text class="s-tb" x="22.5" y="-17.5">Guest suite · 500 SF</text>
+        <text class="s-t" x="-1.6" y="-3.5" style="fill:var(--water)">LOWEST FLOOR +3.0′</text>
+        <text class="s-t" x="-1.6" y="-14">LEVEL 2 +13.0′</text>
+        <text class="s-t" x="23.6" y="-28.8">RIDGE +28.5′</text>
+        <text class="s-t" x="38.5" y="-4">RAMP 18′ · 1:12 · RISE 1.5′</text>
+        <text class="s-t" x="-1.6" y="1.4">EXISTING GRADE 0′</text>
+        <text class="s-t" x="12" y="1.4">FINISHED GRADE +1.5′ · BALANCED CUT AND FILL</text>
+        <text class="s-t" x="5" y="-11.8">DECK</text>
+      </svg>
+    </div>
+    <p class="small muted">The lowest floor sits 3′ above existing grade under the revised flood map. Balanced cut and fill raises the pad 1.5′, so the floor is 1.5′ above the ground around it and the entry needs only a short ramp. The lower map is not yet effective (R-13), and Philomath's freeboard rule is not yet loaded (R-09); both can move these heights.</p>
+  </section>
+
+  <div class="two">
+    <div class="card">
+      <h2>Corrected from the first board</h2>
+      <ul class="fixes">
+        <li><span class="tag was">WAS</span><span>Upper level drawn as a second unit with a full kitchen</span>
+            <span class="tag now">NOW</span><span>Guest suite with a kitchenette, no range or cooktop</span>
+            <span class="why">The recorded agreement caps Buzzwood at 16 detached homes and precludes ADUs (R-03). As a suite, each building stays one home: 15 new plus the 602 guest house is 16. Confirm with the City that a separate exterior entry does not make the suite a dwelling unit.</span></li>
+        <li><span class="tag was">WAS</span><span>"Ground-level construction (no elevation)"</span>
+            <span class="tag now">NOW</span><span>Floor 1.5′ above finished grade, 18′ ramp</span>
+            <span class="why">Under the revised BFE the floor is 3′ above existing grade; balanced cut and fill recovers half (R-16).</span></li>
+        <li><span class="tag was">WAS</span><span>Interior stair and lower entry implied by the plan</span>
+            <span class="tag now">NOW</span><span>Lower home enters level from the side; the suite is reached by the exterior stair</span>
+            <span class="why">Keeps the lower home fully step-free and gives the suite privacy for a caregiver or guest.</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Design principles</h2>
+      <ul class="principles">
+        <li>One 1,000 SF home on two levels: 500 SF below, 500 SF above</li>
+        <li>Everything for daily life on the step-free lower level</li>
+        <li>Upper suite for care, family or guests, with its own entry</li>
+        <li>Scandinavian-modern gable form; natural wood and durable cladding</li>
+        <li>Open, light-filled rooms that open to a patio and a deck</li>
+        <li>Homes set around a shared green</li>
+      </ul>
+      <h3>Material palette</h3>
+      <div class="swatches">
+        <div class="sw"><span style="background:var(--wood)"></span>Cedar</div>
+        <div class="sw"><span style="background:var(--char)"></span>Black batten</div>
+        <div class="sw"><span style="background:var(--stone)"></span>Concrete</div>
+        <div class="sw"><span style="background:var(--olive)"></span>Moss</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two green">
+    <figure>
+      <img src="/projects/buzzwood/green.jpg" alt="Rendering of several two-story cottages around a planted green with a gravel path." width="396" height="290" loading="lazy">
+      <figcaption>Community context: homes around a central green. Owner's render, 27 Oct 2026.</figcaption>
+    </figure>
+    <div class="card">
+      <h2>How it is priced</h2>
+      <p class="small">Each building sells as one home at about $450,000. That is the middle of an independent value check for a new 1,000 SF Philomath cottage ($395–475K) and matches the Cooper Lane appraisal method ($455/SF). No senior premium is assumed; the reservation list tests $435K, $475K and $515K.</p>
+      <p class="small muted">Full numbers, constraints and decisions live in the <a href="/record">Buzzwood feasibility record</a>.</p>
+    </div>
+  </div>
+
+  <footer>
+    <span>Prepared by Martin Kribs Advisory for Buzzwood Village, 602 S 15th St, Philomath OR. Concept only; plans are schematic and not for permit or construction.</span>
+    <span>References R-03, R-04, R-09, R-13 and R-16 point to the governing reference in the Buzzwood feasibility record.</span>
+  </footer>
+</div>
+
+</body></html>

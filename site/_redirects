@@ -1,9 +1,13 @@
-# ERATON project site gate (Netlify Identity, invite only). The record page and everything under /projects/
-# open only for a signed-in user with the viewer or owner role; anyone else gets the sign-in page, served at
-# the address they asked for. /login.html itself is not gated.
-/              /index.html          200!  Role=viewer,owner
-/index.html    /index.html          200!  Role=viewer,owner
-/projects/*    /projects/:splat     200!  Role=viewer,owner
-/              /login.html          401!
-/index.html    /login.html          401!
-/projects/*    /login.html          401!
+# ERATON project site gate (Netlify Identity, invite only). Every page opens only for a signed-in user with the
+# viewer or owner role; anyone else gets the sign-in page, served at the address they asked for. /login.html itself
+# is not gated.
+# Buzzwood local change (not in the engine): the home page is the two-level cottage board, and the feasibility
+# record moves to /record (/index.html still works). Re-vendoring the engine overwrites this file; keep these lines.
+/              /projects/buzzwood/home.html  200!  Role=viewer,owner
+/record        /index.html                   200!  Role=viewer,owner
+/index.html    /index.html                   200!  Role=viewer,owner
+/projects/*    /projects/:splat              200!  Role=viewer,owner
+/              /login.html                   401!
+/record        /login.html                   401!
+/index.html    /login.html                   401!
+/projects/*    /login.html                   401!

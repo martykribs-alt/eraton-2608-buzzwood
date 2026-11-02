@@ -10,6 +10,16 @@ Published at https://buzzwood.martinkribs.com as its own Netlify site, behind Ne
   change the engine, then re-vendor: `python3 app/vendor_engine.py ~/ERATON-Projects/eraton-2608-buzzwood buzzwood`
   from the engine repo, review the diff, commit.
 
+## Site pages and navigation (local change)
+
+- `/` is the two-level cottage board (`site/projects/buzzwood/home.html`); the feasibility record is at `/record`.
+- Every page loads `site/projects/buzzwood/nav.js`, which draws the top bar. To add a page: put the HTML under
+  `site/projects/buzzwood/`, add a line to `PAGES` in `nav.js`, and add
+  `<script src="/projects/buzzwood/nav.js" defer></script>` to the page.
+- This touches two vendored files: `site/_redirects` (the `/` and `/record` routes) and `site/index.html` (the nav
+  script line). Re-vendoring the engine overwrites both, so re-apply them after a re-vendor, or move the change
+  into the engine.
+
 ## Working on the record
 
 From the engine repo, serve this project locally (rulings and Jev sorts write into this repo):
