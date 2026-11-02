@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Buzzwood Site Options</title>
+<script src="/projects/buzzwood/nav.js" defer></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Buzzwood Village: three schematic site plan options (2 Nov 2026), drawn on the Devco 24428 topo base.
+   Each plate is an SVG in page units at 3 px per foot over plans/site-options-base.png (lot line, Wetland 1,
+   pond, 20 ft design setback and building setback baked in). Options are schematic, not for permit. */
+:root{
+  --paper:#f3f6f5; --sheet:#ffffff; --ink:#17232b; --ink-2:#34444e; --muted:#5d6d75; --rule:#d2dbdb; --rule-2:#9fb0b4;
+  --accent:#2f6e85; --accent-soft:#e2eef2; --warn:#966610; --warn-soft:#f6ecd6; --crit:#a4523c;
+  --f-display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --p1:#2f6e85; --p2:#9a6414; --p3:#6b4f86;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11181c; --sheet:#182227; --ink:#e4ebee; --ink-2:#c1ccd1; --muted:#93a3aa; --rule:#2b383e; --rule-2:#4f6168;
+  --accent:#72b3cb; --accent-soft:#1b323b; --warn:#d9ab55; --warn-soft:#332917; --crit:#e08f78; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#11181c; --sheet:#182227; --ink:#e4ebee; --ink-2:#c1ccd1; --muted:#93a3aa; --rule:#2b383e; --rule-2:#4f6168;
+  --accent:#72b3cb; --accent-soft:#1b323b; --warn:#d9ab55; --warn-soft:#332917; --crit:#e08f78; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.55;padding:24px 16px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:22px}
+a{color:var(--accent)}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;letter-spacing:.01em;margin:0;line-height:1.15}
+h1{font-size:2.1rem} h2{font-size:1.4rem} h3{font-size:1.02rem}
+p{margin:0;max-width:78ch}
+.lab{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.src{font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+.muted{color:var(--muted)} .small{font-size:.86rem}
+header.instrument{background:var(--sheet);border:1px solid var(--rule);border-top:4px solid var(--ink);padding:18px 20px;display:grid;gap:8px}
+.meta-row{display:flex;flex-wrap:wrap;gap:4px 18px;font-family:var(--f-mono);font-size:.8rem;color:var(--ink-2)}
+section.panel{background:var(--sheet);border:1px solid var(--rule);padding:18px 20px;display:grid;gap:14px;min-width:0}
+.panel-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px}
+.plate-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+@media (max-width:900px){.plate-grid{grid-template-columns:1fr}}
+.sheet{background:#faf8f3;border:1px solid var(--rule-2);line-height:0;overflow:hidden}
+.sheet svg{display:block;width:100%;height:auto}
+.sheet svg text{font-family:var(--f-mono);paint-order:stroke;stroke:#faf8f3;stroke-width:3px;stroke-linejoin:round}
+.sheet svg .u{font-weight:600;font-size:15px;fill:#fff;stroke:none;text-anchor:middle}
+.sheet svg .lbl{font-size:11px;fill:#17232b}
+.sheet svg .wet{font-weight:600;font-size:12px;fill:#2f5a36}
+.sheet svg .warn{font-weight:600;font-size:11px;fill:#b3402e}
+.sheet svg .big{font-family:var(--f-display);font-weight:600;font-size:21px;fill:#6e7a55}
+.sheet svg .st{font-family:var(--f-display);font-weight:700;font-size:19px;fill:#17232b;letter-spacing:.1em}
+.key{display:grid;gap:14px;font-size:.88rem}
+.key ul{margin:4px 0 0;padding-left:18px;display:grid;gap:5px}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.stats div{background:var(--sheet);padding:9px 11px;display:grid;gap:1px}
+.stats b{font-family:var(--f-mono);font-size:1.35rem;font-weight:500;line-height:1.15}
+.stats span{font-size:.78rem;color:var(--muted)}
+.phase{display:grid;grid-template-columns:14px 1fr;gap:8px;align-items:start}
+.phase i{display:block;width:14px;height:14px;margin-top:3px;border:1.5px solid #17232b}
+.swatches{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.82rem;color:var(--ink-2)}
+.swatches span{display:inline-flex;align-items:center;gap:7px}
+.swatches i{display:inline-block;width:22px;height:12px}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:500 .72rem var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td:first-child{font:500 .72rem var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+.tbl{overflow-x:auto}
+.tbl table{min-width:760px}
+.std{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 28px;font-size:.88rem}
+@media (max-width:760px){.std{grid-template-columns:1fr}}
+.std .ref{color:var(--muted)}
+.note{background:var(--warn-soft);border-left:3px solid var(--warn);padding:10px 14px;font-size:.88rem}
+.find{display:grid;gap:10px;font-size:.9rem}
+.find h3{margin-top:4px}
+.find ul{margin:0;padding-left:18px;display:grid;gap:5px}
+@media print{body{padding:0;background:#fff}section.panel,header.instrument{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="instrument">
+    <span class="lab">Working draft · site plan options · rev. 1 · 2 Nov 2026</span>
+    <h1>Buzzwood Village: site plan options A, B and C</h1>
+    <div class="meta-row">
+      <span>602 S 15th St, Philomath OR</span>
+      <span>1.59 ac · tax lot 12612CD01500 · R-3</span>
+      <span>Development Agreement 2024-649017 · SDR P24-08</span>
+      <span>Base: Devco topo 24428, 1″ = 20′</span>
+    </div>
+    <p class="small muted">Three schematic layouts drawn on the surveyor's topo base to the recorded Development Agreement, Site Design Review P24-08 and PMC Title 18. Rev. 1 straightens the fire lane in B and C so every truck turn is at code radius. For discussion with the City planner, Public Works, the fire district and the engineer; not for permit.</p>
+  </header>
+
+  <section class="panel">
+    <div class="panel-head"><h2>The three options side by side</h2><span class="src">Areas and counts are measured on the plans; ≈ figures are schematic</span></div>
+    <div class="tbl"><table>
+      <thead><tr><th></th><th>A · Street Court</th><th>B · Lane and Green</th><th>C · Age-in-Place Commons</th></tr></thead>
+      <tbody>
+        <tr><td>Homes</td><td><b>9</b> · 8 new + 602</td><td><b>15</b> · 14 new + 602</td><td><b>13</b> · 12 new + 602 as guest house, plus a pavilion</td></tr>
+        <tr><td>Wetland impact</td><td>None; west half held open</td><td>≈550 SF, one crossing at the narrowest point</td><td>≈550 SF crossing, plus a pile-supported boardwalk</td></tr>
+        <tr><td>Fire access</td><td>Straight ≈100 ft lane, no turnaround</td><td>Straight ≈330 ft lane, 120 ft hammerhead</td><td>Same straight lane, emergency-only past the parking</td></tr>
+        <tr><td>Paving · coverage</td><td>≈2,900 SF · 12% · open space 88%</td><td>≈10,100 SF · 27% · open space 73%</td><td>≈11,300 SF · 28% (≈3,600 SF and 16% with a turf lane)</td></tr>
+        <tr><td>Parking · phases</td><td>5 stalls (1 ADA) · 2 phases</td><td>5 stalls (1 ADA) · 3 phases</td><td>12 stalls at the entry (2 ADA) · 3 phases</td></tr>
+        <tr><td>Approval path</td><td>SDR minor modification; no removal-fill permit</td><td>SDR modification; DSL and Corps permits before any building permit</td><td>SDR modification; DSL and Corps permits; Fire Marshal OK for a turf lane</td></tr>
+        <tr><td>Best for</td><td>Lowest capital, fastest start, west half in reserve</td><td>The most homes on a code-clean lane</td><td>A senior, step-free product that trades homes for amenity</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><h2>Standards every option meets</h2><span class="src">DA = recorded Development Agreement · Cond. = SDR P24-08 condition · OFC = Oregon Fire Code</span></div>
+    <div class="std">
+      <div><b>Use and count.</b> Up to 16 detached single-family condo homes on one lot; no ADUs, duplexes or townhomes <span class="ref">(DA §2–3, §11.a)</span></div>
+      <div><b>Height.</b> 30 ft maximum <span class="ref">(DA §4)</span></div>
+      <div><b>Setbacks.</b> Front 15 ft, interior side 5 ft, rear 15 ft <span class="ref">(PMC 18.35.030)</span></div>
+      <div><b>Separation.</b> Half the sum of the two heights, 10 ft minimum; 20 ft used for homes about 20 ft tall <span class="ref">(18.35.030(E))</span></div>
+      <div><b>Coverage.</b> 80% maximum, including vehicle surfaces <span class="ref">(Table 18.35.040)</span></div>
+      <div><b>Fire access.</b> 20 ft clear lane; every turn at 28 ft inside / 48 ft outside radius; turnaround past 150 ft; every wall within 150 ft; hydrant at the entrance <span class="ref">(DA §11.b, OFC 503.2.4, Cond. 13)</span></div>
+      <div><b>Parking.</b> None required within ½ mile of a bus stop; one ADA stall if any are built; one covered bike space per home <span class="ref">(Cond. 4, 11)</span></div>
+      <div><b>Frontage.</b> 5 ft sidewalk with street-tree strip, 8 ft PUE, curb cut at least 15 ft from 622's <span class="ref">(DA §11.c, staff report)</span></div>
+      <div><b>Floodplain.</b> No fill under homes; floors 1 ft or more above BFE; flow-through vents; site no-rise report <span class="ref">(Cond. 3)</span></div>
+      <div><b>Wetland.</b> Homes kept 20 ft off the delineated edge (assumed; PMC 18.55 sets no fixed wetland buffer); any fill permitted before building permits <span class="ref">(Cond. 2)</span></div>
+      <div><b>Phasing.</b> No more than 3 phases, each self-sufficient, all done by 24 Jan 2030 <span class="ref">(DA §12)</span></div>
+      <div><b>Stormwater.</b> Detention and water quality on site, in an easement <span class="ref">(Cond. 12, PWDS 3.18)</span></div>
+    </div>
+    <div class="swatches">
+      <span><i style="background:var(--p1);border:1.5px solid #17232b"></i>Phase 1 home</span>
+      <span><i style="background:var(--p2);border:1.5px solid #17232b"></i>Phase 2 home</span>
+      <span><i style="background:var(--p3);border:1.5px solid #17232b"></i>Phase 3 home</span>
+      <span><i style="background:#17232b"></i>602, existing</span>
+      <span><i style="background:rgba(96,104,108,.55)"></i>Fire lane, drive</span>
+      <span><i style="background:repeating-linear-gradient(45deg,rgba(96,124,90,.6) 0 4px,#faf8f3 4px 8px);border:1px solid #6e7a55"></i>Emergency-only turf lane</span>
+      <span><i style="background:rgba(92,140,96,.35);border:1.5px solid #46784c"></i>Wetland 1 · <span style="color:#3f6fa0">pond</span></span>
+      <span><i style="border-top:2px dashed #46784c;height:0"></i>20 ft wetland setback</span>
+      <span><i style="border-top:2px dotted #965a3c;height:0"></i>Building setback</span>
+      <span><i style="border:2px dashed #b3402e"></i>Wetland crossing</span>
+      <span><i style="background:rgba(47,110,133,.15);border:2px dashed #2f6e85"></i>Detention</span>
+      <span><i style="background:#b3402e;border-radius:50%;width:12px"></i>Hydrant</span>
+    </div>
+  </section>
+
+  <section class="panel" id="a">
+    <div class="panel-head"><h2>Option A · Street Court</h2><span class="src">9 homes · nothing crosses the wetland</span></div>
+    <div class="plate-grid">
+      <div class="sheet"><svg viewBox="0 0 1320 765" role="img" aria-label="Option A site plan"><defs><pattern id="turf" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="rgba(250,248,243,.35)"/><rect width="6" height="12" fill="rgba(96,124,90,.45)"/></pattern><pattern id="deck" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="#d9b98a"/><rect width="4" height="7" fill="#b98a54"/></pattern></defs><image href="plans/site-options-base.png" x="0" y="0" width="1320" height="765"/>
+<rect x="1218" y="90" width="15" height="615" fill="rgba(210,200,180,.9)" stroke="#a89f8c"/>
+<text transform="translate(1296,399) rotate(90)" class="st" text-anchor="middle">S 15TH ST</text>
+<rect x="894" y="330" width="312" height="60" fill="rgba(96,104,108,.55)"/>
+<rect x="1206" y="330" width="69" height="60" fill="rgba(96,104,108,.45)"/>
+<path d="M1275,246 L1275,330 L1191,330 A84,84 0 0 0 1275,246 Z" fill="rgba(96,104,108,.45)"/>
+<path d="M1275,474 L1275,390 L1191,390 A84,84 0 0 1 1275,474 Z" fill="rgba(96,104,108,.45)"/>
+<rect x="1020" y="390" width="135" height="57" fill="rgba(150,156,159,.45)" stroke="#6c7376" stroke-width="1"/>
+<line x1="1047" y1="390" x2="1047" y2="447" stroke="#6c7376" stroke-width="2"/>
+<line x1="1074" y1="390" x2="1074" y2="447" stroke="#6c7376" stroke-width="2"/>
+<line x1="1101" y1="390" x2="1101" y2="447" stroke="#6c7376" stroke-width="2"/>
+<line x1="1128" y1="390" x2="1128" y2="447" stroke="#6c7376" stroke-width="2"/>
+<rect x="966" y="312" width="234" height="15" fill="rgba(210,200,180,.95)" stroke="#a89f8c"/>
+<rect x="1152" y="465" width="36" height="210" fill="rgba(47,110,133,.12)" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 4"/>
+<rect x="978" y="276" width="36" height="30" fill="#e9e4d8" stroke="#17232b" stroke-width="2"/>
+<rect x="1140" y="294" width="18" height="12" fill="#17232b"/>
+<circle cx="1173" cy="411" r="7" fill="#b3402e" stroke="#fff" stroke-width="2"/>
+<rect x="840" y="600" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="870" y="642" class="u">A1</text>
+<rect x="960" y="600" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="990" y="642" class="u">A2</text>
+<rect x="1080" y="600" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="1110" y="642" class="u">A3</text>
+<rect x="840" y="465" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="870" y="508" class="u">A4</text>
+<rect x="960" y="465" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="990" y="508" class="u">A5</text>
+<rect x="1080" y="465" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="1110" y="508" class="u">A6</text>
+<rect x="885" y="258" width="75" height="60" fill="var(--p1)" stroke="#17232b" stroke-width="2"/>
+<text x="922" y="293" class="u">A7</text>
+<rect x="840" y="123" width="60" height="75" fill="var(--p1)" stroke="#17232b" stroke-width="2"/>
+<text x="870" y="166" class="u">A8</text>
+<rect x="1026" y="147" width="117" height="102" fill="#17232b"/>
+<text x="1084" y="203" class="u">602</text>
+<text x="645" y="270" class="wet" text-anchor="middle">WETLAND 1 · avoided</text>
+<text x="315" y="375" class="big" text-anchor="middle">Open space or reserve</text>
+<text x="315" y="405" class="lbl" text-anchor="middle">≈0.6 ac west of the wetland, untouched</text>
+<text x="1149" y="126" class="lbl" text-anchor="end">Entry flares 28′/48′</text>
+<text x="1080" y="354" class="lbl" text-anchor="middle">20′ lane ≈100′, no turnaround</text>
+<g transform="translate(36,44)" fill="#17232b" text-anchor="middle"><circle r="22" fill="#fff" fill-opacity=".9" stroke="#17232b" stroke-width="1.5"/><path d="M0,-17 L7,8 L0,3 L-7,8 Z"/><text y="40" class="lbl">N</text></g><g transform="translate(20,735)"><rect x="0" y="0" width="75" height="8" fill="#17232b"/><rect x="75" y="0" width="75" height="8" fill="#fff" stroke="#17232b"/><text x="0" y="24" class="lbl" text-anchor="start">0</text><text x="75" y="24" class="lbl">25′</text><text x="150" y="24" class="lbl">50′</text></g></svg></div>
+      <div class="key">
+        <div class="stats">
+          <div><span>Homes</span><b>9</b><span>8 new + 602</span></div>
+          <div><span>Wetland impact</span><b>0 SF</b><span>no removal-fill permit</span></div>
+          <div><span>Coverage</span><b>12%</b><span>of 80% allowed</span></div>
+          <div><span>Paving</span><b>≈2,900</b><span>SF lane and parking</span></div>
+        </div>
+        <div><span class="lab">Phasing</span>
+          <div class="phase"><i style="background:var(--p1)"></i><span><b>Phase 1.</b> 602, A7 and A8; the entry lane, flares, hydrant, frontage sidewalk, ADA walk, mailbox and trash.</span></div>
+          <div class="phase"><i style="background:var(--p2)"></i><span><b>Phase 2.</b> A1–A6, the parking bay and the detention swale.</span></div>
+        </div>
+        <div><span class="lab">How it conforms</span><ul>
+          <li>Every home is 20 ft or more from the wetland, the pond and its neighbors.</li>
+          <li>The lane is straight and under 150 ft: no turnaround, every wall within 150 ft. The one truck turn, in from S 15th, gets 28 ft / 48 ft flares.</li>
+          <li>Nothing touches the wetland, so Condition 2's permits should not be needed; get that in writing from the City.</li>
+        </ul></div>
+        <div><span class="lab">What it needs</span><ul>
+          <li>An SDR minor modification: 9 homes in 2 phases instead of 16 in 3. The DA allows "up to 16."</li>
+          <li>A field check of the south tree row under A1–A3.</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="b">
+    <div class="panel-head"><h2>Option B · Lane and Green</h2><span class="src">15 homes · one straight lane, one crossing</span></div>
+    <div class="plate-grid">
+      <div class="sheet"><svg viewBox="0 0 1320 765" role="img" aria-label="Option B site plan"><defs><pattern id="turf" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="rgba(250,248,243,.35)"/><rect width="6" height="12" fill="rgba(96,124,90,.45)"/></pattern><pattern id="deck" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="#d9b98a"/><rect width="4" height="7" fill="#b98a54"/></pattern></defs><image href="plans/site-options-base.png" x="0" y="0" width="1320" height="765"/>
+<rect x="1218" y="90" width="15" height="615" fill="rgba(210,200,180,.9)" stroke="#a89f8c"/>
+<text transform="translate(1296,399) rotate(90)" class="st" text-anchor="middle">S 15TH ST</text>
+<rect x="225" y="468" width="981" height="60" fill="rgba(96,104,108,.55)"/>
+<rect x="165" y="318" width="60" height="360" fill="rgba(96,104,108,.55)"/>
+<path d="M225,384 L225,468 L309,468 A84,84 0 0 1 225,384 Z" fill="rgba(96,104,108,.55)"/>
+<path d="M225,612 L225,528 L309,528 A84,84 0 0 0 225,612 Z" fill="rgba(96,104,108,.55)"/>
+<rect x="1206" y="468" width="69" height="60" fill="rgba(96,104,108,.45)"/>
+<path d="M1275,384 L1275,468 L1191,468 A84,84 0 0 0 1275,384 Z" fill="rgba(96,104,108,.45)"/>
+<path d="M1275,612 L1275,528 L1191,528 A84,84 0 0 1 1275,612 Z" fill="rgba(96,104,108,.45)"/>
+<rect x="618" y="465" width="108" height="66" fill="none" stroke="#b3402e" stroke-width="2.5" stroke-dasharray="7 5"/>
+<rect x="1020" y="528" width="135" height="57" fill="rgba(150,156,159,.45)" stroke="#6c7376" stroke-width="1"/>
+<line x1="1047" y1="528" x2="1047" y2="585" stroke="#6c7376" stroke-width="2"/>
+<line x1="1074" y1="528" x2="1074" y2="585" stroke="#6c7376" stroke-width="2"/>
+<line x1="1101" y1="528" x2="1101" y2="585" stroke="#6c7376" stroke-width="2"/>
+<line x1="1128" y1="528" x2="1128" y2="585" stroke="#6c7376" stroke-width="2"/>
+<rect x="1086" y="450" width="114" height="15" fill="rgba(210,200,180,.95)" stroke="#a89f8c"/>
+<rect x="1110" y="249" width="15" height="201" fill="rgba(210,200,180,.95)" stroke="#a89f8c"/>
+<rect x="1158" y="540" width="30" height="135" fill="rgba(47,110,133,.12)" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 4"/>
+<rect x="1068" y="645" width="36" height="30" fill="#e9e4d8" stroke="#17232b" stroke-width="2"/>
+<rect x="1140" y="432" width="18" height="12" fill="#17232b"/>
+<circle cx="1188" cy="450" r="7" fill="#b3402e" stroke="#fff" stroke-width="2"/>
+<rect x="894" y="378" width="60" height="75" fill="var(--p1)" stroke="#17232b" stroke-width="2"/>
+<text x="924" y="420" class="u">B1</text>
+<rect x="1014" y="378" width="60" height="75" fill="var(--p1)" stroke="#17232b" stroke-width="2"/>
+<text x="1044" y="420" class="u">B2</text>
+<rect x="891" y="258" width="75" height="60" fill="var(--p1)" stroke="#17232b" stroke-width="2"/>
+<text x="928" y="293" class="u">B3</text>
+<rect x="840" y="123" width="60" height="75" fill="var(--p1)" stroke="#17232b" stroke-width="2"/>
+<text x="870" y="166" class="u">B4</text>
+<rect x="747" y="600" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="777" y="642" class="u">B5</text>
+<rect x="867" y="600" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="897" y="642" class="u">B6</text>
+<rect x="987" y="600" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="1017" y="642" class="u">B7</text>
+<rect x="324" y="591" width="60" height="75" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="354" y="634" class="u">B8</text>
+<rect x="324" y="378" width="60" height="75" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="354" y="420" class="u">B9</text>
+<rect x="444" y="378" width="60" height="75" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="474" y="420" class="u">B10</text>
+<rect x="240" y="243" width="60" height="75" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="270" y="286" class="u">B11</text>
+<rect x="360" y="243" width="60" height="75" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="390" y="286" class="u">B12</text>
+<rect x="240" y="123" width="75" height="60" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="278" y="158" class="u">B13</text>
+<rect x="375" y="123" width="75" height="60" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="412" y="158" class="u">B14</text>
+<rect x="1026" y="147" width="117" height="102" fill="#17232b"/>
+<text x="1084" y="203" class="u">602</text>
+<text x="645" y="270" class="wet" text-anchor="middle">WETLAND 1</text>
+<text x="450" y="552" class="lbl" text-anchor="middle">20′ fire lane, straight, ≈330′</text>
+<text x="672" y="555" class="warn" text-anchor="middle">Crossing ≈550 SF</text>
+<text x="240" y="717" class="lbl" text-anchor="start">120′ hammerhead, 28′ inside-radius corners</text>
+<text x="1074" y="366" class="lbl" text-anchor="middle">Entry flares 28′/48′</text>
+<g transform="translate(36,44)" fill="#17232b" text-anchor="middle"><circle r="22" fill="#fff" fill-opacity=".9" stroke="#17232b" stroke-width="1.5"/><path d="M0,-17 L7,8 L0,3 L-7,8 Z"/><text y="40" class="lbl">N</text></g><g transform="translate(20,735)"><rect x="0" y="0" width="75" height="8" fill="#17232b"/><rect x="75" y="0" width="75" height="8" fill="#fff" stroke="#17232b"/><text x="0" y="24" class="lbl" text-anchor="start">0</text><text x="75" y="24" class="lbl">25′</text><text x="150" y="24" class="lbl">50′</text></g></svg></div>
+      <div class="key">
+        <div class="stats">
+          <div><span>Homes</span><b>15</b><span>14 new + 602</span></div>
+          <div><span>Wetland impact</span><b>≈550 SF</b><span>one lane crossing</span></div>
+          <div><span>Coverage</span><b>27%</b><span>of 80% allowed</span></div>
+          <div><span>Paving</span><b>≈10,100</b><span>SF lane, turnaround, parking</span></div>
+        </div>
+        <div><span class="lab">Phasing</span>
+          <div class="phase"><i style="background:var(--p1)"></i><span><b>Phase 1.</b> 602 and B1–B4; the lane to the wetland edge (≈120 ft, no turnaround yet), flares, hydrant, frontage sidewalk, walks and mailbox.</span></div>
+          <div class="phase"><i style="background:var(--p2)"></i><span><b>Phase 2.</b> B5–B7, parking, trash and detention.</span></div>
+          <div class="phase"><i style="background:var(--p3)"></i><span><b>Phase 3.</b> B8–B14; the crossing, the west lane and the hammerhead.</span></div>
+        </div>
+        <div><span class="lab">How it conforms</span><ul>
+          <li>One straight 20 ft lane, so no bends. The only turns, in from the street and at the hammerhead, are at 28 ft inside / 48 ft outside radius.</li>
+          <li>At ≈330 ft it needs a turnaround: the 120 ft hammerhead. Every wall is within 150 ft.</li>
+          <li>Straightening the lane cost one home: the hammerhead corners take the spot where a 16th home sat.</li>
+        </ul></div>
+        <div><span class="lab">What it needs</span><ul>
+          <li>DSL and Corps permits for the crossing before any building permit (Cond. 2).</li>
+          <li>A truck-turning check of the S 15th entry with the fire district's apparatus.</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="c">
+    <div class="panel-head"><h2>Option C · Age-in-Place Commons</h2><span class="src">13 homes · park once, car-free courts</span></div>
+    <div class="plate-grid">
+      <div class="sheet"><svg viewBox="0 0 1320 765" role="img" aria-label="Option C site plan"><defs><pattern id="turf" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="rgba(250,248,243,.35)"/><rect width="6" height="12" fill="rgba(96,124,90,.45)"/></pattern><pattern id="deck" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="#d9b98a"/><rect width="4" height="7" fill="#b98a54"/></pattern></defs><image href="plans/site-options-base.png" x="0" y="0" width="1320" height="765"/>
+<rect x="1218" y="90" width="15" height="615" fill="rgba(210,200,180,.9)" stroke="#a89f8c"/>
+<text transform="translate(1296,399) rotate(90)" class="st" text-anchor="middle">S 15TH ST</text>
+<rect x="978" y="468" width="228" height="60" fill="rgba(96,104,108,.55)"/>
+<rect x="225" y="468" width="753" height="60" fill="url(#turf)" stroke="#6e7a55"/>
+<rect x="165" y="318" width="60" height="360" fill="url(#turf)"/>
+<path d="M225,384 L225,468 L309,468 A84,84 0 0 1 225,384 Z" fill="rgba(96,124,90,.42)"/>
+<path d="M225,612 L225,528 L309,528 A84,84 0 0 0 225,612 Z" fill="rgba(96,124,90,.42)"/>
+<rect x="1206" y="468" width="69" height="60" fill="rgba(96,104,108,.45)"/>
+<path d="M1275,384 L1275,468 L1191,468 A84,84 0 0 0 1275,384 Z" fill="rgba(96,104,108,.45)"/>
+<path d="M1275,612 L1275,528 L1191,528 A84,84 0 0 1 1275,612 Z" fill="rgba(96,104,108,.45)"/>
+<rect x="618" y="465" width="108" height="66" fill="none" stroke="#b3402e" stroke-width="2.5" stroke-dasharray="7 5"/>
+<rect x="990" y="411" width="162" height="57" fill="rgba(150,156,159,.45)" stroke="#6c7376" stroke-width="1"/>
+<line x1="1017" y1="411" x2="1017" y2="468" stroke="#6c7376" stroke-width="2"/>
+<line x1="1044" y1="411" x2="1044" y2="468" stroke="#6c7376" stroke-width="2"/>
+<line x1="1071" y1="411" x2="1071" y2="468" stroke="#6c7376" stroke-width="2"/>
+<line x1="1098" y1="411" x2="1098" y2="468" stroke="#6c7376" stroke-width="2"/>
+<line x1="1125" y1="411" x2="1125" y2="468" stroke="#6c7376" stroke-width="2"/>
+<rect x="990" y="528" width="162" height="57" fill="rgba(150,156,159,.45)" stroke="#6c7376" stroke-width="1"/>
+<line x1="1017" y1="528" x2="1017" y2="585" stroke="#6c7376" stroke-width="2"/>
+<line x1="1044" y1="528" x2="1044" y2="585" stroke="#6c7376" stroke-width="2"/>
+<line x1="1071" y1="528" x2="1071" y2="585" stroke="#6c7376" stroke-width="2"/>
+<line x1="1098" y1="528" x2="1098" y2="585" stroke="#6c7376" stroke-width="2"/>
+<line x1="1125" y1="528" x2="1125" y2="585" stroke="#6c7376" stroke-width="2"/>
+<circle cx="978" cy="516" r="3.5" fill="#17232b"/>
+<circle cx="978" cy="498" r="3.5" fill="#17232b"/>
+<circle cx="978" cy="480" r="3.5" fill="#17232b"/>
+<rect x="480" y="252" width="348" height="18" fill="url(#deck)" stroke="#7a5a33"/>
+<rect x="828" y="270" width="15" height="198" fill="rgba(210,200,180,.95)" stroke="#a89f8c"/>
+<rect x="1158" y="249" width="15" height="219" fill="rgba(210,200,180,.95)" stroke="#a89f8c"/>
+<rect x="1158" y="540" width="30" height="135" fill="rgba(47,110,133,.12)" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 4"/>
+<rect x="1068" y="645" width="36" height="30" fill="#e9e4d8" stroke="#17232b" stroke-width="2"/>
+<rect x="1164" y="228" width="18" height="12" fill="#17232b"/>
+<circle cx="1188" cy="450" r="7" fill="#b3402e" stroke="#fff" stroke-width="2"/>
+<rect x="360" y="246" width="60" height="72" fill="#e9e4d8" stroke="#17232b" stroke-width="2"/>
+<text x="390" y="276" class="lbl" text-anchor="middle">PAV</text>
+<rect x="894" y="378" width="60" height="75" fill="var(--p1)" stroke="#17232b" stroke-width="2"/>
+<text x="924" y="420" class="u">C1</text>
+<rect x="891" y="258" width="75" height="60" fill="var(--p1)" stroke="#17232b" stroke-width="2"/>
+<text x="928" y="293" class="u">C2</text>
+<rect x="840" y="123" width="60" height="75" fill="var(--p1)" stroke="#17232b" stroke-width="2"/>
+<text x="870" y="166" class="u">C3</text>
+<rect x="747" y="600" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="777" y="642" class="u">C4</text>
+<rect x="867" y="600" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="897" y="642" class="u">C5</text>
+<rect x="987" y="600" width="60" height="75" fill="var(--p2)" stroke="#17232b" stroke-width="2"/>
+<text x="1017" y="642" class="u">C6</text>
+<rect x="324" y="591" width="60" height="75" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="354" y="634" class="u">C7</text>
+<rect x="324" y="378" width="60" height="75" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="354" y="420" class="u">C8</text>
+<rect x="444" y="378" width="60" height="75" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="474" y="420" class="u">C9</text>
+<rect x="240" y="243" width="60" height="75" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="270" y="286" class="u">C10</text>
+<rect x="240" y="123" width="75" height="60" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="278" y="158" class="u">C11</text>
+<rect x="375" y="123" width="75" height="60" fill="var(--p3)" stroke="#17232b" stroke-width="2"/>
+<text x="412" y="158" class="u">C12</text>
+<rect x="1026" y="147" width="117" height="102" fill="#17232b"/>
+<text x="1084" y="203" class="u">602</text>
+<text x="645" y="144" class="wet" text-anchor="middle">WETLAND 1</text>
+<text x="654" y="285" class="lbl" text-anchor="middle">Boardwalk on piles</text>
+<text x="450" y="552" class="lbl" text-anchor="middle">Emergency-only turf fire lane, straight</text>
+<text x="1071" y="399" class="lbl" text-anchor="middle">12 stalls · park once</text>
+<text x="672" y="555" class="warn" text-anchor="middle">Crossing ≈550 SF</text>
+<text x="240" y="717" class="lbl" text-anchor="start">120′ hammerhead, 28′ inside-radius corners</text>
+<text x="1074" y="366" class="lbl" text-anchor="middle">Entry flares 28′/48′</text>
+<g transform="translate(36,44)" fill="#17232b" text-anchor="middle"><circle r="22" fill="#fff" fill-opacity=".9" stroke="#17232b" stroke-width="1.5"/><path d="M0,-17 L7,8 L0,3 L-7,8 Z"/><text y="40" class="lbl">N</text></g><g transform="translate(20,735)"><rect x="0" y="0" width="75" height="8" fill="#17232b"/><rect x="75" y="0" width="75" height="8" fill="#fff" stroke="#17232b"/><text x="0" y="24" class="lbl" text-anchor="start">0</text><text x="75" y="24" class="lbl">25′</text><text x="150" y="24" class="lbl">50′</text></g></svg></div>
+      <div class="key">
+        <div class="stats">
+          <div><span>Homes</span><b>13</b><span>12 new + 602 guest house</span></div>
+          <div><span>Wetland impact</span><b>≈550 SF</b><span>crossing, plus boardwalk piles</span></div>
+          <div><span>Coverage</span><b>16–28%</b><span>turf lane vs. asphalt lane</span></div>
+          <div><span>Parking</span><b>12</b><span>stalls at the entry, 2 ADA</span></div>
+        </div>
+        <div><span class="lab">Phasing</span>
+          <div class="phase"><i style="background:var(--p1)"></i><span><b>Phase 1.</b> 602 as the guest house and C1–C3; the entry drive, flares, parking, hydrant, frontage sidewalk, walks and mailbox.</span></div>
+          <div class="phase"><i style="background:var(--p2)"></i><span><b>Phase 2.</b> C4–C6, trash and detention.</span></div>
+          <div class="phase"><i style="background:var(--p3)"></i><span><b>Phase 3.</b> C7–C12 and the pavilion; the crossing, west lane, hammerhead and boardwalk.</span></div>
+        </div>
+        <div><span class="lab">How it conforms</span><ul>
+          <li>Same straight lane and code-radius turns as B. Cars stop at the parking; past the bollards the lane is fire and service only.</li>
+          <li>Homes and the pavilion stay 20 ft off the wetland and 20 ft from each other.</li>
+        </ul></div>
+        <div><span class="lab">What it needs</span><ul>
+          <li>Fire Marshal and Public Works approval of a reinforced-turf lane rated for apparatus; asphalt is the fallback (DA §11.d).</li>
+          <li>DSL and Corps permits for the crossing; the boardwalk is a conditional use if MR12 is a significant wetland (PMC 18.55.060).</li>
+          <li>City confirmation that 602 as a guest house counts as one of the 16 (R-20).</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="findings">
+    <div class="panel-head"><h2>Code and entitlement findings behind these plans</h2><span class="src">Research of 2 Nov 2026: City documents, the recorded DA, SDR P24-08, DSL WD 2025-0069</span></div>
+    <div class="find">
+      <h3>Entitlement clocks</h3>
+      <ul>
+        <li>DA §12(a): all Phase 1 permits within 1 year of the final SDR (24 Jan 2026); Phase 2 complete by about 24 Jan 2028; every phase by 24 Jan 2030, or the approval expires. The City Manager can extend each phase up to 12 months for delays outside the owner's control.</li>
+        <li>The owner's reading that the 602 renovation permit (675-25-000155-STR) met the Phase 1 permit test (R-25) is not yet confirmed in writing; nor is the "designed and approved" half of §12(a).</li>
+        <li>The SDR findings say the 602 house will be razed. Every option keeps it, so fold that into the minor modification the planner has said staff can approve.</li>
+      </ul>
+      <h3>Floodplain</h3>
+      <ul>
+        <li>Effective FIRM dated 2 Jun 2011 (PMC Ch. 18.55). Each structure needs a floodplain permit, no fill, flow-through vents and a site no-rise report (Cond. 3). The DA fixes floodplain rules by permit-application date.</li>
+        <li>The draft FEMA map lowering the BFE by 2 ft is not effective; FEMA's standard position is that a lower preliminary BFE can't be used until it is. Philomath's choice of FEMA no-net-loss compliance path is still to confirm.</li>
+      </ul>
+      <h3>Wetland</h3>
+      <ul>
+        <li>Wetland 1 (0.21 ac) and the pond (0.03 ac) are under the state Removal-Fill Law (50 CY threshold); the DSL concurrence runs to Sep 2030. Condition 2 puts wetland permits ahead of any building permit.</li>
+      </ul>
+      <h3>Fees and the code update</h3>
+      <ul>
+        <li>2026 SDCs (Res. 25-29, 26-05): water $10,013, sewer $7,742, transportation $6,102, parks $6,003 per home, plus storm at $0.989 per SF of new impervious. About $29,900 a home before storm; rates index each 1 Jan.</li>
+        <li>The City's housing code audit (Aug 2026) proposes a new cottage cluster section, clear-and-objective review, and dropping ADU owner-occupancy and parking; adoption is expected around summer 2027. The DA's product cap holds either way.</li>
+      </ul>
+    </div>
+    <div class="note"><b>Schematic.</b> The wetland edge is traced from the topo sheet, not the surveyor's CAD; street, curb and right-of-way lines are approximate; BFE and finish floors are not shown and will be set pad by pad from the surveyor's elevations.</div>
+  </section>
+
+</div>
+</body>
+</html>

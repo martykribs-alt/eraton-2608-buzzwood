@@ -12,7 +12,8 @@
     { label: "Feasibility record", href: "/record", match: ["/record", "/index.html"] },
     { label: "Buzzwood path", href: "/projects/buzzwood/buzzwood-path.html", match: ["/projects/buzzwood/buzzwood-path.html"] },
     { label: "Concepts", href: "/projects/buzzwood/concepts.html", match: ["/projects/buzzwood/concepts.html"] },
-    { label: "Site plans", href: "/projects/buzzwood/site-plan.html", match: ["/projects/buzzwood/site-plan.html"] }
+    { label: "Site plans", href: "/projects/buzzwood/site-plan.html", match: ["/projects/buzzwood/site-plan.html"] },
+    { label: "Site options", href: "/projects/buzzwood/site-options.html", match: ["/projects/buzzwood/site-options.html"] }
   ];
 
   var here = location.pathname.replace(/\/+$/, "") || "/";
