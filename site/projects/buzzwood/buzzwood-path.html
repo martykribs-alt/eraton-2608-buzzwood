@@ -1,0 +1,349 @@
+<!doctype html><html lang="en"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><meta name="robots" content="noindex"><script src="/projects/buzzwood/nav.js" defer></script></head><body>
+<title>Buzzwood on the Project Path</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: the MKA Project Path matrix unchanged, with a highlighter overlay marking what the Buzzwood Feasibility Record (v26, 29 Oct 2026) carries. Single light look, matching the MKA brand. */
+:root{
+  color-scheme:light;
+  --ink:#101314; --paper:#F4F2ED; --sheet:#FBFAF7; --stone:#6E6A63; --line:#D7D5D0;
+  --accent:#7A2E2E; --accent-soft:#F1E4E1;
+  --counsel:#3E5862; --counsel-soft:#E3EAEC;
+  --owner:#5E5A54; --owner-soft:#E9E7E2;
+  --mark:#F2E2A0; --mark-edge:#A87B1F; --mark-ink:#6B4D10;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.stack{display:grid;gap:48px;padding-block:8px 64px}
+.stack>*{min-width:0}
+p{margin:0}
+h1,h2,h3{margin:0;text-wrap:balance}
+.label{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:500}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.top{border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px;flex-wrap:wrap}
+.logo{font-family:var(--serif);font-weight:600;font-size:1.25rem;letter-spacing:.12em;text-transform:uppercase}
+.logo span{color:var(--accent)}
+.navmeta{font-size:.8rem;color:var(--stone)}
+
+.hero{display:grid;gap:18px;padding-top:40px}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.3rem,5.4vw,4rem);line-height:1.05}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.lead{font-size:1.1rem;color:var(--stone);max-width:66ch}
+.lead strong{color:var(--ink);font-weight:500}
+.mk{background:linear-gradient(transparent 52%,var(--mark) 52%);padding:0 2px}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:var(--sheet);border:1px solid var(--line);padding:20px 22px;display:grid;gap:12px;align-content:start;min-width:0}
+.card h2{font-family:var(--serif);font-weight:600;font-size:1.5rem;line-height:1.15}
+.card p,.card li{font-size:.94rem}
+.note{color:var(--stone);font-size:.86rem}
+.kdef{display:grid;grid-template-columns:110px 1fr;gap:10px 14px;align-items:start;font-size:.9rem}
+
+/* gate status */
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.gates div{background:var(--sheet);padding:14px 16px;display:grid;gap:4px;align-content:start}
+.gates b{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);font-weight:600}
+.gates .st{font-family:var(--serif);font-size:1.25rem;line-height:1.2}
+.gates .st.open{color:var(--accent)}
+.gates .st.pass{color:var(--counsel)}
+.gates span.small{font-size:.84rem;color:var(--stone)}
+
+/* tags */
+.tag{font-size:.64rem;font-weight:600;letter-spacing:.08em;padding:2px 7px;white-space:nowrap;display:inline-block;line-height:1.5;flex:none}
+.t-dec{background:var(--owner);color:#fff}
+.t-lead{background:var(--ink);color:#fff}
+.t-sup{border:1px solid var(--ink);color:var(--ink);padding:1px 6px}
+.t-on{border:1px dashed var(--stone);color:var(--stone);padding:1px 6px}
+.meter{display:inline-flex;gap:3px;align-items:center;font-size:.72rem;color:var(--stone)}
+.meter i{width:14px;height:5px;background:var(--line)}
+.meter b{font-weight:500;margin-left:6px;color:var(--ink)}
+.lua-c .meter i.on{background:var(--counsel)}
+.mka-c .meter i.on{background:var(--accent)}
+
+/* matrix */
+.mapsec{display:grid;gap:12px}
+.mapsec h2{font-family:var(--serif);font-weight:600;font-size:2rem}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:.84rem;color:var(--stone)}
+.toggle{font:inherit;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:7px 14px;cursor:pointer}
+.toggle[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.key{display:inline-flex;align-items:center;gap:6px}
+.sw{width:22px;height:12px;display:inline-block}
+.sw.hit{background:var(--mark);border-left:3px solid var(--mark-edge)}
+.sw.part{border:1px dashed var(--mark-edge);border-left:3px dashed var(--mark-edge)}
+.sw.none{background:var(--sheet);border:1px solid var(--line);opacity:.5}
+.mapbox{overflow-x:auto;border:1px solid var(--line);background:var(--sheet);-webkit-overflow-scrolling:touch}
+.map{display:grid;grid-template-columns:118px repeat(5,minmax(222px,1fr));min-width:1230px}
+.cell{padding:12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.cell:nth-child(6n){border-right:0}
+.ph{background:var(--paper);display:grid;gap:2px;align-content:start}
+.ph .n{font-size:.7rem;letter-spacing:.14em;color:var(--stone)}
+.ph .t{font-family:var(--serif);font-weight:600;font-size:1.35rem;line-height:1.1}
+.ph .q{font-size:.8rem;color:var(--stone)}
+.ph .cov{font-size:.72rem;color:var(--mark-ink);font-weight:600;letter-spacing:.04em;margin-top:6px;font-variant-numeric:tabular-nums}
+.ph.here{box-shadow:inset 0 4px 0 var(--mark-edge)}
+.ph .herelab{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mark-ink);font-weight:600}
+.lane{font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:1.35}
+.lane.own{color:var(--owner);background:var(--owner-soft)}
+.lane.lua{color:var(--counsel);background:var(--counsel-soft)}
+.lane.mka{color:var(--accent);background:var(--accent-soft)}
+.map ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:.84rem;line-height:1.45}
+.map li{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:baseline;padding:4px 6px;margin:0 -6px;border-left:3px solid transparent}
+.map li .ref{grid-column:1/-1;font-size:.72rem;line-height:1.4;color:var(--mark-ink)}
+.cell .meter{margin-bottom:9px}
+.gate{font-size:.74rem;color:var(--owner);margin-top:10px;padding-top:7px;border-top:1px dotted var(--line)}
+.gate b{letter-spacing:.1em;font-weight:600}
+.gate .ref{display:block;color:var(--mark-ink);margin-top:3px}
+.esc{font-size:.76rem;color:var(--accent);margin-top:10px;padding-top:7px;border-top:1px dotted var(--line)}
+.doors{grid-column:1/-1;display:grid;grid-template-columns:118px repeat(5,minmax(222px,1fr));background:var(--paper);border-bottom:1px solid var(--line)}
+.doors div{padding:8px 12px;font-size:.76rem;color:var(--stone)}
+.span-ent{grid-column:2/5;border-top:3px solid var(--counsel)}
+.span-con{grid-column:5/7;border-top:3px solid var(--accent)}
+.handoff{font-size:.78rem;color:var(--stone);font-style:italic;margin-top:8px}
+.scrollhint{font-size:.8rem;color:var(--stone)}
+@media (min-width:1300px){.scrollhint{display:none}}
+
+/* overlay on */
+.overlay .map li.hit{background:var(--mark);border-left-color:var(--mark-edge)}
+.overlay .map li.part{border-left:3px dashed var(--mark-edge);background:linear-gradient(90deg,rgba(242,226,160,.45),transparent 80%)}
+.overlay .map li:not(.hit):not(.part){opacity:.38}
+.overlay .handoff{color:var(--mark-ink)}
+.map li .ref{display:none}
+.overlay .map li .ref{display:block}
+.gate .ref{display:none}
+.overlay .gate .ref{display:block}
+
+ol.gaps,ul.plain{margin:0;padding-left:20px;display:grid;gap:8px;font-size:.94rem}
+.refchip{font-size:.72rem;color:var(--mark-ink);font-weight:600;white-space:nowrap}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:8px 12px 8px 0;border-bottom:1px solid var(--line)}
+th{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);font-weight:600}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tw{overflow-x:auto}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-block:22px;font-size:.82rem;color:var(--stone);border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:no-preference){.map li{transition:opacity .2s,background .2s}}
+</style>
+
+<header class="top">
+  <div class="wrap nav">
+    <div class="logo">Martin Kribs <span>Advisory</span></div>
+    <div class="navmeta">Internal working map · Buzzwood Village, Philomath · record as of 29 Oct 2026</div>
+  </div>
+</header>
+
+<main class="wrap stack">
+
+<section class="hero">
+  <div class="label">Project Path · Buzzwood overlay</div>
+  <h1>Where the <em>feasibility record</em> lands</h1>
+  <p class="lead">The MKA Project Path with every item the <strong>Buzzwood Feasibility Record (v26)</strong> carries <span class="mk">highlighted</span>. Solid marks are items the record actively runs. Dashed marks are items it touches but leaves open. Faded items are outside its reach. Each mark names the record view and IDs that carry it.</p>
+</section>
+
+<section aria-label="Buzzwood at each gate">
+  <div class="gates">
+    <div><b>01 Acquisition gate</b><span class="st open">Re-opened</span><span class="small">Land is owned, so the gate is the go/no-go on the feasibility test. Record answer: “Not yet; reachable in three steps.” v0.4 base clears 9.9% on cost against a 15% floor.</span></div>
+    <div><b>02 Planning gate</b><span class="st pass">Passed</span><span class="small">Final land use decision: Site Design Review P24-08, final 24 Jan 2025 under the recorded Development Agreement (R-01, R-14). Relief-path rulings D-1, D-2 still open.</span></div>
+    <div><b>03 Preconstruction gate</b><span class="st open">Not reachable yet</span><span class="small">Baseline schedule (R-18) is missing, so condition gates have no dates. Peak equity $2.05M against about $360K available. Wetland and floodplain permits not issued.</span></div>
+    <div><b>04–05 Construction, Occupancy</b><span class="st">Handoff only</span><span class="small">The record ends at construction start: the conditions register, permits and baseline pass to the construction record.</span></div>
+  </div>
+</section>
+
+<section class="mapsec" id="map">
+  <h2>The project path, marked for Buzzwood</h2>
+  <div class="toolbar">
+    <button class="toggle" id="ovl" type="button" aria-pressed="true">Buzzwood overlay on</button>
+    <span class="key"><i class="sw hit"></i>Record carries it</span>
+    <span class="key"><i class="sw part"></i>Touched, still open</span>
+    <span class="key"><i class="sw none"></i>Outside the record</span>
+  </div>
+  <div class="mapbox overlay" id="mapbox" role="region" aria-label="Project path matrix with Buzzwood overlay; scrolls sideways on narrow screens" tabindex="0">
+  <div class="map">
+    <div class="cell ph"><span class="n">PHASE</span></div>
+    <div class="cell ph" data-ph="1"><span class="n">01</span><span class="t">Acquisition</span><span class="q">Can we buy it, and on what terms?</span><span class="cov"></span></div>
+    <div class="cell ph here" data-ph="2"><span class="herelab">Buzzwood works here</span><span class="n">02</span><span class="t">Planning</span><span class="q">What can we build, and what must we give?</span><span class="cov"></span></div>
+    <div class="cell ph" data-ph="3"><span class="n">03</span><span class="t">Preconstruction</span><span class="q">What exactly will it cost, and who builds it?</span><span class="cov"></span></div>
+    <div class="cell ph" data-ph="4"><span class="n">04</span><span class="t">Construction</span><span class="q">Are we building what was approved, on budget?</span><span class="cov"></span></div>
+    <div class="cell ph" data-ph="5"><span class="n">05</span><span class="t">Occupancy</span><span class="q">Is every obligation closed, and is it running?</span><span class="cov"></span></div>
+
+    <div class="doors">
+      <div></div>
+      <div class="span-ent">Entitlement: the approval record governs →</div>
+      <div class="span-con">→ Construction: the conditions, permit and baseline govern</div>
+    </div>
+
+    <!-- Owner lane -->
+    <div class="cell lane own">Owner</div>
+    <div class="cell" data-ph="1"><ul>
+      <li class="hit">Program and feasibility test <span class="tag t-dec">DECIDES</span><span class="ref">Summary · “Is it feasible?” · scenarios v0.4 (1 of 3 tests pass) · D-2 product ruling</span></li>
+      <li class="part">Close or walk <span class="tag t-dec">DECIDES</span><span class="ref">Owned land: D-4 offers Pursue / Hold / Walk away; unruled</span></li></ul>
+      <div class="gate"><b>GATE</b> · if under contract, close before the contingency deadline; if owned, go/no-go on the feasibility test<span class="ref">The owned-land branch is the record’s central question.</span></div></div>
+    <div class="cell" data-ph="2"><ul>
+      <li class="hit">Relief path <span class="tag t-dec">DECIDES</span><span class="ref">Your decisions · D-1 binding constraint, D-2 product, D-4 pathway, D-3 market test</span></li>
+      <li class="hit">Accept, contest or redesign each condition <span class="tag t-dec">DECIDES</span><span class="ref">Conditions register · C-1–C-17; C-6 Contested, C-5 Proposed</span></li></ul>
+      <div class="gate"><b>GATE</b> · final land use decision<span class="ref">Passed: SDR P24-08 final 24 Jan 2025 (R-14).</span></div></div>
+    <div class="cell" data-ph="3"><ul>
+      <li class="part">Baseline budget and schedule <span class="tag t-dec">DECIDES</span><span class="ref">Budget = pro forma v0.4 cost basis; schedule R-18 missing (critical)</span></li>
+      <li>Contractor award <span class="tag t-dec">DECIDES</span></li></ul>
+      <div class="gate"><b>GATE</b> · permit issued and financing closed<span class="ref">Financing tested only as a gap: peak equity $2.05M vs ~$360K.</span></div></div>
+    <div class="cell" data-ph="4"><ul>
+      <li>Change orders and draws <span class="tag t-dec">DECIDES</span></li></ul>
+      <div class="gate"><b>GATE</b> · substantial completion</div></div>
+    <div class="cell" data-ph="5"><ul>
+      <li>Turnover acceptance <span class="tag t-dec">DECIDES</span></li>
+      <li class="part">Operating model <span class="tag t-dec">DECIDES</span><span class="ref">For-sale vs STR hold (P-4, M-3); detached condo vs PUD lots (advisory)</span></li></ul>
+      <div class="gate"><b>GATE</b> · certificate of occupancy</div></div>
+
+    <!-- Counsel lane -->
+    <div class="cell lane lua">Land use counsel</div>
+    <div class="cell lua-c" data-ph="1"><span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><b>Gating</b></span><ul>
+      <li class="part">Land use report: zoning, plan designation, approval path <span class="tag t-lead">LEAD</span><span class="ref">What governs · R-02–R-05, R-17, drawn from the recorded DA; no counsel report on file</span></li>
+      <li>Title exceptions, easements, CC&amp;Rs <span class="tag t-lead">LEAD</span></li>
+      <li>Land use contingencies in the purchase agreement <span class="tag t-lead">LEAD</span></li>
+      <li class="part">Vested rights, nonconforming use <span class="tag t-lead">LEAD</span><span class="ref">Flood rules lock at permit application (R-07); standards and SDCs do not (R-24, R-28); 602 permit as Phase 1 (R-25)</span></li>
+      <li class="part">Feasibility pathway <span class="tag t-sup">SUPPORT</span><span class="ref">R-22 care licensing routed to counsel</span></li></ul></div>
+    <div class="cell lua-c" data-ph="2"><span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><b>Critical path</b></span><ul>
+      <li>Application and burden-of-proof narrative; filing <span class="tag t-lead">LEAD</span></li>
+      <li>Pre-application, hearings, testimony <span class="tag t-lead">LEAD</span></li>
+      <li class="hit">Code interpretations; requests to staff for confirmation <span class="tag t-lead">LEAD</span><span class="ref">Seven unconfirmed readings (R-13, R-19–R-23, R-25); one written ask to the planner by 25 Nov 2026</span></li>
+      <li class="hit">Extension and appeal strategy <span class="tag t-lead">LEAD</span><span class="ref">K-B1 City Manager 12-month extension; LUBA windows tracked as closed</span></li>
+      <li class="hit">Condition, exaction and SDC negotiation <span class="tag t-lead">LEAD</span><span class="ref">P-7 / Step 2 SDC waiver or deferral ($448K); C-6 Cooper Ln sidewalk as a trade</span></li>
+      <li class="hit">Development agreement; zone or plan change <span class="tag t-lead">LEAD</span><span class="ref">DA timeline view; DA provisions; P-2 amendment for lots + ADUs; X-1 resolved</span></li>
+      <li class="part">Appeals (LUBA) <span class="tag t-lead">LEAD</span><span class="ref">Appeal windows logged closed; none on file</span></li>
+      <li class="hit">The Case and relief path ratings <span class="tag t-sup">SUPPORT</span><span class="ref">Relief paths P-1–P-7 with authority and waiting-on</span></li></ul></div>
+    <div class="cell lua-c" data-ph="3"><span class="meter"><i class="on"></i><i class="on"></i><i></i><i></i><b>Scheduled</b></span><ul>
+      <li class="part">Final plat, easements, recordings <span class="tag t-lead">LEAD</span><span class="ref">Condo plat allowance $45K; detention easement under C-16</span></li>
+      <li class="part">HOA or condominium formation documents <span class="tag t-lead">LEAD</span><span class="ref">Detached condo vs PUD lots undecided; HOA dues and SDC liens depend on it</span></li>
+      <li class="part">Condition modifications, when MKA flags one <span class="tag t-on">ON CALL</span><span class="ref">X-6: 602 house kept, approval says razed; may need a minor modification</span></li>
+      <li>Design against conditions <span class="tag t-sup">SUPPORT</span></li>
+      <li>Land use terms in the construction contract <span class="tag t-sup">SUPPORT</span></li></ul></div>
+    <div class="cell lua-c" data-ph="4"><span class="meter"><i class="on"></i><i></i><i></i><i></i><b>Triggered</b></span><ul>
+      <li>Condition disputes with the city <span class="tag t-on">ON CALL</span></li>
+      <li>Neighbor complaints, stop-work orders <span class="tag t-on">ON CALL</span></li>
+      <li>Field changes that reopen land use review <span class="tag t-on">ON CALL</span></li>
+      <li>Condition modifications <span class="tag t-on">ON CALL</span></li></ul></div>
+    <div class="cell lua-c" data-ph="5"><span class="meter"><i class="on"></i><i class="on"></i><i></i><i></i><b>Scheduled</b></span><ul>
+      <li>HOA turnover and CC&amp;R enforcement setup <span class="tag t-lead">LEAD</span></li>
+      <li>Condition sign-offs and releases <span class="tag t-sup">SUPPORT</span></li>
+      <li class="part">Use licensing (lodging, short-term rental) <span class="tag t-on">ON CALL</span><span class="ref">R-12 STR staff email (re-check due); R-22 care licensing</span></li></ul></div>
+
+    <!-- MKA lane -->
+    <div class="cell lane mka">MKA</div>
+    <div class="cell mka-c" data-ph="1"><span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><b>Critical path</b></span><ul>
+      <li class="hit">Site screen and highest-and-best-use test <span class="tag t-lead">LEAD</span><span class="ref">Seven scenarios: 16 homes, senior 15, STR hold, lots + ADUs, Phase 1 only</span></li>
+      <li class="hit">Run the diligence program: scope, procure, schedule and reconcile specialist reports <span class="tag t-lead">LEAD</span><span class="ref">Intake on file (DA, wetland delineation, DSL, SDR decision and staff report); missing R-09, R-11</span></li>
+      <li class="hit">Feasibility pathway and pro forma <span class="tag t-lead">LEAD</span><span class="ref">Pathway to feasibility (3 steps); Cost basis, pro forma v0.4</span></li>
+      <li>Purchase agreement clocks and contingencies, if under contract <span class="tag t-lead">LEAD</span></li>
+      <li class="part">Capital and lender coordination <span class="tag t-lead">LEAD</span><span class="ref">M-7 term sheet not requested; Fannie Mae presale and condo notes</span></li>
+      <li class="hit">Turn the land use report into a tracked work plan <span class="tag t-lead">LEAD</span><span class="ref">Document to action view: statements sorted into the record</span></li>
+      <li class="part">Close-or-walk memo <span class="tag t-lead">LEAD</span><span class="ref">Summary answers it; no memo issued, D-4 unruled</span></li></ul></div>
+    <div class="cell mka-c" data-ph="2"><span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><b>Critical path</b></span><ul>
+      <li class="part">Team assembly; consultant scopes and fees <span class="tag t-lead">LEAD</span><span class="ref">Turnstone JPA $8,374.80 committed (R-26); surveyor, appraiser, lender not engaged</span></li>
+      <li class="hit">Binding constraint; relief path ratings <span class="tag t-lead">LEAD</span><span class="ref">Status · Binding constraint (proposed: cost against price); P-1–P-7 rated</span></li>
+      <li class="part">The Case: ask, authority, evidence, cost and schedule <span class="tag t-lead">LEAD</span><span class="ref">SDC relief ask framed (Step 2, Policies 3.5, 3.6, 5.2); not sent</span></li>
+      <li class="hit">Land use clock register: approval expiry, extensions, appeal windows <span class="tag t-lead">LEAD</span><span class="ref">Clocks K-P1–K-P3, K-B1 (25 Nov 2026), DSL concurrence 2030</span></li>
+      <li class="hit">External processes: FEMA map revisions, wetland and agency permits <span class="tag t-lead">LEAD</span><span class="ref">E-1 FEMA map at Draft; DSL R-10, R-27; Corps R-11</span></li>
+      <li class="hit">Interpretation tracker until staff confirms <span class="tag t-sup">SUPPORT</span><span class="ref">Unconfirmed-interpretation findings, each with who confirms</span></li>
+      <li class="hit">Design program fit to code (architect leads) <span class="tag t-sup">SUPPORT</span><span class="ref">Two-level cottage vs 16-home cap, 30 ft height, kitchenette not ADU (R-03, R-04, R-20, R-21)</span></li>
+      <li class="part">Entitlement budget and schedule <span class="tag t-lead">LEAD</span><span class="ref">$125K entitlement in land basis; $7,921 wetland spent; no schedule</span></li>
+      <li class="hit">Market tests with evidence strength <span class="tag t-lead">LEAD</span><span class="ref">Market case M-1–M-7 on the evidence ladder; test-first quadrant</span></li>
+      <li class="hit">Conditions register, from first proposal <span class="tag t-lead">LEAD</span><span class="ref">C-1–C-17 from DA and SDR P24-08, with status</span></li></ul></div>
+    <div class="cell mka-c" data-ph="3"><span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><b>Critical path</b></span><ul>
+      <li class="part">Design management against conditions <span class="tag t-lead">LEAD</span><span class="ref">Design link tracked per condition; missing on C-3, C-5, C-10, C-12–C-15</span></li>
+      <li class="hit">Owner’s estimate and value engineering <span class="tag t-lead">LEAD</span><span class="ref">Cost basis: cost stack, rates, site lines, pathway cost effects, cost checks</span></li>
+      <li>Contractor selection, contract, buyout <span class="tag t-lead">LEAD</span></li>
+      <li class="part">Permit set (architect leads) <span class="tag t-sup">SUPPORT</span><span class="ref">Permit link per condition; floodplain permit per structure (C-9)</span></li>
+      <li class="hit">Agency coordination; permit and phase deadlines <span class="tag t-lead">LEAD</span><span class="ref">Phase clocks; C-8 wetland permits before any building permit; X-8</span></li>
+      <li class="hit">Flag conditions that won’t price, draw or build <span class="tag t-lead">LEAD</span><span class="ref">C-5 not priced, C-6 contested, X-3/X-5 fill conflicts</span></li>
+      <li class="hit">Five condition links closed before the gate <span class="tag t-lead">LEAD</span><span class="ref">Owner · Budget · Design · Permit · Closure on every condition</span></li>
+      <li class="part">Construction baseline package <span class="tag t-lead">LEAD</span><span class="ref">Handoff defined; blocked on R-18 baseline</span></li></ul></div>
+    <div class="cell mka-c" data-ph="4"><span class="meter"><i class="on"></i><i class="on"></i><i></i><i></i><b>Scheduled</b></span><ul>
+      <li>Owner’s rep oversight against the approved baseline <span class="tag t-lead">LEAD</span></li>
+      <li>Draw review and recommendation <span class="tag t-lead">LEAD</span></li>
+      <li>Change control and cost-to-complete <span class="tag t-lead">LEAD</span></li>
+      <li>Field verification of condition compliance <span class="tag t-lead">LEAD</span></li>
+      <li>Schedule and risk reporting <span class="tag t-lead">LEAD</span></li></ul>
+      <div class="esc">Moves to critical path on a claim, a schedule slip or a failed condition.</div>
+      <p class="handoff">The record hands its conditions register, permits and baseline to the construction record here.</p></div>
+    <div class="cell mka-c" data-ph="5"><span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><b>Gating</b></span><ul>
+      <li>Closeout, punch, warranty management <span class="tag t-lead">LEAD</span></li>
+      <li class="part">Closure evidence for every condition <span class="tag t-lead">LEAD</span><span class="ref">Closure evidence named per condition (e.g. City acceptance, fire marshal sign-off); none held yet</span></li>
+      <li>Certificate of occupancy coordination <span class="tag t-lead">LEAD</span></li>
+      <li>Handoff to operations <span class="tag t-lead">LEAD</span></li>
+      <li class="part">Decision log and lessons learned <span class="tag t-lead">LEAD</span><span class="ref">Decision log started; rulings write back to the record</span></li></ul></div>
+  </div>
+  </div>
+  <p class="scrollhint">Scroll the matrix sideways to see all five phases.</p>
+</section>
+
+<section class="cols">
+  <div class="card">
+    <h2>What the map shows</h2>
+    <ul class="plain">
+      <li><b>The record lives in Planning.</b> Nearly every MKA Planning item is marked, plus the counsel items that are negotiation and interpretation rather than filing and hearings.</li>
+      <li><b>It re-opens Acquisition.</b> Buzzwood is entitled, but the owned-land feasibility test (Phase 01’s gate) is still the open question. The record runs that test on post-entitlement facts.</li>
+      <li><b>It reaches into Preconstruction through cost and conditions.</b> The owner’s estimate and the five-link condition tracking are there; design, contractor and baseline are not.</li>
+      <li><b>It stops at construction start.</b> Phases 04 and 05 are touched only where a condition already names its closure evidence or the operating model is a scenario.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Gaps the path exposes</h2>
+    <ol class="gaps">
+      <li>Baseline schedule (R-18) is missing. It blocks the Preconstruction gate and every condition timeline check. <span class="refchip">Owner · 03</span></li>
+      <li>No land use counsel engaged. Seven interpretations wait on the planner and one (R-22) on counsel. <span class="refchip">Counsel · 01–02</span></li>
+      <li>Capital is a finding, not a workstream: $2.05M peak equity, no lender term sheet (M-7). <span class="refchip">MKA · 01, 03</span></li>
+      <li>The SDC Case is framed but not sent. Step 2 is worth $130K to $578K. <span class="refchip">MKA · 02</span></li>
+      <li>Condo vs PUD structure is undecided, which holds up plat, HOA and lending choices. <span class="refchip">Counsel · 03</span></li>
+      <li>Title, easements and CC&amp;Rs are not in the record at all. <span class="refchip">Counsel · 01</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="card" aria-label="Record views to path phases">
+  <h2>Record views and where they land</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Record view</th><th>What it holds</th><th>Lands in</th></tr></thead>
+    <tbody>
+      <tr><td>Summary</td><td>Is it feasible, path to feasibility, key dates, critical items, open decisions</td><td>01 gate · 02</td></tr>
+      <tr><td>Status</td><td>Findings, binding constraint, relief paths, clocks, DA timeline, conditions register, market case</td><td>02 · 03</td></tr>
+      <tr><td>Cost basis</td><td>Pro forma v0.4: cost stack, unit program, rates, site lines, pathway effects, cost checks</td><td>01 · 03</td></tr>
+      <tr><td>Your decisions</td><td>D-1 constraint, D-2 product, D-3 market test, D-4 pathway; decision log</td><td>01 · 02 owner lane</td></tr>
+      <tr><td>Document to action</td><td>Land use documents sorted into references, clocks and conditions</td><td>01 MKA</td></tr>
+      <tr><td>What governs</td><td>Reference facts R-01–R-28 and intake on file</td><td>01 · 02</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Overlay of the Buzzwood Feasibility Record v26 (record as of 29 Oct 2026) on the MKA Project Path. Internal working map.</span>
+    <span>Martin Kribs Advisory</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var box=document.getElementById("mapbox"), btn=document.getElementById("ovl");
+  btn.addEventListener("click",function(){
+    var on=box.classList.toggle("overlay");
+    btn.setAttribute("aria-pressed",on?"true":"false");
+    btn.textContent=on?"Buzzwood overlay on":"Buzzwood overlay off";
+  });
+  for(var p=1;p<=5;p++){
+    var items=box.querySelectorAll('.cell[data-ph="'+p+'"]:not(.ph) li');
+    var hit=0,part=0;
+    items.forEach(function(li){ if(li.classList.contains("hit")) hit++; else if(li.classList.contains("part")) part++; });
+    var cov=box.querySelector('.ph[data-ph="'+p+'"] .cov');
+    cov.textContent=(hit||part)?hit+" carried · "+part+" open · of "+items.length:"Outside the record";
+  }
+})();
+</script>
+
+</body></html>
