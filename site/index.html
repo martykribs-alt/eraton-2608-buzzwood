@@ -48,6 +48,8 @@ button{font:inherit;cursor:pointer}
 .instrument .main{padding:18px 22px;display:grid;gap:8px;min-width:0}
 .instrument .stamp{border-left:1px dashed var(--rule-2);padding:16px 20px;display:grid;gap:4px;align-content:center;min-width:200px}
 .stamp .big{font-family:var(--f-mono);font-size:1.05rem;font-weight:500}
+.stamp .big.asof-old{color:var(--warn)}
+.asof-stale{margin:0 0 14px;padding:10px 14px;border:1px solid var(--rule);border-left:4px solid var(--warn);background:var(--warn-soft);color:var(--ink);font-size:.9rem;line-height:1.45}
 .meta-row{display:flex;flex-wrap:wrap;gap:6px 18px}
 .meta-row span{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-2)}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.86rem;color:var(--muted)}
@@ -233,12 +235,30 @@ if(window.ERATON_PROJECT)(function(){
 "use strict";
 var P0 = window.ERATON_PROJECT;
 var AS_OF = new Date(P0.asOf[0],P0.asOf[1],P0.asOf[2],12);
+/* ENGINE-CORE:BEGIN Pure date rules. They read only AS_OF; tests/test_engine_dates.py runs this block in JavaScriptCore. */
 var DAY = 86400000;
+var ASOF_MAX_AGE = 30; /* default days the record date may trail today before the page warns; a project sets asOfMaxAge */
 function d(s){ if(!s) return null; var p=s.split("-"); return new Date(+p[0],+p[1]-1,+p[2],12); }
 function days(s){ return Math.round((d(s)-AS_OF)/DAY); }
 function iso(x){ function z(n){return (n<10?"0":"")+n;} return x.getFullYear()+"-"+z(x.getMonth()+1)+"-"+z(x.getDate()); }
 function addDays(s,n){ var x=d(s); x.setDate(x.getDate()+n); return iso(x); }
 function addYears(s,n){ var x=d(s); x.setFullYear(x.getFullYear()+n); return iso(x); }
+/* A reference's re-check date once the record date is past it, else null. Due on the date itself, stale the day after. */
+function staleRecheck(r){ if(r.missing||!r.checked||typeof r.interval!=="number") return null; var due=addDays(r.checked,r.interval); return days(due)<0?due:null; }
+/* Why a clock is at risk ({why, sev}), or null: no date, overdue, due within 30 days, or no owner. */
+function clockRisk(c){
+  if(c.closed||c.recheck||c.notStarted) return null;
+  var why=null, sev="warn";
+  if(!c.date){ why="cannot be computed"; sev="crit"; }
+  else { var n=days(c.date); if(n<0) why=Math.abs(n)+" days overdue"; else if(n<=30) why="due in "+n+" days"; }
+  if(!c.owner||c.owner==="–") why=(why?why+"; ":"")+"no owner";
+  return why?{why:why,sev:sev}:null;
+}
+/* Whole days from the record date to `today` (a Date); negative when the record date is later. */
+function asOfLag(today){ var t=new Date(today.getFullYear(),today.getMonth(),today.getDate(),12); return Math.round((t-AS_OF)/DAY); }
+/* {kind:"old"|"future", days} when the record date trails today by more than maxAge days or is after today, else null. */
+function asOfStale(today,maxAge){ var n=asOfLag(today); if(n<0) return {kind:"future",days:-n}; if(n>(typeof maxAge==="number"?maxAge:ASOF_MAX_AGE)) return {kind:"old",days:n}; return null; }
+/* ENGINE-CORE:END */
 function fmt(s){ if(!s) return "–"; return d(s).toLocaleDateString("en-US",{day:"numeric",month:"short",year:"numeric"}); }
 function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
 function $m(t){ return '<span class="money">'+t+'</span>'; }
@@ -320,7 +340,7 @@ function computeFindings(){
   if(!FEASIBLE && P.TEXT.feasibilityFinding) F.push(P.TEXT.feasibilityFinding);
   REF.forEach(function(r){
     if(r.missing) F.push({sev:r.critical?"crit":"warn",type:"Missing reference",t:r.id+" not on file: "+r.fact,why:r.note||"",owner:r.critical?"Owner with City planner":"Owner's rep",src:r.src});
-    else if(r.checked && days(addDays(r.checked,r.interval))<0) F.push({sev:"warn",type:"Stale reference",t:r.id+" past its re-check date ("+fmt(addDays(r.checked,r.interval))+")",why:r.fact,owner:"Owner's rep",src:r.src});
+    else { var due=staleRecheck(r); if(due) F.push({sev:"warn",type:"Stale reference",t:r.id+" past its re-check date ("+fmt(due)+")",why:r.fact,owner:"Owner's rep",src:r.src}); }
     if(r.unconfirmed){ var u=PATHS.filter(function(p){return (p.relies||[]).indexOf(r.id)>=0;}).map(function(p){return p.id;}); if(u.length) F.push({sev:"warn",type:"Unconfirmed interpretation",t:u.join(", ")+(u.length>1?" rest on ":" rests on ")+r.id+", not yet confirmed by "+(r.confirmBy||"the floodplain administrator"),why:r.fact,owner:"Owner's rep",src:r.src}); }
   });
   CONFLICTS.forEach(function(x){ if(!x.resolved) F.push({sev:x.sev,type:"Conflicting documents",t:x.t,why:x.doc+" against "+x.against+". "+x.why,owner:x.owner,src:x.src}); });
@@ -342,12 +362,9 @@ function computeFindings(){
     else { var late=Object.keys(LINK_NAMES).filter(function(k){var l=c.links[k];return l.date&&!l.done&&l.date>g;}); if(late.length) F.push({sev:"crit",type:"Timeline conflict",t:c.id+": "+late.map(function(k){return LINK_NAMES[k].toLowerCase();}).join(", ")+" planned after its gate ("+fmt(g)+")",why:c.text,owner:"Owner's rep",src:"BASE"}); }
   });
   CLOCKS.forEach(function(c){
-    if(c.closed||c.recheck||c.notStarted) return;
-    var why=null, sev="warn";
-    if(!c.date){ why="cannot be computed"; sev="crit"; }
-    else { var n=days(c.date); if(n<0) why=Math.abs(n)+" days overdue"; else if(n<=30) why="due in "+n+" days"; }
-    if(!c.owner||c.owner==="–") why=(why?why+"; ":"")+"no owner";
-    if(why) F.push({sev:sev,type:"Clock at risk",t:c.what+": "+why,why:c.why||((c.basis?c.basis+" · ":"")+(c.date?fmt(c.date):"")),owner:c.owner&&c.owner!=="–"?c.owner:"Owner",src:null});
+    var k=clockRisk(c); if(!k) return;
+    var why=k.why, sev=k.sev;
+    F.push({sev:sev,type:"Clock at risk",t:c.what+": "+why,why:c.why||((c.basis?c.basis+" · ":"")+(c.date?fmt(c.date):"")),owner:c.owner&&c.owner!=="–"?c.owner:"Owner",src:null});
   });
   CONDITIONS.forEach(function(c){
     var miss=Object.keys(LINK_NAMES).filter(function(k){return c.links[k].missing;});
@@ -697,6 +714,16 @@ function route(){ var h=(location.hash||"#summary").slice(1); if(VIEWS.indexOf(h
   document.querySelectorAll("nav.tabs a").forEach(function(a){ if(a.getAttribute("data-view")===h) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); }); }
 window.addEventListener("hashchange",route);
 Array.prototype.forEach.call(document.querySelectorAll("[data-asof]"),function(el){ el.textContent=fmt(iso(AS_OF)).replace(/,/g,"").replace(/^(\w+) (\d+)/,"$2 $1"); });
+/* Record-date warning: clocks and findings count from asOf, so a record left behind today reads too generous. */
+(function(){
+  var s=asOfStale(new Date(),P0.asOfMaxAge), hd=document.querySelector("header.instrument"); if(!s||!hd) return;
+  var el=document.createElement("div"); el.className="asof-stale"; el.setAttribute("role","status");
+  el.innerHTML=s.kind==="old"
+    ? "<b>Record dated "+esc(fmt(iso(AS_OF)))+", "+s.days+" days ago.</b> Clocks and findings count from that date, not today, so every countdown here is "+s.days+" days too generous. Update the record and move <code>asOf</code> forward."
+    : "<b>Record dated "+esc(fmt(iso(AS_OF)))+", "+s.days+" day"+(s.days===1?"":"s")+" after today.</b> Clocks and findings count from a future date. Check <code>asOf</code> in the project's record.js.";
+  hd.parentNode.insertBefore(el,hd.nextSibling);
+  Array.prototype.forEach.call(document.querySelectorAll(".stamp [data-asof]"),function(x){ x.classList.add("asof-old"); });
+})();
 render(); renderDATimeline(); renderRecord(); renderCosts(); renderConcepts(); runTranslator(); setMoney(hm); route();
 })();
 </script>
